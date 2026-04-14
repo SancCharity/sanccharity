@@ -397,30 +397,29 @@ export default function SuperAdminDashboard() {
       {/* Buyback & Burn + Treasury Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Buyback & Burn */}
-        <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-4 sm:gap-5 min-w-0 overflow-hidden">
           <div className="flex items-center gap-2.5">
-            <Flame className="h-5 w-5 text-[#EF4444]" />
-            <h2 className="text-lg font-bold text-fg-primary">Buyback & Burn</h2>
+            <Flame className="h-5 w-5 text-[#EF4444] shrink-0" />
+            <h2 className="text-base sm:text-lg font-bold text-fg-primary">Buyback & Burn</h2>
           </div>
 
           <span className="text-[13px] font-semibold text-fg-muted">Fee Pool Balances</span>
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-2">
             {feePoolBalances.map((pool) => (
-              <div key={pool.label} className="flex items-center justify-between bg-[#F0F9FF] rounded-lg px-4 py-3">
-                <span className="text-[13px] text-fg-secondary">{pool.label}</span>
-                <span className="text-base font-bold text-fg-primary font-mono">{pool.value}</span>
+              <div key={pool.label} className="flex items-center justify-between gap-2 bg-[#F0F9FF] rounded-lg px-3 sm:px-4 py-2.5 sm:py-3">
+                <span className="text-[12px] sm:text-[13px] text-fg-secondary min-w-0 truncate">{pool.label}</span>
+                <span className="text-sm sm:text-base font-bold text-fg-primary font-mono shrink-0">{pool.value}</span>
               </div>
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-[13px] font-semibold text-fg-primary">Slippage Tolerance</span>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <span className="text-[12px] sm:text-[13px] font-semibold text-fg-primary">Slippage Tolerance</span>
             <div className="flex items-center gap-1 bg-[#F0F9FF] border border-line-subtle rounded-lg px-3 py-2">
               <span className="text-sm font-semibold text-fg-primary">2</span>
               <span className="text-sm text-fg-muted">%</span>
             </div>
-            <div className="flex-1" />
-            <span className="text-[11px] text-fg-muted font-mono">minSancOut: 125,000</span>
+            <span className="text-[10px] sm:text-[11px] text-fg-muted font-mono">minSancOut: 125,000</span>
           </div>
 
           <button
@@ -434,14 +433,14 @@ export default function SuperAdminDashboard() {
           <span className="text-[13px] font-semibold text-fg-muted">Burn History</span>
           <div className="flex flex-col gap-2">
             {burnHistory.map((burn) => (
-              <div key={burn.label} className="flex items-center justify-between bg-[#FEF2F2] rounded-lg px-3.5 py-2.5">
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-[13px] font-semibold text-fg-primary">{burn.label}</span>
-                  <span className="text-[11px] text-fg-muted">{burn.date}</span>
+              <div key={burn.label} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 bg-[#FEF2F2] rounded-lg px-3 sm:px-3.5 py-2.5">
+                <div className="flex flex-col gap-0.5 min-w-0">
+                  <span className="text-[12px] sm:text-[13px] font-semibold text-fg-primary">{burn.label}</span>
+                  <span className="text-[10px] sm:text-[11px] text-fg-muted">{burn.date}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[13px] font-semibold text-[#EF4444] font-mono">{burn.amount}</span>
-                  <span className="text-[11px] text-fg-muted font-mono">{burn.hash}</span>
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span className="text-[12px] sm:text-[13px] font-semibold text-[#EF4444] font-mono truncate">{burn.amount}</span>
+                  <span className="text-[10px] sm:text-[11px] text-fg-muted font-mono shrink-0">{burn.hash}</span>
                 </div>
               </div>
             ))}
@@ -449,16 +448,16 @@ export default function SuperAdminDashboard() {
         </div>
 
         {/* Treasury Overview */}
-        <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-4 sm:gap-5 min-w-0 overflow-hidden">
           <div className="flex items-center gap-2.5">
-            <Vault className="h-5 w-5 text-accent-primary" />
-            <h2 className="text-lg font-bold text-fg-primary">Treasury Overview</h2>
+            <Vault className="h-5 w-5 text-accent-primary shrink-0" />
+            <h2 className="text-base sm:text-lg font-bold text-fg-primary">Treasury Overview</h2>
           </div>
 
-          <div className="bg-surface-inverse rounded-xl p-5 flex flex-col gap-1">
+          <div className="bg-surface-inverse rounded-xl p-4 sm:p-5 flex flex-col gap-1">
             <span className="text-xs text-fg-muted">Total Platform Value</span>
-            <span className="text-[32px] font-bold text-white font-mono">{totalBNB} BNB</span>
-            <span className="text-sm text-fg-muted font-mono">≈ ${totalUSD.toLocaleString()}</span>
+            <span className="text-xl sm:text-2xl lg:text-[32px] font-bold text-white font-mono">{totalBNB} BNB</span>
+            <span className="text-xs sm:text-sm text-fg-muted font-mono">≈ ${totalUSD.toLocaleString()}</span>
           </div>
 
           <div className="flex flex-col gap-3.5">
