@@ -24,7 +24,7 @@ export default function CreateCampaignPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary flex items-start justify-center py-12 px-4">
-      <div className="w-full max-w-[480px] bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-8 flex flex-col gap-5">
+      <div className="w-full max-w-[480px] bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-5 sm:p-8 flex flex-col gap-5">
         {/* Header */}
         <div className="flex items-center justify-between">
           <h1 className="text-[22px] font-bold text-fg-primary">Create New Campaign</h1>

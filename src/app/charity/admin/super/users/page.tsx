@@ -57,11 +57,11 @@ export default function UsersPage() {
   ];
 
   return (
-    <div className="p-8 lg:px-10 lg:py-8">
+    <div className="p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-7">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-7">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-bold text-fg-primary">User Management</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">User Management</h1>
           <p className="text-sm text-fg-muted">Monitor donors, stakers, and platform users</p>
         </div>
         <div className="flex items-center gap-3">
@@ -85,7 +85,7 @@ export default function UsersPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-7">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-7">
         {stats.map((s) => (
           <div key={s.label} className="bg-white rounded-xl p-5 shadow-card border border-black/[0.04]">
             <div className="flex items-center justify-between mb-3">
@@ -94,7 +94,7 @@ export default function UsersPage() {
                 <s.icon className={`h-[18px] w-[18px] ${s.iconColor}`} />
               </div>
             </div>
-            <p className="text-[28px] font-bold text-fg-primary">{s.value}</p>
+            <p className="text-xl sm:text-2xl lg:text-[28px] font-bold text-fg-primary">{s.value}</p>
             <p className={`text-xs mt-1 ${s.subColor}`}>{s.sub}</p>
           </div>
         ))}
@@ -103,7 +103,7 @@ export default function UsersPage() {
       {/* Table */}
       <div className="bg-white rounded-xl shadow-card border border-black/[0.04] overflow-hidden">
         {/* Tabs */}
-        <div className="flex px-5 border-b border-line-subtle">
+        <div className="flex px-5 border-b border-line-subtle overflow-x-auto">
           {TABS.map((tab) => (
             <button
               key={tab}
@@ -119,72 +119,76 @@ export default function UsersPage() {
           ))}
         </div>
 
-        {/* Header */}
-        <div className="flex items-center px-5 py-3 bg-surface-sage text-[11px] font-semibold text-fg-muted uppercase">
-          <span className="w-[220px]">User</span>
-          <span className="w-[160px]">Wallet</span>
-          <span className="w-[90px]">Role</span>
-          <span className="w-[100px]">Donations</span>
-          <span className="w-[130px]">Staked</span>
-          <span className="w-[110px]">Joined</span>
-          <span className="flex-1">Actions</span>
-        </div>
-
-        {/* Rows */}
-        {users.length === 0 && (
-          <div className="flex items-center justify-center h-20">
-            <span className="text-[13px] text-fg-muted">No users found.</span>
-          </div>
-        )}
-        {users.map((user) => {
-          const roleStyle = ROLE_STYLE[user.role] ?? { bg: "bg-surface-sage", text: "text-fg-muted" };
-          return (
-            <div key={user.address} className="flex items-center px-5 py-3.5 border-t border-line-subtle">
-              {/* Avatar + name */}
-              <div className="w-[220px] flex items-center gap-2.5">
-                <div className={`h-8 w-8 rounded-full ${roleStyle.bg} flex items-center justify-center flex-shrink-0`}>
-                  <span className={`text-[11px] font-bold ${roleStyle.text}`}>
-                    {(user.displayName || user.address)[0].toUpperCase()}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-0.5 min-w-0">
-                  <span className="text-[13px] font-medium text-fg-primary truncate">{user.displayName || "—"}</span>
-                  {user.flagged && (
-                    <span className="flex items-center gap-1 text-[10px] text-[#DC2626]">
-                      <TriangleAlert className="h-2.5 w-2.5" /> Flagged
-                    </span>
-                  )}
-                </div>
-              </div>
-              <span className="w-[160px] text-xs font-mono text-accent-primary truncate">{user.address.slice(0, 6)}...{user.address.slice(-4)}</span>
-              <span className="w-[90px]">
-                <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${roleStyle.bg} ${roleStyle.text}`}>
-                  {user.role}
-                </span>
-              </span>
-              <span className="w-[100px] text-[13px] text-fg-primary">{user.donationCount > 0 ? user.donationCount : "—"}</span>
-              <span className="w-[130px] text-[13px] text-fg-primary">{fmtSanc(user.stakedAmount)}</span>
-              <span className="w-[110px] text-xs text-fg-muted">{fmtDate(user.registeredAt)}</span>
-              <div className="flex-1 flex items-center gap-2">
-                <ComingSoonOverlay action="View user details">
-                  <button className="text-[12px] text-fg-secondary border border-line-subtle rounded-md px-2.5 py-1">View</button>
-                </ComingSoonOverlay>
-                <ComingSoonOverlay action={user.flagged ? "Unflag user" : "Flag user"}>
-                  <button
-                    onClick={() => handleFlagUser(user.address, !user.flagged)}
-                    className={`text-[12px] border rounded-md px-2.5 py-1 ${
-                      user.flagged
-                        ? "text-[#16A34A] border-[#BBF7D0]"
-                        : "text-[#DC2626] border-[#FECACA]"
-                    }`}
-                  >
-                    {user.flagged ? "Unflag" : "Flag"}
-                  </button>
-                </ComingSoonOverlay>
-              </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[900px]">
+            {/* Header */}
+            <div className="flex items-center px-5 py-3 bg-surface-sage text-[11px] font-semibold text-fg-muted uppercase">
+              <span className="w-[220px]">User</span>
+              <span className="w-[160px]">Wallet</span>
+              <span className="w-[90px]">Role</span>
+              <span className="w-[100px]">Donations</span>
+              <span className="w-[130px]">Staked</span>
+              <span className="w-[110px]">Joined</span>
+              <span className="flex-1">Actions</span>
             </div>
-          );
-        })}
+
+            {/* Rows */}
+            {users.length === 0 && (
+              <div className="flex items-center justify-center h-20">
+                <span className="text-[13px] text-fg-muted">No users found.</span>
+              </div>
+            )}
+            {users.map((user) => {
+              const roleStyle = ROLE_STYLE[user.role] ?? { bg: "bg-surface-sage", text: "text-fg-muted" };
+              return (
+                <div key={user.address} className="flex items-center px-5 py-3.5 border-t border-line-subtle">
+                  {/* Avatar + name */}
+                  <div className="w-[220px] flex items-center gap-2.5">
+                    <div className={`h-8 w-8 rounded-full ${roleStyle.bg} flex items-center justify-center flex-shrink-0`}>
+                      <span className={`text-[11px] font-bold ${roleStyle.text}`}>
+                        {(user.displayName || user.address)[0].toUpperCase()}
+                      </span>
+                    </div>
+                    <div className="flex flex-col gap-0.5 min-w-0">
+                      <span className="text-[13px] font-medium text-fg-primary truncate">{user.displayName || "—"}</span>
+                      {user.flagged && (
+                        <span className="flex items-center gap-1 text-[10px] text-[#DC2626]">
+                          <TriangleAlert className="h-2.5 w-2.5" /> Flagged
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <span className="w-[160px] text-xs font-mono text-accent-primary truncate">{user.address.slice(0, 6)}...{user.address.slice(-4)}</span>
+                  <span className="w-[90px]">
+                    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${roleStyle.bg} ${roleStyle.text}`}>
+                      {user.role}
+                    </span>
+                  </span>
+                  <span className="w-[100px] text-[13px] text-fg-primary">{user.donationCount > 0 ? user.donationCount : "—"}</span>
+                  <span className="w-[130px] text-[13px] text-fg-primary">{fmtSanc(user.stakedAmount)}</span>
+                  <span className="w-[110px] text-xs text-fg-muted">{fmtDate(user.registeredAt)}</span>
+                  <div className="flex-1 flex items-center gap-2">
+                    <ComingSoonOverlay action="View user details">
+                      <button className="text-[12px] text-fg-secondary border border-line-subtle rounded-md px-2.5 py-1">View</button>
+                    </ComingSoonOverlay>
+                    <ComingSoonOverlay action={user.flagged ? "Unflag user" : "Flag user"}>
+                      <button
+                        onClick={() => handleFlagUser(user.address, !user.flagged)}
+                        className={`text-[12px] border rounded-md px-2.5 py-1 ${
+                          user.flagged
+                            ? "text-[#16A34A] border-[#BBF7D0]"
+                            : "text-[#DC2626] border-[#FECACA]"
+                        }`}
+                      >
+                        {user.flagged ? "Unflag" : "Flag"}
+                      </button>
+                    </ComingSoonOverlay>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       {/* Coming Soon Modal */}

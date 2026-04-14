@@ -42,11 +42,11 @@ const failedEvents = [
 
 export default function EventListenerPage() {
   return (
-    <div className="flex flex-col gap-7 p-8 lg:px-10 lg:py-8">
+    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-bold text-fg-primary">Event Listener Status</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">Event Listener Status</h1>
           <p className="text-sm text-fg-secondary">Monitor blockchain sync and event processing</p>
         </div>
         <ComingSoonOverlay action="Refresh Sync">
@@ -65,7 +65,7 @@ export default function EventListenerPage() {
               <span className="text-sm">{s.icon}</span>
               <span className="text-xs text-fg-muted">{s.label}</span>
             </div>
-            <span className={`text-[28px] font-bold ${s.valueColor || "text-fg-primary"}`}>{s.value}</span>
+            <span className={`text-xl sm:text-2xl lg:text-[28px] font-bold ${s.valueColor || "text-fg-primary"}`}>{s.value}</span>
           </div>
         ))}
       </div>
@@ -79,7 +79,7 @@ export default function EventListenerPage() {
             Syncing
           </span>
         </div>
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
               <span className="text-xs text-fg-muted">Current Block</span>
@@ -101,13 +101,13 @@ export default function EventListenerPage() {
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <div className="flex items-center gap-1.5 border border-line-subtle rounded-lg bg-surface-sage px-3.5 py-2.5 flex-1">
             <span className="text-xs text-fg-muted">From Block:</span>
             <span className="text-xs font-mono text-fg-primary">19,847,520</span>
           </div>
           <ComingSoonOverlay action="Trigger Backfill">
-            <button className="flex items-center gap-2 border border-line-subtle rounded-lg px-5 h-[44px]">
+            <button className="flex items-center justify-center gap-2 border border-line-subtle rounded-lg px-5 h-[44px]">
               <Activity className="h-3.5 w-3.5 text-fg-secondary" />
               <span className="text-sm text-fg-secondary">Trigger Backfill</span>
             </button>
@@ -121,30 +121,34 @@ export default function EventListenerPage() {
           <span className="text-base font-semibold text-fg-primary">Contract Listeners</span>
           <span className="text-[13px] text-fg-muted">5 contracts monitored</span>
         </div>
-        {/* Table Header */}
-        <div className="flex items-center bg-surface-primary px-6 py-2.5 text-xs font-semibold text-fg-muted">
-          <span className="flex-1">Contract Name</span>
-          <span className="flex-1">Address</span>
-          <span className="flex-1">Last Event</span>
-          <span className="w-[100px]">Block #</span>
-          <span className="w-[80px]">Status</span>
-        </div>
-        {contracts.map((c, i) => (
-          <div key={c.name}>
-            <div className="flex items-center px-6 py-3.5">
-              <span className="flex-1 text-[13px] font-medium text-fg-primary">{c.name}</span>
-              <span className="flex-1 text-xs font-mono text-fg-secondary">{c.address}</span>
-              <span className="flex-1 text-[13px] text-fg-secondary">{c.lastEvent}</span>
-              <span className="w-[100px] text-xs font-mono text-fg-secondary">{c.block}</span>
-              <span className="w-[80px]">
-                <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${c.active ? "text-[#16A34A] bg-[#DCFCE7]" : "text-[#EF4444] bg-[#FEF2F2]"}`}>
-                  {c.active ? "Active" : "Paused"}
-                </span>
-              </span>
+        <div className="overflow-x-auto">
+          <div className="min-w-[700px]">
+            {/* Table Header */}
+            <div className="flex items-center bg-surface-primary px-6 py-2.5 text-xs font-semibold text-fg-muted">
+              <span className="flex-1">Contract Name</span>
+              <span className="flex-1">Address</span>
+              <span className="flex-1">Last Event</span>
+              <span className="w-[100px]">Block #</span>
+              <span className="w-[80px]">Status</span>
             </div>
-            {i < contracts.length - 1 && <div className="h-px bg-line-subtle" />}
+            {contracts.map((c, i) => (
+              <div key={c.name}>
+                <div className="flex items-center px-6 py-3.5">
+                  <span className="flex-1 text-[13px] font-medium text-fg-primary">{c.name}</span>
+                  <span className="flex-1 text-xs font-mono text-fg-secondary">{c.address}</span>
+                  <span className="flex-1 text-[13px] text-fg-secondary">{c.lastEvent}</span>
+                  <span className="w-[100px] text-xs font-mono text-fg-secondary">{c.block}</span>
+                  <span className="w-[80px]">
+                    <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${c.active ? "text-[#16A34A] bg-[#DCFCE7]" : "text-[#EF4444] bg-[#FEF2F2]"}`}>
+                      {c.active ? "Active" : "Paused"}
+                    </span>
+                  </span>
+                </div>
+                {i < contracts.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
 
       {/* Recent Events */}
@@ -158,34 +162,38 @@ export default function EventListenerPage() {
             </button>
           </ComingSoonOverlay>
         </div>
-        <div className="flex items-center bg-surface-primary px-6 py-2.5 text-xs font-semibold text-fg-muted">
-          <span className="w-[140px]">Time</span>
-          <span className="flex-1">Event</span>
-          <span className="flex-1">Contract</span>
-          <span className="flex-1">Tx Hash</span>
-          <span className="w-[80px]">Status</span>
-        </div>
-        {recentEvents.map((e, i) => (
-          <div key={`${e.time}-${e.event}`}>
-            <div className="flex items-center px-6 py-3">
-              <span className="w-[140px] text-xs font-mono text-fg-muted">{e.time}</span>
-              <span className="flex-1 text-[13px] text-fg-primary">{e.event}</span>
-              <span className="flex-1 text-[13px] text-fg-secondary">{e.contract}</span>
-              <span className="flex-1 text-xs font-mono text-accent-primary">{e.hash}</span>
-              <span className="w-[80px]">
-                <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${e.status === "OK" ? "text-[#16A34A] bg-[#DCFCE7]" : "text-[#EF4444] bg-[#FEF2F2]"}`}>
-                  {e.status}
-                </span>
-              </span>
+        <div className="overflow-x-auto">
+          <div className="min-w-[700px]">
+            <div className="flex items-center bg-surface-primary px-6 py-2.5 text-xs font-semibold text-fg-muted">
+              <span className="w-[140px]">Time</span>
+              <span className="flex-1">Event</span>
+              <span className="flex-1">Contract</span>
+              <span className="flex-1">Tx Hash</span>
+              <span className="w-[80px]">Status</span>
             </div>
-            {i < recentEvents.length - 1 && <div className="h-px bg-line-subtle" />}
+            {recentEvents.map((e, i) => (
+              <div key={`${e.time}-${e.event}`}>
+                <div className="flex items-center px-6 py-3">
+                  <span className="w-[140px] text-xs font-mono text-fg-muted">{e.time}</span>
+                  <span className="flex-1 text-[13px] text-fg-primary">{e.event}</span>
+                  <span className="flex-1 text-[13px] text-fg-secondary">{e.contract}</span>
+                  <span className="flex-1 text-xs font-mono text-accent-primary">{e.hash}</span>
+                  <span className="w-[80px]">
+                    <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${e.status === "OK" ? "text-[#16A34A] bg-[#DCFCE7]" : "text-[#EF4444] bg-[#FEF2F2]"}`}>
+                      {e.status}
+                    </span>
+                  </span>
+                </div>
+                {i < recentEvents.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
 
       {/* Failed Events */}
       <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] border-2 border-[#FEF2F2] overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-6 py-5">
           <div className="flex items-center gap-2.5">
             <AlertTriangle className="h-5 w-5 text-[#EF4444]" />
             <span className="text-base font-semibold text-fg-primary">Failed Events (3)</span>
@@ -197,29 +205,33 @@ export default function EventListenerPage() {
             </button>
           </ComingSoonOverlay>
         </div>
-        <div className="flex items-center bg-[#FEF2F2] px-6 py-2.5 text-xs font-semibold text-fg-muted">
-          <span className="w-[140px]">Time</span>
-          <span className="flex-1">Event</span>
-          <span className="flex-1">Error</span>
-          <span className="w-[60px]">Retries</span>
-          <span className="w-[80px]">Action</span>
-        </div>
-        {failedEvents.map((f, i) => (
-          <div key={`${f.time}-${f.event}`}>
-            <div className="flex items-center px-6 py-3">
-              <span className="w-[140px] text-xs font-mono text-fg-muted">{f.time}</span>
-              <span className="flex-1 text-[13px] text-fg-primary">{f.event}</span>
-              <span className="flex-1 text-[13px] text-[#EF4444]">{f.error}</span>
-              <span className="w-[60px] text-xs font-mono text-fg-secondary">{f.retries}</span>
-              <span className="w-[80px]">
-                <ComingSoonOverlay action="Retry Event">
-                  <button className="text-[11px] font-medium text-accent-primary hover:underline">Retry</button>
-                </ComingSoonOverlay>
-              </span>
+        <div className="overflow-x-auto">
+          <div className="min-w-[600px]">
+            <div className="flex items-center bg-[#FEF2F2] px-6 py-2.5 text-xs font-semibold text-fg-muted">
+              <span className="w-[140px]">Time</span>
+              <span className="flex-1">Event</span>
+              <span className="flex-1">Error</span>
+              <span className="w-[60px]">Retries</span>
+              <span className="w-[80px]">Action</span>
             </div>
-            {i < failedEvents.length - 1 && <div className="h-px bg-line-subtle" />}
+            {failedEvents.map((f, i) => (
+              <div key={`${f.time}-${f.event}`}>
+                <div className="flex items-center px-6 py-3">
+                  <span className="w-[140px] text-xs font-mono text-fg-muted">{f.time}</span>
+                  <span className="flex-1 text-[13px] text-fg-primary">{f.event}</span>
+                  <span className="flex-1 text-[13px] text-[#EF4444]">{f.error}</span>
+                  <span className="w-[60px] text-xs font-mono text-fg-secondary">{f.retries}</span>
+                  <span className="w-[80px]">
+                    <ComingSoonOverlay action="Retry Event">
+                      <button className="text-[11px] font-medium text-accent-primary hover:underline">Retry</button>
+                    </ComingSoonOverlay>
+                  </span>
+                </div>
+                {i < failedEvents.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

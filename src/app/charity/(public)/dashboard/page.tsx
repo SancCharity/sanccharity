@@ -123,7 +123,7 @@ export default function DonorDashboardPage() {
         )}
 
         {/* Stats Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           <div className="flex flex-col gap-2 p-5 sm:p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="h-9 w-9 rounded-full bg-[#E0F2FE] flex items-center justify-center">
               <Heart className="h-[18px] w-[18px] text-[#0EA5E9]" />

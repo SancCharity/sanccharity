@@ -47,7 +47,7 @@ export default function NFTDetailPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 px-[270px] py-4">
+      <div className="flex items-center gap-2 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-24 py-4">
         <Link href="/charity" className="text-[13px] text-[#94A3B8]">Home</Link>
         <span className="text-[13px] text-[#94A3B8]">/</span>
         <Link href="/charity/dashboard" className="text-[13px] text-[#94A3B8]">Donations</Link>
@@ -56,9 +56,9 @@ export default function NFTDetailPage() {
       </div>
 
       {/* Main Content */}
-      <div className="flex justify-center gap-10 px-[270px] pt-10 pb-[60px]">
+      <div className="flex flex-col lg:flex-row justify-center gap-6 lg:gap-10 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-24 pt-6 lg:pt-10 pb-10 lg:pb-[60px]">
         {/* Left Column */}
-        <div className="w-[400px] flex flex-col gap-5 shrink-0">
+        <div className="w-full lg:w-[400px] flex flex-col gap-5 shrink-0">
           {/* NFT Card */}
           <div className="flex flex-col items-center justify-center gap-4 h-[480px] rounded-2xl overflow-hidden"
             style={{ background: tierGradient }}>
@@ -91,7 +91,7 @@ export default function NFTDetailPage() {
         </div>
 
         {/* Right Column */}
-        <div className="w-[460px] flex flex-col gap-6">
+        <div className="w-full lg:w-[460px] flex flex-col gap-6">
           {/* Title Row */}
           <div className="flex items-center gap-2.5 flex-wrap">
             <h1 className="text-[26px] font-bold text-[#0F172A]">Donation Receipt #{display.tokenId}</h1>

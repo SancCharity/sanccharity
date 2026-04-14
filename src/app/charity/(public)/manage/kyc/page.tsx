@@ -48,11 +48,11 @@ const timeline = [
 
 export default function KYCVerificationPage() {
   return (
-    <div className="flex flex-col gap-6 px-12 py-8 max-w-[1344px] mx-auto">
+    <div className="flex flex-col gap-6 px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-8 max-w-[1344px] mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-[28px] font-bold text-fg-primary">KYC Verification</h1>
+          <h1 className="text-xl sm:text-2xl md:text-[28px] font-bold text-fg-primary">KYC Verification</h1>
           <p className="text-sm text-fg-secondary">Manage your organization&apos;s identity verification</p>
         </div>
         <ComingSoonOverlay action="Contact Support">

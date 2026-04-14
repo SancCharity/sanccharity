@@ -17,7 +17,7 @@ export function CampaignCard({ campaign }: CampaignCardProps) {
     <Link href={`/charity/campaign/${campaign.id}`}>
       <Card padding="none" className="overflow-hidden hover:shadow-card-dark transition-shadow duration-300 h-full">
         {/* Cover Image */}
-        <div className="relative h-48 bg-surface-sage">
+        <div className="relative h-36 sm:h-40 md:h-48 bg-surface-sage">
           {campaign.coverImage && (
             <img
               src={campaign.coverImage}

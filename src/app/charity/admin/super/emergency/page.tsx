@@ -35,13 +35,13 @@ const pauseHistory = [
 
 export default function CircuitBreakerPage() {
   return (
-    <div className="flex flex-col gap-7 p-8 lg:px-10 lg:py-8">
+    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">
-          <ShieldOff className="h-6 w-6 text-[#EF4444]" />
+          <ShieldOff className="h-6 w-6 text-[#EF4444] flex-shrink-0" />
           <div className="flex flex-col gap-1">
-            <h1 className="text-2xl font-bold text-fg-primary">Emergency Circuit Breaker</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">Emergency Circuit Breaker</h1>
             <p className="text-sm text-fg-secondary">Pause/unpause smart contracts in case of emergency</p>
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function CircuitBreakerPage() {
       </div>
 
       {/* System Status */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex items-center justify-between">
+      <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="h-3 w-3 rounded-full bg-[#22C55E]" />
           <div className="flex flex-col gap-0.5">
@@ -112,7 +112,7 @@ export default function CircuitBreakerPage() {
       {/* Emergency Actions */}
       <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border-2 border-[#FEF2F2] flex flex-col gap-4">
         <span className="text-base font-semibold text-fg-primary">Emergency Actions</span>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <ComingSoonOverlay action="Pause All Contracts">
             <button className="w-full flex items-center justify-center gap-2 bg-[#EF4444] rounded-xl py-3.5 text-white">
               <Pause className="h-4 w-4" />
@@ -136,29 +136,33 @@ export default function CircuitBreakerPage() {
         <div className="px-6 py-5">
           <span className="text-base font-semibold text-fg-primary">Pause History</span>
         </div>
-        <div className="flex items-center bg-surface-primary px-6 py-2.5 text-xs font-semibold text-fg-muted">
-          <span className="flex-1">Timestamp</span>
-          <span className="flex-1">Contract</span>
-          <span className="w-[100px]">Action</span>
-          <span className="flex-1">Initiated By</span>
-          <span className="flex-1">Tx Hash</span>
-        </div>
-        {pauseHistory.map((h, i) => (
-          <div key={`${h.timestamp}-${h.contract}-${h.action}`}>
-            <div className="flex items-center px-6 py-3.5">
-              <span className="flex-1 text-xs font-mono text-fg-muted">{h.timestamp}</span>
-              <span className="flex-1 text-[13px] text-fg-primary">{h.contract}</span>
-              <span className="w-[100px]">
-                <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${
-                  h.action === "Paused" ? "text-[#EF4444] bg-[#FEF2F2]" : "text-[#16A34A] bg-[#DCFCE7]"
-                }`}>{h.action}</span>
-              </span>
-              <span className="flex-1 text-xs font-mono text-fg-secondary">{h.initiatedBy}</span>
-              <span className="flex-1 text-xs font-mono text-accent-primary">{h.hash}</span>
+        <div className="overflow-x-auto">
+          <div className="min-w-[700px]">
+            <div className="flex items-center bg-surface-primary px-6 py-2.5 text-xs font-semibold text-fg-muted">
+              <span className="flex-1">Timestamp</span>
+              <span className="flex-1">Contract</span>
+              <span className="w-[100px]">Action</span>
+              <span className="flex-1">Initiated By</span>
+              <span className="flex-1">Tx Hash</span>
             </div>
-            {i < pauseHistory.length - 1 && <div className="h-px bg-line-subtle" />}
+            {pauseHistory.map((h, i) => (
+              <div key={`${h.timestamp}-${h.contract}-${h.action}`}>
+                <div className="flex items-center px-6 py-3.5">
+                  <span className="flex-1 text-xs font-mono text-fg-muted">{h.timestamp}</span>
+                  <span className="flex-1 text-[13px] text-fg-primary">{h.contract}</span>
+                  <span className="w-[100px]">
+                    <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${
+                      h.action === "Paused" ? "text-[#EF4444] bg-[#FEF2F2]" : "text-[#16A34A] bg-[#DCFCE7]"
+                    }`}>{h.action}</span>
+                  </span>
+                  <span className="flex-1 text-xs font-mono text-fg-secondary">{h.initiatedBy}</span>
+                  <span className="flex-1 text-xs font-mono text-accent-primary">{h.hash}</span>
+                </div>
+                {i < pauseHistory.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

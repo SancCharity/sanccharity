@@ -372,9 +372,9 @@ export default function CampaignDetailPage() {
               ))}
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <ComingSoonOverlay action="Vote"><button className="bg-accent-primary text-white text-sm font-semibold rounded-full px-8 py-3 w-full sm:w-auto">Approve</button></ComingSoonOverlay>
-              <ComingSoonOverlay action="Vote"><button className="bg-red-600/50 text-white text-sm font-semibold rounded-full px-8 py-3 w-full sm:w-auto">Reject</button></ComingSoonOverlay>
-              <ComingSoonOverlay action="Vote"><button className="bg-white/[0.13] text-white/80 text-sm font-semibold rounded-full px-8 py-3 w-full sm:w-auto">Abstain</button></ComingSoonOverlay>
+              <ComingSoonOverlay action="Vote"><button className="bg-accent-primary text-white text-sm font-semibold rounded-full px-8 py-3.5 sm:py-3 w-full sm:w-auto">Approve</button></ComingSoonOverlay>
+              <ComingSoonOverlay action="Vote"><button className="bg-red-600/50 text-white text-sm font-semibold rounded-full px-8 py-3.5 sm:py-3 w-full sm:w-auto">Reject</button></ComingSoonOverlay>
+              <ComingSoonOverlay action="Vote"><button className="bg-white/[0.13] text-white/80 text-sm font-semibold rounded-full px-8 py-3.5 sm:py-3 w-full sm:w-auto">Abstain</button></ComingSoonOverlay>
             </div>
             <span className="text-[11px] text-white/40 font-mono text-center">Requires 1M+ SANC staked to vote</span>
             <div className="flex items-center justify-center gap-3">

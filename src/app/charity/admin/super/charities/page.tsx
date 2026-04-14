@@ -28,11 +28,11 @@ export default function CharitiesPage() {
   const [activeTab, setActiveTab] = useState("All (47)");
 
   return (
-    <div className="flex flex-col gap-7 p-8 lg:px-10 lg:py-8">
+    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-bold text-fg-primary">Charity Management</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">Charity Management</h1>
           <p className="text-sm text-fg-muted">Verify, suspend, or revoke registered charity organizations</p>
         </div>
         <div className="flex items-center gap-3">
@@ -48,12 +48,12 @@ export default function CharitiesPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
               activeTab === tab
                 ? "bg-accent-primary text-white"
                 : "text-fg-secondary hover:bg-surface-primary"
@@ -65,56 +65,60 @@ export default function CharitiesPage() {
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {stats.map((s) => (
           <div key={s.label} className="bg-white rounded-2xl p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-2">
             <span className="text-xs text-fg-muted">{s.label}</span>
-            <span className={`text-[28px] font-bold ${s.color}`}>{s.value}</span>
+            <span className={`text-xl sm:text-2xl lg:text-[28px] font-bold ${s.color}`}>{s.value}</span>
           </div>
         ))}
       </div>
 
       {/* Charities Table */}
       <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center bg-surface-primary px-6 py-3 text-[11px] font-semibold text-fg-muted">
-          <span className="flex-1">Charity Name</span>
-          <span className="w-[120px]">Status</span>
-          <span className="w-[120px]">SANC Staked</span>
-          <span className="w-[100px]">Campaigns</span>
-          <span className="w-[120px]">Registered</span>
-          <span className="w-[100px]">Actions</span>
-        </div>
-        {charities.map((c, i) => (
-          <div key={c.name}>
-            <div className="flex items-center px-6 py-4">
-              <div className="flex-1">
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-[13px] font-medium text-fg-primary">{c.name}</span>
-                  <span className="text-[11px] font-mono text-fg-muted">{c.wallet}</span>
-                </div>
-              </div>
-              <span className="w-[120px]">
-                <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${c.statusBg} ${c.statusColor}`}>{c.status}</span>
-              </span>
-              <span className="w-[120px] text-xs text-fg-primary">{c.stake}</span>
-              <span className="w-[100px] text-xs text-fg-primary">{c.campaigns}</span>
-              <span className="w-[120px] text-xs text-fg-muted">{c.registered}</span>
-              <span className="w-[100px]">
-                <ComingSoonOverlay action={`${c.action} ${c.name}`}>
-                  <button className={`text-[11px] font-semibold px-3 py-1 rounded-full ${
-                    c.action === "Revoke" ? "text-[#EF4444] bg-[#FEF2F2]" :
-                    c.action === "Reinstate" ? "text-[#22C55E] bg-[#DCFCE7]" :
-                    "text-fg-muted bg-surface-primary"
-                  }`}>
-                    {c.action}
-                  </button>
-                </ComingSoonOverlay>
-              </span>
+        <div className="overflow-x-auto">
+          <div className="min-w-[760px]">
+            {/* Header */}
+            <div className="flex items-center bg-surface-primary px-6 py-3 text-[11px] font-semibold text-fg-muted">
+              <span className="flex-1">Charity Name</span>
+              <span className="w-[120px]">Status</span>
+              <span className="w-[120px]">SANC Staked</span>
+              <span className="w-[100px]">Campaigns</span>
+              <span className="w-[120px]">Registered</span>
+              <span className="w-[100px]">Actions</span>
             </div>
-            {i < charities.length - 1 && <div className="h-px bg-line-subtle" />}
+            {charities.map((c, i) => (
+              <div key={c.name}>
+                <div className="flex items-center px-6 py-4">
+                  <div className="flex-1">
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-[13px] font-medium text-fg-primary">{c.name}</span>
+                      <span className="text-[11px] font-mono text-fg-muted">{c.wallet}</span>
+                    </div>
+                  </div>
+                  <span className="w-[120px]">
+                    <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${c.statusBg} ${c.statusColor}`}>{c.status}</span>
+                  </span>
+                  <span className="w-[120px] text-xs text-fg-primary">{c.stake}</span>
+                  <span className="w-[100px] text-xs text-fg-primary">{c.campaigns}</span>
+                  <span className="w-[120px] text-xs text-fg-muted">{c.registered}</span>
+                  <span className="w-[100px]">
+                    <ComingSoonOverlay action={`${c.action} ${c.name}`}>
+                      <button className={`text-[11px] font-semibold px-3 py-1 rounded-full ${
+                        c.action === "Revoke" ? "text-[#EF4444] bg-[#FEF2F2]" :
+                        c.action === "Reinstate" ? "text-[#22C55E] bg-[#DCFCE7]" :
+                        "text-fg-muted bg-surface-primary"
+                      }`}>
+                        {c.action}
+                      </button>
+                    </ComingSoonOverlay>
+                  </span>
+                </div>
+                {i < charities.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
 
         {/* Pagination */}
         <div className="flex items-center justify-between px-6 py-4 border-t border-line-subtle">

@@ -90,22 +90,22 @@ export default function CampaignsPage() {
   const [activeTab, setActiveTab] = useState("All (124)");
 
   return (
-    <div className="flex flex-col gap-7 p-8 lg:px-10 lg:py-8">
+    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-bold text-fg-primary">Campaign Moderation</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">Campaign Moderation</h1>
           <p className="text-sm text-fg-muted">Approve, withdraw, or force-cancel campaigns across the platform</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
               activeTab === tab
                 ? "bg-accent-primary text-white"
                 : "text-fg-secondary hover:bg-surface-primary"
@@ -117,53 +117,57 @@ export default function CampaignsPage() {
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {stats.map((s) => (
           <div key={s.label} className="bg-white rounded-2xl p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-2">
             <span className="text-xs text-fg-muted">{s.label}</span>
-            <span className={`text-[28px] font-bold ${s.color}`}>{s.value}</span>
+            <span className={`text-xl sm:text-2xl lg:text-[28px] font-bold ${s.color}`}>{s.value}</span>
           </div>
         ))}
       </div>
 
       {/* Campaigns Table */}
       <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] overflow-hidden">
-        <div className="flex items-center bg-surface-primary px-6 py-3 text-[11px] font-semibold text-fg-muted">
-          <span className="flex-1">Campaign</span>
-          <span className="w-[160px]">Charity</span>
-          <span className="w-[80px]">Status</span>
-          <span className="w-[140px]">Raised / Goal</span>
-          <span className="w-[80px]">Featured</span>
-          <span className="w-[200px] text-right">Actions</span>
-        </div>
-        {campaigns.map((c, i) => (
-          <div key={c.name}>
-            <div className="flex items-center px-6 py-4">
-              <div className="flex-1">
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-[13px] font-medium text-fg-primary">{c.name}</span>
-                  <span className="text-[11px] text-fg-muted">{c.category}</span>
-                </div>
-              </div>
-              <span className="w-[160px] text-xs text-fg-secondary">{c.charity}</span>
-              <span className="w-[80px]">
-                <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${c.statusBg} ${c.statusColor}`}>{c.status}</span>
-              </span>
-              <span className="w-[140px] text-xs font-medium text-fg-primary">{c.raised}</span>
-              <span className="w-[80px] text-xs text-fg-muted">{c.featured ? "Yes" : "—"}</span>
-              <div className="w-[200px] flex items-center justify-end gap-2">
-                {c.actions.map((a) => (
-                  <ComingSoonOverlay key={a.label} action={`${a.label} ${c.name}`}>
-                    <button className={`text-[11px] font-semibold px-3 py-1 rounded-full ${a.color} ${a.bg}`}>
-                      {a.label}
-                    </button>
-                  </ComingSoonOverlay>
-                ))}
-              </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[860px]">
+            <div className="flex items-center bg-surface-primary px-6 py-3 text-[11px] font-semibold text-fg-muted">
+              <span className="flex-1">Campaign</span>
+              <span className="w-[160px]">Charity</span>
+              <span className="w-[80px]">Status</span>
+              <span className="w-[140px]">Raised / Goal</span>
+              <span className="w-[80px]">Featured</span>
+              <span className="w-[200px] text-right">Actions</span>
             </div>
-            {i < campaigns.length - 1 && <div className="h-px bg-line-subtle" />}
+            {campaigns.map((c, i) => (
+              <div key={c.name}>
+                <div className="flex items-center px-6 py-4">
+                  <div className="flex-1">
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-[13px] font-medium text-fg-primary">{c.name}</span>
+                      <span className="text-[11px] text-fg-muted">{c.category}</span>
+                    </div>
+                  </div>
+                  <span className="w-[160px] text-xs text-fg-secondary">{c.charity}</span>
+                  <span className="w-[80px]">
+                    <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${c.statusBg} ${c.statusColor}`}>{c.status}</span>
+                  </span>
+                  <span className="w-[140px] text-xs font-medium text-fg-primary">{c.raised}</span>
+                  <span className="w-[80px] text-xs text-fg-muted">{c.featured ? "Yes" : "—"}</span>
+                  <div className="w-[200px] flex items-center justify-end gap-2">
+                    {c.actions.map((a) => (
+                      <ComingSoonOverlay key={a.label} action={`${a.label} ${c.name}`}>
+                        <button className={`text-[11px] font-semibold px-3 py-1 rounded-full ${a.color} ${a.bg}`}>
+                          {a.label}
+                        </button>
+                      </ComingSoonOverlay>
+                    ))}
+                  </div>
+                </div>
+                {i < campaigns.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
 
         {/* Pagination */}
         <div className="flex items-center justify-between px-6 py-4 border-t border-line-subtle">

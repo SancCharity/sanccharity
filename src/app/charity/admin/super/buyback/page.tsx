@@ -45,11 +45,11 @@ const burnTrend = [
 
 export default function BuybackBurnPage() {
   return (
-    <div className="flex flex-col gap-7 p-8 lg:px-10 lg:py-8">
+    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-bold text-fg-primary">Buyback & Burn</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">Buyback & Burn</h1>
           <p className="text-sm text-fg-muted">Manage fee pools, execute buybacks, and track SANC burns</p>
         </div>
         <ComingSoonOverlay action="Execute Buyback">
@@ -81,7 +81,7 @@ export default function BuybackBurnPage() {
           <span className="text-[11px] font-semibold text-[#EF4444] bg-[#FEF2F2] rounded-full px-3 py-1">Manual Trigger Required</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="flex flex-col gap-3">
             <span className="text-xs font-medium text-fg-secondary">Source Token</span>
             <div className="flex items-center justify-between border border-line-subtle rounded-lg px-4 py-3">
@@ -143,26 +143,30 @@ export default function BuybackBurnPage() {
             <h3 className="text-base font-bold text-fg-primary">Burn History</h3>
           </div>
           {/* Table Header */}
-          <div className="flex items-center py-2 text-[11px] font-semibold text-fg-muted">
-            <span className="w-[100px]">Date</span>
-            <span className="w-[80px]">Token</span>
-            <span className="w-[100px]">Amount In</span>
-            <span className="w-[120px]">SANC Burned</span>
-            <span className="flex-1">Tx Hash</span>
-          </div>
-          <div className="h-px bg-line-subtle" />
-          {burnHistory.map((row, i) => (
-            <div key={row.hash}>
-              <div className="flex items-center py-2.5">
-                <span className="w-[100px] text-xs text-fg-secondary">{row.date}</span>
-                <span className="w-[80px] text-xs text-fg-primary">{row.token}</span>
-                <span className="w-[100px] text-xs font-semibold text-fg-primary">{row.amountIn}</span>
-                <span className={`w-[120px] text-xs font-semibold ${row.failed ? "text-[#EF4444] font-bold" : "text-[#EF4444]"}`}>{row.burned}</span>
-                <span className="flex-1 text-xs text-accent-primary font-mono">{row.hash}</span>
+          <div className="overflow-x-auto">
+            <div className="min-w-[520px]">
+              <div className="flex items-center py-2 text-[11px] font-semibold text-fg-muted">
+                <span className="w-[100px]">Date</span>
+                <span className="w-[80px]">Token</span>
+                <span className="w-[100px]">Amount In</span>
+                <span className="w-[120px]">SANC Burned</span>
+                <span className="flex-1">Tx Hash</span>
               </div>
-              {i < burnHistory.length - 1 && <div className="h-px bg-line-subtle" />}
+              <div className="h-px bg-line-subtle" />
+              {burnHistory.map((row, i) => (
+                <div key={row.hash}>
+                  <div className="flex items-center py-2.5">
+                    <span className="w-[100px] text-xs text-fg-secondary">{row.date}</span>
+                    <span className="w-[80px] text-xs text-fg-primary">{row.token}</span>
+                    <span className="w-[100px] text-xs font-semibold text-fg-primary">{row.amountIn}</span>
+                    <span className={`w-[120px] text-xs font-semibold ${row.failed ? "text-[#EF4444] font-bold" : "text-[#EF4444]"}`}>{row.burned}</span>
+                    <span className="flex-1 text-xs text-accent-primary font-mono">{row.hash}</span>
+                  </div>
+                  {i < burnHistory.length - 1 && <div className="h-px bg-line-subtle" />}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
           <div className="h-px bg-line-subtle" />
           <div className="flex items-center justify-between pt-1">
             <span className="text-xs text-fg-muted">Showing 1-4 of 24 entries</span>

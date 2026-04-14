@@ -53,11 +53,11 @@ export default function KYCQueuePage() {
   const [activeTab, setActiveTab] = useState("All");
 
   return (
-    <div className="flex flex-col gap-7 p-8 lg:px-10 lg:py-8">
+    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-fg-primary">KYC Review Queue</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">KYC Review Queue</h1>
           <span className="text-xs font-semibold text-[#D97706] bg-[#FEF3C7] rounded-full px-3 py-1">3 pending</span>
         </div>
         <span className="text-sm text-fg-muted">Review and approve charity KYC submissions</span>
@@ -85,12 +85,12 @@ export default function KYCQueuePage() {
         {applications.map((app) => (
           <div key={app.name} className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
             {/* Header */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-lg font-bold text-fg-primary">{app.name}</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="text-base sm:text-lg font-bold text-fg-primary">{app.name}</span>
                 <span className={`text-[11px] font-semibold ${app.statusColor} ${app.statusBg} rounded-full px-3 py-1`}>{app.status}</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 flex-wrap">
                 <span className="text-xs text-fg-muted">Submitted: {app.submitted}</span>
                 <span className={`text-[11px] font-semibold ${app.tierColor} ${app.tierBg} rounded-full px-3 py-1`}>{app.tier}</span>
               </div>

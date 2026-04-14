@@ -19,11 +19,11 @@ const activities = [
 
 export default function ActivityLogPage() {
   return (
-    <div className="flex flex-col gap-7 p-8 lg:px-10 lg:py-8">
+    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-bold text-fg-primary">Activity Log</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">Activity Log</h1>
           <p className="text-sm text-fg-muted">Audit trail of all admin actions</p>
         </div>
         <ComingSoonOverlay action="Export CSV">
@@ -35,45 +35,49 @@ export default function ActivityLogPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 border border-line-subtle rounded-lg bg-white px-3 py-2 text-sm text-fg-muted">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <div className="flex items-center gap-2 border border-line-subtle rounded-lg bg-white px-3 py-2 text-sm text-fg-muted whitespace-nowrap">
           <span>Mar 1 – Mar 15, 2024</span>
         </div>
-        <button className="flex items-center gap-2 border border-line-subtle rounded-lg bg-white px-3 py-2 text-sm text-fg-secondary">
+        <button className="flex items-center gap-2 border border-line-subtle rounded-lg bg-white px-3 py-2 text-sm text-fg-secondary whitespace-nowrap">
           All Actions
           <ChevronDown className="h-4 w-4" />
         </button>
-        <div className="flex items-center gap-2 border border-line-subtle rounded-lg bg-white px-3 py-2 flex-1">
-          <Search className="h-4 w-4 text-fg-muted" />
-          <span className="text-sm text-fg-muted">Search by admin, target, or tx hash...</span>
+        <div className="flex items-center gap-2 border border-line-subtle rounded-lg bg-white px-3 py-2 flex-1 min-w-0">
+          <Search className="h-4 w-4 text-fg-muted flex-shrink-0" />
+          <span className="text-sm text-fg-muted truncate">Search by admin, target, or tx hash...</span>
         </div>
       </div>
 
       {/* Activity Table */}
       <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] overflow-hidden">
-        <div className="flex items-center bg-surface-inverse px-6 py-3 text-[11px] font-semibold text-fg-muted">
-          <span className="w-[140px]">Timestamp</span>
-          <span className="w-[130px]">Admin</span>
-          <span className="w-[100px]">Action</span>
-          <span className="flex-1">Target</span>
-          <span className="flex-1">Details</span>
-          <span className="w-[100px]">Tx Hash</span>
-        </div>
-        {activities.map((a, i) => (
-          <div key={`${a.timestamp}-${a.target}`}>
-            <div className="flex items-center px-6 py-3.5">
-              <span className="w-[140px] text-xs font-mono text-fg-muted">{a.timestamp}</span>
-              <span className="w-[130px] text-xs font-mono text-fg-secondary">{a.admin}</span>
-              <span className="w-[100px]">
-                <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${a.actionBg} ${a.actionColor}`}>{a.action}</span>
-              </span>
-              <span className="flex-1 text-[13px] text-fg-primary">{a.target}</span>
-              <span className="flex-1 text-xs text-fg-secondary">{a.details}</span>
-              <span className="w-[100px] text-xs font-mono text-accent-primary">{a.hash}</span>
+        <div className="overflow-x-auto">
+          <div className="min-w-[800px]">
+            <div className="flex items-center bg-surface-inverse px-6 py-3 text-[11px] font-semibold text-fg-muted">
+              <span className="w-[140px]">Timestamp</span>
+              <span className="w-[130px]">Admin</span>
+              <span className="w-[100px]">Action</span>
+              <span className="flex-1">Target</span>
+              <span className="flex-1">Details</span>
+              <span className="w-[100px]">Tx Hash</span>
             </div>
-            {i < activities.length - 1 && <div className="h-px bg-line-subtle" />}
+            {activities.map((a, i) => (
+              <div key={`${a.timestamp}-${a.target}`}>
+                <div className="flex items-center px-6 py-3.5">
+                  <span className="w-[140px] text-xs font-mono text-fg-muted">{a.timestamp}</span>
+                  <span className="w-[130px] text-xs font-mono text-fg-secondary">{a.admin}</span>
+                  <span className="w-[100px]">
+                    <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${a.actionBg} ${a.actionColor}`}>{a.action}</span>
+                  </span>
+                  <span className="flex-1 text-[13px] text-fg-primary">{a.target}</span>
+                  <span className="flex-1 text-xs text-fg-secondary">{a.details}</span>
+                  <span className="w-[100px] text-xs font-mono text-accent-primary">{a.hash}</span>
+                </div>
+                {i < activities.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
 
         {/* Pagination */}
         <div className="flex items-center justify-between px-6 py-4 border-t border-line-subtle">

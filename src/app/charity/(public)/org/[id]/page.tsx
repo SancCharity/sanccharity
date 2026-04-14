@@ -67,9 +67,9 @@ export default function CharityProfilePage() {
       <div className="h-[200px]" style={{ background: "linear-gradient(180deg, #E0F2FE 0%, #BAE6FD 50%, #7DD3FC 100%)" }} />
 
       {/* Body Content */}
-      <div className="flex gap-8 px-12 w-full">
-        {/* Left Column - 320px */}
-        <div className="w-[320px] shrink-0 flex flex-col gap-6 -mt-16">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 w-full">
+        {/* Left Column */}
+        <div className="w-full md:w-[320px] shrink-0 flex flex-col gap-6 md:-mt-16">
 
           {/* Avatar Card */}
           <div className="flex flex-col items-center gap-4 p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
@@ -405,8 +405,8 @@ export default function CharityProfilePage() {
       </div>
 
       {/* Trust Banner */}
-      <div className="px-12 mt-8">
-        <div className="flex items-center gap-4 p-5 px-6 bg-[#0F172A] rounded-xl">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 mt-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 px-5 sm:px-6 bg-[#0F172A] rounded-xl">
           <ShieldCheck className="h-6 w-6 text-[#0EA5E9] shrink-0" />
           <div className="flex-1 flex flex-col gap-1">
             <span className="text-[16px] font-bold text-white">Transparency Guaranteed</span>

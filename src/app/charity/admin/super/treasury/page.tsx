@@ -60,11 +60,11 @@ const recentMovements = [
 
 export default function TreasuryPage() {
   return (
-    <div className="flex flex-col gap-7 p-8 lg:px-10 lg:py-8">
+    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-bold text-fg-primary">Treasury Overview</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">Treasury Overview</h1>
           <p className="text-sm text-fg-muted">Monitor fund balances, escrow status, and treasury health</p>
         </div>
         <ComingSoonOverlay action="Export Report">
@@ -76,9 +76,9 @@ export default function TreasuryPage() {
       </div>
 
       {/* Total Treasury Value */}
-      <div className="bg-surface-inverse rounded-2xl p-8 flex flex-col items-center gap-2">
+      <div className="bg-surface-inverse rounded-2xl p-5 sm:p-8 flex flex-col items-center gap-2">
         <span className="text-sm text-fg-muted">Total Treasury Value</span>
-        <span className="text-[40px] font-bold text-white">186.5 BNB</span>
+        <span className="text-2xl sm:text-[32px] lg:text-[40px] font-bold text-white">186.5 BNB</span>
         <span className="text-base text-fg-muted">≈ $112,347 USD</span>
       </div>
 
@@ -106,33 +106,37 @@ export default function TreasuryPage() {
           <span className="text-[11px] font-semibold text-accent-primary bg-accent-light rounded-full px-3 py-1">4 tokens</span>
         </div>
 
-        {/* Table Header */}
-        <div className="flex items-center py-2 text-[11px] font-semibold text-fg-muted">
-          <span className="flex-1">Token</span>
-          <span className="w-[140px] text-right">Matching Fund</span>
-          <span className="w-[140px] text-right">Operations</span>
-          <span className="w-[140px] text-right">Escrowed</span>
-          <span className="w-[140px] text-right">Total (USD)</span>
-        </div>
-        <div className="h-px bg-line-subtle" />
-
-        {tokenBalances.map((row, i) => (
-          <div key={row.token}>
-            <div className="flex items-center py-2.5">
-              <div className="flex items-center gap-2.5 flex-1">
-                <div className="h-7 w-7 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: row.color }}>
-                  {row.symbol}
-                </div>
-                <span className="text-[13px] font-medium text-fg-primary">{row.token}</span>
-              </div>
-              <span className="w-[140px] text-right text-[13px] text-fg-primary">{row.matching}</span>
-              <span className="w-[140px] text-right text-[13px] text-fg-primary">{row.operations}</span>
-              <span className="w-[140px] text-right text-[13px] text-fg-primary">{row.escrowed}</span>
-              <span className="w-[140px] text-right text-[13px] font-semibold text-fg-primary">{row.total}</span>
+        <div className="overflow-x-auto">
+          <div className="min-w-[700px]">
+            {/* Table Header */}
+            <div className="flex items-center py-2 text-[11px] font-semibold text-fg-muted">
+              <span className="flex-1">Token</span>
+              <span className="w-[140px] text-right">Matching Fund</span>
+              <span className="w-[140px] text-right">Operations</span>
+              <span className="w-[140px] text-right">Escrowed</span>
+              <span className="w-[140px] text-right">Total (USD)</span>
             </div>
-            {i < tokenBalances.length - 1 && <div className="h-px bg-line-subtle" />}
+            <div className="h-px bg-line-subtle" />
+
+            {tokenBalances.map((row, i) => (
+              <div key={row.token}>
+                <div className="flex items-center py-2.5">
+                  <div className="flex items-center gap-2.5 flex-1">
+                    <div className="h-7 w-7 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: row.color }}>
+                      {row.symbol}
+                    </div>
+                    <span className="text-[13px] font-medium text-fg-primary">{row.token}</span>
+                  </div>
+                  <span className="w-[140px] text-right text-[13px] text-fg-primary">{row.matching}</span>
+                  <span className="w-[140px] text-right text-[13px] text-fg-primary">{row.operations}</span>
+                  <span className="w-[140px] text-right text-[13px] text-fg-primary">{row.escrowed}</span>
+                  <span className="w-[140px] text-right text-[13px] font-semibold text-fg-primary">{row.total}</span>
+                </div>
+                {i < tokenBalances.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
 
       {/* Active Escrow Accounts */}
@@ -145,30 +149,34 @@ export default function TreasuryPage() {
           <span className="text-xs font-medium text-accent-primary bg-accent-light rounded-full px-3 py-1">47 campaigns</span>
         </div>
 
-        {/* Table Header */}
-        <div className="flex items-center py-2 text-[11px] font-semibold text-fg-muted">
-          <span className="flex-1">Campaign</span>
-          <span className="w-[160px]">Charity</span>
-          <span className="w-[100px]">Escrowed</span>
-          <span className="w-[100px]">Released</span>
-          <span className="w-[100px]">Status</span>
-        </div>
-        <div className="h-px bg-line-subtle" />
-
-        {escrowAccounts.map((row, i) => (
-          <div key={row.campaign}>
-            <div className="flex items-center py-2">
-              <span className="flex-1 text-[13px] font-medium text-fg-primary">{row.campaign}</span>
-              <span className="w-[160px] text-xs text-fg-secondary">{row.charity}</span>
-              <span className="w-[100px] text-xs font-semibold text-fg-primary">{row.escrowed}</span>
-              <span className={`w-[100px] text-xs ${row.releasedColor}`}>{row.released}</span>
-              <div className="w-[100px]">
-                <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${row.statusBg} ${row.statusColor}`}>{row.status}</span>
-              </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[620px]">
+            {/* Table Header */}
+            <div className="flex items-center py-2 text-[11px] font-semibold text-fg-muted">
+              <span className="flex-1">Campaign</span>
+              <span className="w-[160px]">Charity</span>
+              <span className="w-[100px]">Escrowed</span>
+              <span className="w-[100px]">Released</span>
+              <span className="w-[100px]">Status</span>
             </div>
-            {i < escrowAccounts.length - 1 && <div className="h-px bg-line-subtle" />}
+            <div className="h-px bg-line-subtle" />
+
+            {escrowAccounts.map((row, i) => (
+              <div key={row.campaign}>
+                <div className="flex items-center py-2">
+                  <span className="flex-1 text-[13px] font-medium text-fg-primary">{row.campaign}</span>
+                  <span className="w-[160px] text-xs text-fg-secondary">{row.charity}</span>
+                  <span className="w-[100px] text-xs font-semibold text-fg-primary">{row.escrowed}</span>
+                  <span className={`w-[100px] text-xs ${row.releasedColor}`}>{row.released}</span>
+                  <div className="w-[100px]">
+                    <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${row.statusBg} ${row.statusColor}`}>{row.status}</span>
+                  </div>
+                </div>
+                {i < escrowAccounts.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
 
         <div className="h-px bg-line-subtle" />
         <div className="flex items-center justify-between pt-1">

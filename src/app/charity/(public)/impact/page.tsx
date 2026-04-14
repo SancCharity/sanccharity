@@ -132,7 +132,7 @@ export default function ImpactDashboardPage() {
         </div>
 
         {/* Key Metrics */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {(impactQuery.isLoading || platformStatsQuery.isLoading)
             ? Array.from({ length: 5 }).map((_, i) => (
                 <div key={i} className="flex flex-col gap-2 p-5 sm:p-6 rounded-2xl bg-white border border-black/[0.04]">

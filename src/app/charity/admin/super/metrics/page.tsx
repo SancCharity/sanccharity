@@ -99,11 +99,11 @@ const burnBars = [
 
 export default function PlatformMetricsPage() {
   return (
-    <div className="flex flex-col gap-7 p-8 lg:px-10 lg:py-8">
+    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-bold text-fg-primary">Platform Metrics</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-fg-primary">Platform Metrics</h1>
           <p className="text-sm text-fg-secondary">Admin-level analytics and platform performance</p>
         </div>
         <div className="flex items-center gap-3">
@@ -128,7 +128,7 @@ export default function PlatformMetricsPage() {
               <span className="text-xs text-fg-muted">{s.label}</span>
               <s.icon className={`h-5 w-5 ${s.iconColor}`} />
             </div>
-            <span className="text-[28px] font-bold text-fg-primary">{s.value}</span>
+            <span className="text-xl sm:text-2xl lg:text-[28px] font-bold text-fg-primary">{s.value}</span>
             <span className={`text-xs ${s.subColor || "text-fg-muted"}`}>{s.sub}</span>
           </div>
         ))}
@@ -249,7 +249,7 @@ export default function PlatformMetricsPage() {
           <Vote className="h-5 w-5 text-accent-primary" />
           <span className="text-base font-semibold text-fg-primary">Governance Overview</span>
         </div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {govStats.map((g) => (
             <div key={g.label} className="bg-surface-primary rounded-xl p-4 flex flex-col gap-2">
               <span className="text-xs text-fg-muted">{g.label}</span>
@@ -266,27 +266,29 @@ export default function PlatformMetricsPage() {
           <Trophy className="h-5 w-5 text-[#F59E0B]" />
           <span className="text-base font-semibold text-fg-primary">Top Campaigns by Amount Raised</span>
         </div>
-        <div className="flex flex-col">
-          <div className="flex items-center py-3 text-[11px] font-semibold text-fg-muted">
-            <span className="flex-1">Campaign</span>
-            <span className="w-[120px]">Charity</span>
-            <span className="w-[100px] text-right">Raised</span>
-            <span className="w-[100px] text-right">Goal</span>
-            <span className="w-[80px] text-right">Progress</span>
-          </div>
-          <div className="h-px bg-line-subtle" />
-          {topCampaigns.map((c, i) => (
-            <div key={c.name}>
-              <div className="flex items-center py-3">
-                <span className="flex-1 text-[13px] font-medium text-fg-primary">{c.name}</span>
-                <span className="w-[120px] text-xs text-fg-secondary">{c.charity}</span>
-                <span className="w-[100px] text-right text-[13px] font-semibold text-fg-primary">{c.raised}</span>
-                <span className="w-[100px] text-right text-xs text-fg-muted">{c.goal}</span>
-                <span className="w-[80px] text-right text-xs font-semibold text-[#22C55E]">{c.pct}</span>
-              </div>
-              {i < topCampaigns.length - 1 && <div className="h-px bg-line-subtle" />}
+        <div className="overflow-x-auto">
+          <div className="min-w-[600px]">
+            <div className="flex items-center py-3 text-[11px] font-semibold text-fg-muted">
+              <span className="flex-1">Campaign</span>
+              <span className="w-[120px]">Charity</span>
+              <span className="w-[100px] text-right">Raised</span>
+              <span className="w-[100px] text-right">Goal</span>
+              <span className="w-[80px] text-right">Progress</span>
             </div>
-          ))}
+            <div className="h-px bg-line-subtle" />
+            {topCampaigns.map((c, i) => (
+              <div key={c.name}>
+                <div className="flex items-center py-3">
+                  <span className="flex-1 text-[13px] font-medium text-fg-primary">{c.name}</span>
+                  <span className="w-[120px] text-xs text-fg-secondary">{c.charity}</span>
+                  <span className="w-[100px] text-right text-[13px] font-semibold text-fg-primary">{c.raised}</span>
+                  <span className="w-[100px] text-right text-xs text-fg-muted">{c.goal}</span>
+                  <span className="w-[80px] text-right text-xs font-semibold text-[#22C55E]">{c.pct}</span>
+                </div>
+                {i < topCampaigns.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
