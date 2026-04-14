@@ -245,13 +245,13 @@ export default function GovernancePage() {
                   ) : (
                     <div className="flex gap-3">
                       <ComingSoonOverlay action="Vote on milestone">
-                        <button className="flex-1 py-3 bg-[#0EA5E9] rounded-full text-[14px] font-semibold text-white">Vote Approve</button>
+                        <button className="flex-1 py-3 px-8 bg-[#0EA5E9] rounded-full text-[14px] font-semibold text-white">Approve</button>
                       </ComingSoonOverlay>
                       <ComingSoonOverlay action="Vote on milestone">
-                        <button className="flex-1 py-3 bg-[#F8FAFC] rounded-full text-[14px] font-semibold text-[#0F172A]">Vote Reject</button>
+                        <button className="flex-1 py-3 px-8 bg-[#F8FAFC] rounded-full text-[14px] font-semibold text-[#0F172A]">Reject</button>
                       </ComingSoonOverlay>
                       <ComingSoonOverlay action="Vote on milestone">
-                        <button className="flex-1 py-3 bg-[#F8FAFC] rounded-full text-[14px] font-medium text-[#94A3B8]">Abstain</button>
+                        <button className="flex-1 py-3 px-8 bg-[#F8FAFC] rounded-full text-[14px] font-medium text-[#94A3B8]">Abstain</button>
                       </ComingSoonOverlay>
                     </div>
                   )}
