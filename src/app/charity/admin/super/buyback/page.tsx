@@ -63,22 +63,22 @@ export default function BuybackBurnPage() {
       {/* Stats Row */}
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         {stats.map((s) => (
-          <div key={s.label} className="bg-white rounded-2xl p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-2">
-            <span className="text-xs text-fg-muted">{s.label}</span>
-            <span className={`text-[22px] font-bold ${s.valueColor || "text-fg-primary"}`}>{s.value}</span>
-            <span className="text-[11px] text-fg-muted">{s.sub}</span>
+          <div key={s.label} className="bg-white rounded-2xl p-4 sm:p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-1.5 sm:gap-2 min-w-0">
+            <span className="text-[11px] sm:text-xs text-fg-muted truncate">{s.label}</span>
+            <span className={`text-base sm:text-lg lg:text-[22px] font-bold ${s.valueColor || "text-fg-primary"} truncate`}>{s.value}</span>
+            <span className="text-[10px] sm:text-[11px] text-fg-muted">{s.sub}</span>
           </div>
         ))}
       </div>
 
       {/* Execute Buyback Card */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
-        <div className="flex items-center justify-between">
+      <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-4 sm:gap-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <Flame className="h-5 w-5 text-[#EF4444]" />
-            <h2 className="text-lg font-bold text-fg-primary">Execute Buyback</h2>
+            <h2 className="text-base sm:text-lg font-bold text-fg-primary">Execute Buyback</h2>
           </div>
-          <span className="text-[11px] font-semibold text-[#EF4444] bg-[#FEF2F2] rounded-full px-3 py-1">Manual Trigger Required</span>
+          <span className="text-[11px] font-semibold text-[#EF4444] bg-[#FEF2F2] rounded-full px-3 py-1 self-start sm:self-auto">Manual Trigger Required</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -120,15 +120,15 @@ export default function BuybackBurnPage() {
       {/* Fee Distribution + Burn History Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Fee Distribution */}
-        <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <ChartPie className="h-5 w-5 text-accent-primary" />
             <h3 className="text-base font-bold text-fg-primary">Fee Distribution</h3>
           </div>
           {feeDistribution.map((item, i) => (
             <div key={item.label}>
-              <div className="flex items-center justify-between py-1">
-                <span className="text-[13px] text-fg-secondary">{item.label}</span>
+              <div className="flex items-center justify-between gap-2 py-1">
+                <span className="text-[12px] sm:text-[13px] text-fg-secondary min-w-0">{item.label}</span>
                 <span className="text-[13px] font-semibold text-fg-primary">{item.value}</span>
               </div>
               {i < feeDistribution.length - 1 && <div className="h-px bg-line-subtle mt-2" />}
@@ -137,7 +137,7 @@ export default function BuybackBurnPage() {
         </div>
 
         {/* Burn History */}
-        <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <History className="h-5 w-5 text-accent-primary" />
             <h3 className="text-base font-bold text-fg-primary">Burn History</h3>
@@ -178,24 +178,24 @@ export default function BuybackBurnPage() {
               <span className="text-xs text-fg-muted">Next</span>
             </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            <ExternalLink className="h-3.5 w-3.5 text-accent-primary" />
-            <span className="text-xs text-accent-primary font-mono font-medium">Burn Address: 0x000...dEaD</span>
-            <span className="text-xs text-accent-primary font-medium ml-2">View on BscScan</span>
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <ExternalLink className="h-3.5 w-3.5 text-accent-primary shrink-0" />
+            <span className="text-[11px] sm:text-xs text-accent-primary font-mono font-medium">Burn Address: 0x000...dEaD</span>
+            <span className="text-[11px] sm:text-xs text-accent-primary font-medium">View on BscScan</span>
           </div>
         </div>
       </div>
 
       {/* SANC Burn Trend Chart */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
-        <div className="flex items-center justify-between">
+      <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-[#EF4444]" />
             <h3 className="text-base font-bold text-fg-primary">SANC Burn Trend</h3>
           </div>
-          <span className="text-[13px] font-medium text-fg-muted">Total Burned: 1.72M SANC</span>
+          <span className="text-[12px] sm:text-[13px] font-medium text-fg-muted">Total Burned: 1.72M SANC</span>
         </div>
-        <div className="flex items-end gap-4 h-[200px]">
+        <div className="flex items-end gap-2 sm:gap-4 h-[150px] sm:h-[200px]">
           {burnTrend.map((bar) => (
             <div key={bar.month} className="flex-1 flex flex-col items-center justify-end h-full gap-1.5">
               <div className="w-full rounded-t bg-[#EF4444]" style={{ height: `${bar.height}%` }} />
