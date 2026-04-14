@@ -90,14 +90,14 @@ export default function CampaignDetailPage() {
         </span>
       </div>
 
-      <div className="px-12 py-8 flex flex-col gap-6">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-8 flex flex-col gap-6">
         {/* Back Link */}
         <Link href="/charity" className="text-sm text-fg-muted">← Back to Campaigns</Link>
 
         {/* Hero Bento */}
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* Campaign Image */}
-          <div className="w-[840px] h-[480px] rounded-2xl overflow-hidden">
+          <div className="w-full lg:w-[840px] h-[250px] sm:h-[350px] lg:h-[480px] rounded-2xl overflow-hidden">
             {campaign?.coverImage ? (
               <img
                 src={campaign.coverImage}
@@ -110,7 +110,7 @@ export default function CampaignDetailPage() {
           </div>
 
           {/* Campaign Info Card */}
-          <div className="flex-1 bg-white rounded-2xl p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
+          <div className="flex-1 bg-white rounded-2xl p-5 sm:p-8 flex flex-col gap-4 sm:gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
             {/* Verified Row */}
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-accent-primary" />
@@ -136,7 +136,7 @@ export default function CampaignDetailPage() {
             {/* Title */}
             <h1 className="text-[28px] font-bold text-fg-primary">{campaign?.name ?? "—"}</h1>
             {/* Stats Row */}
-            <div className="flex gap-6">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-6">
               {[
                 { value: `${raisedBNB} BNB`, label: "Raised" },
                 { value: `${goalBNB} BNB`, label: "Goal" },
@@ -186,9 +186,9 @@ export default function CampaignDetailPage() {
         {campaign?.gallery && campaign.gallery.length > 0 && (
           <div className="flex flex-col gap-3">
             <span className="text-base font-semibold text-fg-primary">Campaign Gallery</span>
-            <div className="flex gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               {campaign.gallery.slice(0, 4).map((url, i) => (
-                <div key={i} className="flex-1 h-[160px] rounded-xl overflow-hidden">
+                <div key={i} className="h-[120px] sm:h-[160px] rounded-xl overflow-hidden">
                   <img src={url} alt="" className="w-full h-full object-cover" />
                 </div>
               ))}
@@ -341,7 +341,7 @@ export default function CampaignDetailPage() {
 
         {/* Vote Panel — shown when there is an active under-review milestone */}
         {activeReviewMs && (
-          <div className="bg-[#0F172A] rounded-2xl p-8 flex flex-col gap-5">
+          <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-8 flex flex-col gap-5">
             <span className="text-[20px] font-bold text-white">Active Vote: {activeReviewMs.name}</span>
             <span className="text-sm text-white/70">Review the submitted proof and cast your vote.</span>
             {activeReviewMs.proofIPFS && (
@@ -353,7 +353,7 @@ export default function CampaignDetailPage() {
                 </span>
               </button>
             )}
-            <div className="flex gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
               {[
                 { val: `${activeReviewMs.approvalPercentage}%`, label: "Approval" },
                 { val: String(activeReviewMs.votesFor + activeReviewMs.votesAgainst), label: "Votes Cast" },
@@ -371,10 +371,10 @@ export default function CampaignDetailPage() {
                 </div>
               ))}
             </div>
-            <div className="flex gap-3">
-              <ComingSoonOverlay action="Vote"><button className="bg-accent-primary text-white text-sm font-semibold rounded-full px-8 py-3">Approve</button></ComingSoonOverlay>
-              <ComingSoonOverlay action="Vote"><button className="bg-red-600/50 text-white text-sm font-semibold rounded-full px-8 py-3">Reject</button></ComingSoonOverlay>
-              <ComingSoonOverlay action="Vote"><button className="bg-white/[0.13] text-white/80 text-sm font-semibold rounded-full px-8 py-3">Abstain</button></ComingSoonOverlay>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <ComingSoonOverlay action="Vote"><button className="bg-accent-primary text-white text-sm font-semibold rounded-full px-8 py-3 w-full sm:w-auto">Approve</button></ComingSoonOverlay>
+              <ComingSoonOverlay action="Vote"><button className="bg-red-600/50 text-white text-sm font-semibold rounded-full px-8 py-3 w-full sm:w-auto">Reject</button></ComingSoonOverlay>
+              <ComingSoonOverlay action="Vote"><button className="bg-white/[0.13] text-white/80 text-sm font-semibold rounded-full px-8 py-3 w-full sm:w-auto">Abstain</button></ComingSoonOverlay>
             </div>
             <span className="text-[11px] text-white/40 font-mono text-center">Requires 1M+ SANC staked to vote</span>
             <div className="flex items-center justify-center gap-3">

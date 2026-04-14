@@ -106,15 +106,15 @@ export default function ImpactDashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] overflow-hidden">
-      <div className="flex flex-col gap-6 px-12 py-8 max-w-[1440px] mx-auto">
+      <div className="flex flex-col gap-6 px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-8 max-w-[1440px] mx-auto">
 
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex flex-col gap-2 flex-1">
-            <h1 className="text-[32px] font-bold text-[#0F172A]">Impact Dashboard</h1>
-            <p className="text-[16px] text-[#475569]">Real-time transparency into every donation, milestone, and community vote on the SancCharity platform.</p>
+            <h1 className="text-xl sm:text-2xl md:text-[32px] font-bold text-[#0F172A]">Impact Dashboard</h1>
+            <p className="text-[14px] sm:text-[16px] text-[#475569]">Real-time transparency into every donation, milestone, and community vote on the SancCharity platform.</p>
           </div>
-          <button className="flex items-center gap-1.5 px-4 py-2 bg-[#E0F2FE] border border-[#0EA5E9]/10 rounded-full">
+          <button className="flex items-center gap-1.5 px-4 py-2 bg-[#E0F2FE] border border-[#0EA5E9]/10 rounded-full shrink-0">
             <Download className="h-3.5 w-3.5 text-[#0EA5E9]" />
             <span className="text-[13px] font-semibold text-[#0EA5E9]">Export Report</span>
           </button>
@@ -132,10 +132,10 @@ export default function ImpactDashboardPage() {
         </div>
 
         {/* Key Metrics */}
-        <div className="flex gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           {(impactQuery.isLoading || platformStatsQuery.isLoading)
             ? Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} className="flex-1 flex flex-col gap-2 p-6 rounded-2xl bg-white border border-black/[0.04]">
+                <div key={i} className="flex flex-col gap-2 p-5 sm:p-6 rounded-2xl bg-white border border-black/[0.04]">
                   <div className="skeleton h-9 w-9 rounded-full" />
                   <div className="skeleton h-3 w-20" />
                   <div className="skeleton h-8 w-full" />
@@ -145,7 +145,7 @@ export default function ImpactDashboardPage() {
             : stats.map((s) => {
                 const Icon = s.icon;
                 return (
-                  <div key={s.label} className={`flex-1 flex flex-col gap-2 p-6 rounded-2xl ${s.dark ? "bg-[#0F172A] shadow-[0_4px_24px_rgba(0,0,0,0.08)]" : "bg-white border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]"}`}>
+                  <div key={s.label} className={`flex flex-col gap-2 p-5 sm:p-6 rounded-2xl ${s.dark ? "bg-[#0F172A] shadow-[0_4px_24px_rgba(0,0,0,0.08)]" : "bg-white border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]"}`}>
                     <div className={`h-9 w-9 rounded-full flex items-center justify-center ${s.dark ? "bg-white/[0.13]" : "bg-[#E0F2FE]"}`}>
                       <Icon className={`h-[18px] w-[18px] ${s.dark ? "text-white/70" : "text-[#0EA5E9]"}`} />
                     </div>
@@ -172,9 +172,9 @@ export default function ImpactDashboardPage() {
         </div>
 
         {/* Charts Row */}
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* Category Breakdown */}
-          <div className="flex-1 flex flex-col gap-4 p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex-1 flex flex-col gap-4 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <span className="text-[18px] font-bold text-[#0F172A]">Donations by Category →</span>
             <div className="flex flex-col gap-2.5">
               {(categories as { name: string; pct: number; color: string }[]).map((cat) => (
@@ -191,12 +191,12 @@ export default function ImpactDashboardPage() {
           </div>
 
           {/* Monthly Trend */}
-          <div className="flex-1 flex flex-col gap-4 p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex-1 flex flex-col gap-4 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <span className="text-[18px] font-bold text-[#0F172A]">Monthly Donation Trend</span>
             <span className="text-[13px] text-[#94A3B8]">Last 6 months</span>
 
             {/* Simple Bar Chart */}
-            <div className="flex items-end gap-3 h-[200px]">
+            <div className="flex items-end gap-2 sm:gap-3 h-[140px] sm:h-[200px]">
               {(monthlyData as MonthlyItem[]).map((d) => (
                 <div key={d.month} className="flex-1 flex flex-col items-center gap-2">
                   <div className="w-full bg-[#0EA5E9] rounded-t-md" style={{ height: `${((d.amountUSD ?? d.amount ?? 0) / maxAmount) * 160}px` }} />
@@ -228,9 +228,9 @@ export default function ImpactDashboardPage() {
 
         {/* Completed Campaigns */}
         <span className="text-[22px] font-bold text-[#0F172A]">Completed Campaigns</span>
-        <div className="flex gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {completedCampaigns.map((c) => (
-            <div key={c.title} className="flex-1 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
+            <div key={c.title} className="bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
               <div className="h-40 overflow-hidden">
                 <img src={c.image} alt="" className="w-full h-full object-cover" />
               </div>
@@ -255,9 +255,9 @@ export default function ImpactDashboardPage() {
             <span className="text-[22px] font-bold text-[#0F172A]">Impact Stories</span>
             <p className="text-[14px] text-[#94A3B8] mt-1">Reports submitted by verified charities</p>
           </div>
-          <div className="flex gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {impactStories.map((s) => (
-              <div key={s.title} className="flex-1 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
+              <div key={s.title} className="bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
                 <div className={`h-40 bg-gradient-to-br ${s.gradient}`} />
                 <div className="p-5 flex flex-col gap-2">
                   <span className="text-[14px] font-semibold text-[#0F172A]">{s.title}</span>
@@ -270,9 +270,9 @@ export default function ImpactDashboardPage() {
         </div>
 
         {/* Leaderboard & Activity */}
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* Top Donors */}
-          <div className="flex-1 flex flex-col gap-3 p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex-1 flex flex-col gap-3 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="flex items-center justify-between">
               <span className="text-[18px] font-bold text-[#0F172A]">Top Donors</span>
               <span className="text-[13px] font-semibold text-[#0EA5E9] cursor-pointer">View All →</span>
@@ -293,7 +293,7 @@ export default function ImpactDashboardPage() {
           </div>
 
           {/* Recent Activity */}
-          <div className="flex-1 flex flex-col gap-3 p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex-1 flex flex-col gap-3 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="flex items-center justify-between">
               <span className="text-[18px] font-bold text-[#0F172A]">Recent Activity</span>
               <span className="text-[13px] font-semibold text-[#0EA5E9] cursor-pointer">View All →</span>
@@ -354,10 +354,10 @@ export default function ImpactDashboardPage() {
         </div>
 
         {/* Verification Banner */}
-        <div className="flex items-center gap-4 p-6 bg-[#0F172A] rounded-2xl">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 sm:p-6 bg-[#0F172A] rounded-2xl">
           <ShieldCheck className="h-6 w-6 text-white shrink-0" />
           <div className="flex-1 flex flex-col gap-1">
-            <span className="text-[16px] font-bold text-white">All data verified on BNB Smart Chain</span>
+            <span className="text-[14px] sm:text-[16px] font-bold text-white">All data verified on BNB Smart Chain</span>
             <span className="text-[13px] text-white/65">Every donation, vote, and milestone is permanently recorded on-chain. Verify any transaction on BscScan.</span>
           </div>
           <button className="px-5 py-2.5 bg-white rounded-full shrink-0">

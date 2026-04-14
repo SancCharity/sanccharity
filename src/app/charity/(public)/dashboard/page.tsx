@@ -72,13 +72,13 @@ export default function DonorDashboardPage() {
         </div>
       )}
 
-      <div className="flex flex-col gap-6 px-12 py-8 max-w-[1440px] mx-auto">
+      <div className="flex flex-col gap-6 px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-8 max-w-[1440px] mx-auto">
 
         {/* Welcome Header */}
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1.5 flex-1">
             <div className="flex items-center gap-2.5">
-              <h1 className="text-[32px] font-bold text-[#0F172A]">My Dashboard</h1>
+              <h1 className="text-xl sm:text-2xl md:text-[32px] font-bold text-[#0F172A]">My Dashboard</h1>
               {profile && (
                 <span className="flex items-center gap-1 px-3 py-1 bg-[#E0F2FE] rounded-full">
                   <Gem className="h-3.5 w-3.5 text-[#0EA5E9]" />
@@ -123,49 +123,49 @@ export default function DonorDashboardPage() {
         )}
 
         {/* Stats Row */}
-        <div className="flex gap-4">
-          <div className="flex-1 flex flex-col gap-2 p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="flex flex-col gap-2 p-5 sm:p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="h-9 w-9 rounded-full bg-[#E0F2FE] flex items-center justify-center">
               <Heart className="h-[18px] w-[18px] text-[#0EA5E9]" />
             </div>
             <span className="text-[13px] font-medium text-[#94A3B8]">Total Donated</span>
-            <span className="text-[28px] font-bold text-[#0F172A]">${(profile?.totalDonatedUSD ?? 0).toLocaleString()}</span>
+            <span className="text-lg sm:text-2xl md:text-[28px] font-bold text-[#0F172A]">${(profile?.totalDonatedUSD ?? 0).toLocaleString()}</span>
             <span className="text-[12px] text-[#475569]">Across {profile?.donationCount ?? 0} donations</span>
           </div>
 
-          <div className="flex-1 flex flex-col gap-2 p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex flex-col gap-2 p-5 sm:p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="h-9 w-9 rounded-full bg-[#E0F2FE] flex items-center justify-center">
               <Award className="h-[18px] w-[18px] text-[#0EA5E9]" />
             </div>
             <span className="text-[13px] font-medium text-[#94A3B8]">NFT Receipts</span>
-            <span className="text-[28px] font-bold text-[#0F172A]">{profile?.nftTokenIds.length ?? 0}</span>
+            <span className="text-lg sm:text-2xl md:text-[28px] font-bold text-[#0F172A]">{profile?.nftTokenIds.length ?? 0}</span>
             <span className="text-[12px] text-[#475569]">BEP-721 donation proofs</span>
           </div>
 
-          <div className="flex-1 flex flex-col gap-2 p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex flex-col gap-2 p-5 sm:p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="h-9 w-9 rounded-full bg-[#E0F2FE] flex items-center justify-center">
               <Layers className="h-[18px] w-[18px] text-[#0EA5E9]" />
             </div>
             <span className="text-[13px] font-medium text-[#94A3B8]">Campaigns Supported</span>
-            <span className="text-[28px] font-bold text-[#0F172A]">{profile?.campaignsSupported ?? 0}</span>
+            <span className="text-lg sm:text-2xl md:text-[28px] font-bold text-[#0F172A]">{profile?.campaignsSupported ?? 0}</span>
             <span className="text-[12px] text-[#0EA5E9]">{profile?.campaignsCompleted ?? 0} completed, {profile?.campaignsActive ?? 0} active</span>
           </div>
 
-          <div className="flex-1 flex flex-col gap-2 p-6 bg-[#0F172A] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+          <div className="flex flex-col gap-2 p-5 sm:p-6 bg-[#0F172A] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
             <div className="h-9 w-9 rounded-full bg-white/[0.13] flex items-center justify-center">
               <Flame className="h-[18px] w-[18px] text-white/70" />
             </div>
             <span className="text-[13px] font-medium text-white/50">SANC Fee Saved</span>
-            <span className="text-[28px] font-bold text-white">${(profile?.feeSaved ?? 0).toFixed(2)}</span>
+            <span className="text-lg sm:text-2xl md:text-[28px] font-bold text-white">${(profile?.feeSaved ?? 0).toFixed(2)}</span>
             <span className="text-[12px] text-white/50">50% discount with SANC</span>
           </div>
 
-          <div className="flex-1 flex flex-col gap-2 p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex flex-col gap-2 p-5 sm:p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="h-9 w-9 rounded-full bg-[#E0F2FE] flex items-center justify-center">
               <Coins className="h-[18px] w-[18px] text-[#0EA5E9]" />
             </div>
             <span className="text-[13px] font-medium text-[#94A3B8]">Governance</span>
-            <span className="text-[28px] font-bold text-[#0F172A]">
+            <span className="text-lg sm:text-2xl md:text-[28px] font-bold text-[#0F172A]">
               {profile ? `${(profile.votingPower / 1e9 / 1e6).toFixed(0)}M SANC` : "—"}
             </span>
             <Link href="/charity/governance" className="flex items-center gap-1.5">
@@ -206,39 +206,43 @@ export default function DonorDashboardPage() {
             </div>
           </div>
 
-          <div className="flex items-center px-7 py-3 bg-[#F0F9FF]">
-            <span className="flex-1 text-[12px] font-semibold text-[#94A3B8] uppercase">Campaign</span>
-            <span className="w-[140px] text-[12px] font-semibold text-[#94A3B8] uppercase">Amount</span>
-            <span className="w-[80px] text-[12px] font-semibold text-[#94A3B8] uppercase">Token</span>
-            <span className="w-[120px] text-[12px] font-semibold text-[#94A3B8] uppercase">Date</span>
-            <span className="w-[100px] text-[12px] font-semibold text-[#94A3B8] uppercase">Fee</span>
-            <span className="w-[60px] text-[12px] font-semibold text-[#94A3B8] uppercase">NFT</span>
-          </div>
-
-          {donations.length === 0 ? (
-            <div className="flex items-center justify-center h-24 px-7">
-              <span className="text-[14px] text-[#94A3B8]">No donations found</span>
-            </div>
-          ) : donations.map((d, i) => (
-            <div key={d.id}>
-              <div className={`flex items-center px-7 py-3.5 ${i % 2 === 1 ? "bg-[#F0F9FF]" : ""}`}>
-                <div className="flex-1 flex flex-col gap-0.5">
-                  <span className="text-[14px] font-medium text-[#0EA5E9]">{d.campaignName}</span>
-                  <span className="text-[12px] text-[#94A3B8]">{d.charityName}</span>
-                </div>
-                <span className="w-[140px] text-[14px] font-semibold text-[#0F172A]">{formatAmount(d.amount, d.tokenSymbol)}</span>
-                <span className="w-[80px] text-[14px] text-[#475569]">{d.tokenSymbol}</span>
-                <span className="w-[120px] text-[14px] text-[#475569]">{new Date(d.timestamp * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
-                <span className="w-[100px] text-[13px] text-[#94A3B8]">{formatAmount(d.feeAmount, d.tokenSymbol)}</span>
-                <div className="w-[60px] flex justify-center">
-                  <Link href={`/charity/nft/${d.nftTokenId}`}>
-                    <Award className="h-[18px] w-[18px] text-[#0EA5E9]" />
-                  </Link>
-                </div>
+          <div className="overflow-x-auto">
+            <div className="min-w-[640px]">
+              <div className="flex items-center px-5 sm:px-7 py-3 bg-[#F0F9FF]">
+                <span className="flex-1 text-[12px] font-semibold text-[#94A3B8] uppercase">Campaign</span>
+                <span className="w-[140px] text-[12px] font-semibold text-[#94A3B8] uppercase">Amount</span>
+                <span className="w-[80px] text-[12px] font-semibold text-[#94A3B8] uppercase">Token</span>
+                <span className="w-[120px] text-[12px] font-semibold text-[#94A3B8] uppercase">Date</span>
+                <span className="w-[100px] text-[12px] font-semibold text-[#94A3B8] uppercase">Fee</span>
+                <span className="w-[60px] text-[12px] font-semibold text-[#94A3B8] uppercase">NFT</span>
               </div>
-              {i < donations.length - 1 && <div className="h-px bg-black/[0.04]" />}
+
+              {donations.length === 0 ? (
+                <div className="flex items-center justify-center h-24 px-7">
+                  <span className="text-[14px] text-[#94A3B8]">No donations found</span>
+                </div>
+              ) : donations.map((d, i) => (
+                <div key={d.id}>
+                  <div className={`flex items-center px-5 sm:px-7 py-3.5 ${i % 2 === 1 ? "bg-[#F0F9FF]" : ""}`}>
+                    <div className="flex-1 flex flex-col gap-0.5">
+                      <span className="text-[14px] font-medium text-[#0EA5E9]">{d.campaignName}</span>
+                      <span className="text-[12px] text-[#94A3B8]">{d.charityName}</span>
+                    </div>
+                    <span className="w-[140px] text-[14px] font-semibold text-[#0F172A]">{formatAmount(d.amount, d.tokenSymbol)}</span>
+                    <span className="w-[80px] text-[14px] text-[#475569]">{d.tokenSymbol}</span>
+                    <span className="w-[120px] text-[14px] text-[#475569]">{new Date(d.timestamp * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+                    <span className="w-[100px] text-[13px] text-[#94A3B8]">{formatAmount(d.feeAmount, d.tokenSymbol)}</span>
+                    <div className="w-[60px] flex justify-center">
+                      <Link href={`/charity/nft/${d.nftTokenId}`}>
+                        <Award className="h-[18px] w-[18px] text-[#0EA5E9]" />
+                      </Link>
+                    </div>
+                  </div>
+                  {i < donations.length - 1 && <div className="h-px bg-black/[0.04]" />}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
 
           {/* Pagination */}
           <div className="flex items-center justify-center gap-2 py-4">
@@ -270,9 +274,9 @@ export default function DonorDashboardPage() {
             <span className="text-[22px] font-bold text-[#0F172A]">My Donation NFTs</span>
             <span className="text-[13px] font-semibold text-[#0EA5E9]">Total: {nfts.length}</span>
           </div>
-          <div className="flex gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {nfts.slice(0, 4).map((nft) => (
-              <Link key={nft.tokenId} href={`/charity/nft/${nft.tokenId}`} className="flex-1">
+              <Link key={nft.tokenId} href={`/charity/nft/${nft.tokenId}`}>
                 <div className="bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
                   <div className="h-[140px] bg-[#0F172A] flex items-center justify-center">
                     <Award className={`h-10 w-10 ${nft.donationTier === "Gold" ? "text-[#FFD700]" : nft.donationTier === "Silver" ? "text-[#C0C0C0]" : "text-[#CD7F32]"}`} />
@@ -293,8 +297,8 @@ export default function DonorDashboardPage() {
         </div>
 
         {/* Impact & Tax Row */}
-        <div className="flex gap-4">
-          <div className="flex-1 flex flex-col gap-4 p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+        <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex-1 flex flex-col gap-4 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <span className="text-[18px] font-bold text-[#0F172A]">My Impact</span>
             <div className="flex flex-col gap-3">
               {impact.map((cat) => {
@@ -315,7 +319,7 @@ export default function DonorDashboardPage() {
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col gap-5 p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex-1 flex flex-col gap-5 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="flex items-center gap-2">
               <FileText className="h-5 w-5 text-[#0EA5E9]" />
               <span className="text-[18px] font-bold text-[#0F172A]">Tax Receipts</span>
@@ -356,11 +360,11 @@ export default function DonorDashboardPage() {
         </div>
 
         {/* Verification Footer */}
-        <div className="flex items-center gap-4 p-6 bg-[#0F172A] rounded-2xl">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 sm:p-6 bg-[#0F172A] rounded-2xl">
           <ShieldCheck className="h-6 w-6 text-white shrink-0" />
           <div className="flex-1 flex flex-col gap-1">
-            <span className="text-[16px] font-bold text-white">Your donations are permanently recorded on-chain</span>
-            <span className="text-[13px] text-white/65">Every donation mints an ERC-721 NFT receipt with immutable proof. Verify any transaction on BscScan.</span>
+            <span className="text-[14px] sm:text-[16px] font-bold text-white">Your donations are permanently recorded on-chain</span>
+            <span className="text-[12px] sm:text-[13px] text-white/65">Every donation mints an ERC-721 NFT receipt with immutable proof. Verify any transaction on BscScan.</span>
           </div>
           <button className="px-5 py-2.5 bg-white rounded-full shrink-0">
             <span className="text-[13px] font-semibold text-[#0F172A]">View on BscScan</span>

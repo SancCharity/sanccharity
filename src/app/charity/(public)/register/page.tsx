@@ -113,7 +113,7 @@ function StepCharityInfo({ onNext }: { onNext: () => void }) {
         </div>
 
         {/* Website + Category row */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-[13px] font-semibold text-[#475569] mb-1.5">
               Website URL
@@ -386,7 +386,7 @@ export default function CharityRegisterPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex items-start justify-center pt-12 pb-16 px-4">
-      <div className="w-full max-w-[560px] bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04] p-10">
+      <div className="w-full max-w-[560px] bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04] p-5 sm:p-8 md:p-10">
         <StepIndicator current={step} />
 
         {step === 0 && <StepCharityInfo onNext={() => setStep(1)} />}

@@ -57,20 +57,20 @@ export default function GovernancePage() {
         </div>
       )}
 
-      <div className="flex flex-col gap-6 px-12 py-8 max-w-[1440px] mx-auto">
+      <div className="flex flex-col gap-6 px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-8 max-w-[1440px] mx-auto">
 
         {/* Page Header */}
         <div>
-          <h1 className="text-[32px] font-bold text-[#0F172A]">Governance Dashboard</h1>
+          <h1 className="text-xl sm:text-2xl md:text-[32px] font-bold text-[#0F172A]">Governance Dashboard</h1>
           <p className="text-[16px] text-[#475569] mt-2">Stake SANC tokens to participate in community governance. Vote on milestone releases and help ensure donation transparency.</p>
         </div>
 
         {/* Governance Stats */}
-        <div className="flex gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {govStats.map((s) => {
             const Icon = s.icon;
             return (
-              <div key={s.label} className="flex-1 flex items-center gap-2.5 px-5 py-4 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+              <div key={s.label} className="flex items-center gap-2.5 px-4 sm:px-5 py-4 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
                 <div className="h-8 w-8 rounded-full bg-[#E0F2FE] flex items-center justify-center shrink-0">
                   <Icon className="h-4 w-4 text-[#0EA5E9]" />
                 </div>
@@ -84,9 +84,9 @@ export default function GovernancePage() {
         </div>
 
         {/* Profile & Staking Row */}
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* Voter Profile (dark) */}
-          <div className="flex-1 flex flex-col gap-5 p-7 bg-[#0F172A] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+          <div className="flex-1 flex flex-col gap-5 p-5 sm:p-7 bg-[#0F172A] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
             <div className="flex items-center gap-4">
               <div className="h-14 w-14 rounded-full bg-[#38BDF8]" />
               <div className="flex flex-col gap-1">
@@ -99,14 +99,14 @@ export default function GovernancePage() {
               </div>
             </div>
 
-            <div className="flex gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               {[
                 { label: "Staked SANC", value: voterInfo ? (Number(voterInfo.stakedAmount) / 1e9).toLocaleString() : "—" },
                 { label: "Voting Power", value: voterInfo ? `${voterInfo.votingPower}x` : "—" },
                 { label: "Votes Cast", value: String(voterInfo?.votesCount ?? "—") },
                 { label: "Participation", value: voterInfo ? `${voterInfo.participationRate}%` : "—", gold: true },
               ].map((s) => (
-                <div key={s.label} className="flex-1 flex flex-col gap-1 p-4 bg-white/[0.07] rounded-xl">
+                <div key={s.label} className="flex flex-col gap-1 p-3 sm:p-4 bg-white/[0.07] rounded-xl">
                   <span className="text-[12px] text-white/50">{s.label}</span>
                   <span className={`text-[20px] font-bold ${s.gold ? "text-[#FFD700]" : "text-white"}`}>{s.value}</span>
                 </div>
@@ -124,7 +124,7 @@ export default function GovernancePage() {
           </div>
 
           {/* Stake/Unstake Panel */}
-          <div className="flex-1 flex flex-col gap-5 p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex-1 flex flex-col gap-5 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <span className="text-[18px] font-bold text-[#0F172A]">Stake SANC</span>
 
             <div className="flex bg-[#F0F9FF] rounded-xl">
@@ -262,9 +262,9 @@ export default function GovernancePage() {
         )}
 
         {/* History & Suggest */}
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* Vote History */}
-          <div className="flex-1 flex flex-col gap-3 p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex-1 flex flex-col gap-3 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="flex items-center justify-between">
               <span className="text-[18px] font-bold text-[#0F172A]">Vote History</span>
               <span className="text-[13px] font-semibold text-[#0EA5E9] cursor-pointer">View All →</span>
@@ -292,7 +292,7 @@ export default function GovernancePage() {
           </div>
 
           {/* Suggest Campaign */}
-          <div className="flex-1 flex flex-col gap-5 p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="flex-1 flex flex-col gap-5 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div className="flex items-center gap-3">
               <span className="text-[24px]">💡</span>
               <div className="flex flex-col">
@@ -328,10 +328,10 @@ export default function GovernancePage() {
         </div>
 
         {/* Governance Info Banner */}
-        <div className="flex items-center gap-4 p-6 bg-[#0F172A] rounded-2xl">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 sm:p-6 bg-[#0F172A] rounded-2xl">
           <ShieldCheck className="h-6 w-6 text-white shrink-0" />
           <div className="flex-1 flex flex-col gap-1">
-            <span className="text-[16px] font-bold text-white">Decentralized Governance on BSC</span>
+            <span className="text-[14px] sm:text-[16px] font-bold text-white">Decentralized Governance on BSC</span>
             <span className="text-[13px] text-white/65">All votes are recorded on-chain via the CharityGovernance smart contract. 14-day voting periods, 66% quorum requirement, 3-day unstake cooldown.</span>
           </div>
           <button className="px-5 py-2.5 bg-white rounded-full shrink-0">

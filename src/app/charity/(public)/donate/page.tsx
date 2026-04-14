@@ -94,7 +94,7 @@ function DonateContent() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      <div className="max-w-[1200px] mx-auto px-8 py-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-8">
         {/* Back link */}
         <Link
           href="/charity"
@@ -105,7 +105,7 @@ function DonateContent() {
         </Link>
 
         {/* Header */}
-        <h1 className="text-[32px] font-bold text-[#0F172A]">
+        <h1 className="text-xl sm:text-2xl md:text-[32px] font-bold text-[#0F172A]">
           Make a Donation
         </h1>
         <p className="text-[15px] text-[#475569] mt-1">
@@ -144,15 +144,15 @@ function DonateContent() {
         </div>
 
         {/* Two-column layout */}
-        <div className="flex gap-8 items-start">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
           {/* Left: Form */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 w-full">
             <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] p-8">
               {/* Token Selection */}
               <h3 className="text-[16px] font-semibold text-[#0F172A] mb-4">
                 Select Token
               </h3>
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {ACCEPTED_TOKENS.map((token) => {
                   const isSelected = selectedToken.symbol === token.symbol;
                   return (
@@ -250,7 +250,7 @@ function DonateContent() {
               </div>
 
               {/* Quick Amounts */}
-              <div className="grid grid-cols-4 gap-2 mt-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
                 {quickAmounts.map((qa) => (
                   <button
                     key={qa.value}
@@ -267,7 +267,7 @@ function DonateContent() {
               </div>
 
               {/* Percentage Buttons */}
-              <div className="grid grid-cols-4 gap-2 mt-2">
+              <div className="grid grid-cols-4 gap-2 mt-2 hidden sm:grid">
                 {percentages.map((pct) => (
                   <button
                     key={pct}
@@ -379,8 +379,8 @@ function DonateContent() {
           </div>
 
           {/* Right: Order Summary Sidebar */}
-          <div className="w-[400px] flex-shrink-0">
-            <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] p-6 sticky top-8">
+          <div className="w-full lg:w-[400px] flex-shrink-0">
+            <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] p-6 lg:sticky lg:top-8">
               <h3 className="text-[16px] font-semibold text-[#0F172A] mb-5">
                 Order Summary
               </h3>

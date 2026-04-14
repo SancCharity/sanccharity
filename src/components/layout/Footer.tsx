@@ -3,9 +3,9 @@ import { MessageCircle, Globe } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="px-12 pt-12 pb-8 flex flex-col gap-10">
-      <div className="flex gap-16">
-        <div className="flex flex-col gap-3.5 w-[320px]">
+    <footer className="px-4 sm:px-6 md:px-8 lg:px-12 pt-12 pb-8 flex flex-col gap-10">
+      <div className="flex flex-col md:flex-row gap-8 md:gap-16">
+        <div className="flex flex-col gap-3.5 w-full md:w-[320px]">
           <span className="text-[22px] font-bold text-[#0F172A]">SancCharity</span>
           <p className="text-[13px] text-[#94A3B8] leading-relaxed max-w-[290px]">Transparent charity on BSC. Milestone-based escrow. Community governance. NFT receipts for every donation.</p>
           <div className="flex gap-3.5">
@@ -15,7 +15,7 @@ export function Footer() {
             <Globe className="h-[18px] w-[18px] text-[#94A3B8]" />
           </div>
         </div>
-        <div className="flex-1 flex justify-between">
+        <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-4">
           <div className="flex flex-col gap-3">
             <span className="text-[11px] font-medium text-[#0F172A] tracking-wider uppercase">Platform</span>
             {[
@@ -50,9 +50,9 @@ export function Footer() {
         </div>
       </div>
       <div className="h-px bg-[#E2E8F0]" />
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
         <span className="text-xs text-[#94A3B8]">&copy; 2026 SancCharity. Sanctuary Token Ecosystem.</span>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 flex-wrap justify-center">
           <span className="text-xs text-[#94A3B8]">Powered by</span>
           <span className="text-xs font-semibold text-[#0EA5E9]">BSC</span>
           <span className="text-xs text-[#94A3B8]">&middot;</span>
