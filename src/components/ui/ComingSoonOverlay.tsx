@@ -21,7 +21,7 @@ export function ComingSoonOverlay({ action, children }: ComingSoonOverlayProps) 
 
   return (
     <>
-      <span onClick={handleClick} className="cursor-pointer inline-block">
+      <span onClick={handleClick} className="cursor-pointer block">
         {children}
       </span>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)} size="sm">

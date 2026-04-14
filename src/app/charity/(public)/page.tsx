@@ -52,11 +52,11 @@ export default function LandingPage() {
             <p className="text-sm sm:text-base lg:text-[17px] text-fg-secondary leading-relaxed max-w-[600px]">Milestone-based escrow. Community governance. NFT receipts. 8 cause categories. Full on-chain accountability.</p>
             <div className="flex flex-col sm:flex-row gap-3">
               <ComingSoonOverlay action="Connect wallet">
-                <button className="flex items-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5">
+                <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5">
                   <Wallet className="h-4 w-4" />Start Donating
                 </button>
               </ComingSoonOverlay>
-              <Link href="#how" className="flex items-center gap-2 bg-surface-primary text-fg-primary text-[15px] rounded-full px-8 py-3.5 border border-black/[0.04]">
+              <Link href="#how" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface-primary text-fg-primary text-[15px] rounded-full px-8 py-3.5 border border-black/[0.04]">
                 <Search className="h-4 w-4" />Browse Campaigns
               </Link>
             </div>
