@@ -46,10 +46,10 @@ export function DonationConfirmModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="modal-backdrop fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="modal-panel relative bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] w-full max-w-[480px] mx-4">
+      <div className="modal-panel relative bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] w-full max-w-[480px] mx-3 sm:mx-4">
         {/* Header */}
-        <div className="flex items-center justify-between px-8 pt-8 pb-4">
-          <h2 className="text-[22px] font-bold text-[#0F172A]">Confirm Donation</h2>
+        <div className="flex items-center justify-between px-5 sm:px-8 pt-6 sm:pt-8 pb-4">
+          <h2 className="text-lg sm:text-[22px] font-bold text-[#0F172A]">Confirm Donation</h2>
           <button
             onClick={onClose}
             className="h-9 w-9 rounded-lg bg-[#F0F9FF] flex items-center justify-center hover:bg-[#E0F2FE] transition-colors flex-shrink-0"
@@ -59,7 +59,7 @@ export function DonationConfirmModal({
         </div>
 
         {/* Summary card */}
-        <div className="px-8">
+        <div className="px-5 sm:px-8">
           <div className="rounded-xl bg-[#F0F9FF] p-5 flex flex-col gap-3.5">
             <span className="text-[15px] font-semibold text-[#0F172A]">{campaignName}</span>
 
@@ -98,7 +98,7 @@ export function DonationConfirmModal({
         </div>
 
         {/* Button row */}
-        <div className="px-8 pt-5 flex gap-3">
+        <div className="px-5 sm:px-8 pt-5 flex gap-3">
           <button
             onClick={onClose}
             className="flex-1 rounded-xl border border-[#E2E8F0] py-3.5 text-center text-[15px] font-semibold text-[#475569] hover:bg-[#F8FAFC] transition-colors"
@@ -113,7 +113,7 @@ export function DonationConfirmModal({
         </div>
 
         {/* Footer */}
-        <div className="px-8 pb-6 pt-4">
+        <div className="px-5 sm:px-8 pb-6 pt-4">
           <p className="text-xs text-[#94A3B8] text-center">
             This transaction is irreversible. Funds will be held in escrow until milestones are verified.
           </p>

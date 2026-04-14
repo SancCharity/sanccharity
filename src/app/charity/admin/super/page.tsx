@@ -593,7 +593,7 @@ export default function SuperAdminDashboard() {
 
       {showComingSoon && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center" onClick={() => setShowComingSoon(false)}>
-          <div className="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 flex flex-col gap-4" onClick={e => e.stopPropagation()}>
+          <div className="bg-white rounded-2xl p-5 sm:p-8 max-w-sm w-full mx-3 sm:mx-4 flex flex-col gap-4" onClick={e => e.stopPropagation()}>
             <span className="text-lg font-bold text-fg-primary">Coming Soon</span>
             <p className="text-sm text-fg-secondary">{comingSoonMessage}</p>
             <button onClick={() => setShowComingSoon(false)} className="bg-accent-primary text-white rounded-lg px-6 py-2.5 text-sm font-semibold">Got it</button>

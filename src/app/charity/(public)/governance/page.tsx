@@ -49,7 +49,7 @@ export default function GovernancePage() {
     <div className="min-h-screen bg-[#F8FAFC] overflow-hidden">
       {showComingSoon && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 flex flex-col gap-4 text-center shadow-card-dark">
+          <div className="bg-white rounded-2xl p-5 sm:p-8 max-w-sm mx-3 sm:mx-4 flex flex-col gap-4 text-center shadow-card-dark">
             <p className="text-lg font-bold text-fg-primary">Coming Soon</p>
             <p className="text-sm text-fg-secondary">{comingSoonMessage}</p>
             <button onClick={() => setShowComingSoon(false)} className="mt-2 px-6 py-2.5 bg-accent-primary text-fg-inverse rounded-full text-sm font-semibold">Got it</button>

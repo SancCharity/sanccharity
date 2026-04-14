@@ -42,7 +42,7 @@ export function TransactionSuccessModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="modal-backdrop fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="modal-panel relative w-[480px] bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex flex-col items-center gap-5 pt-8 pb-6 px-8">
+      <div className="modal-panel relative w-full max-w-[480px] bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex flex-col items-center gap-5 pt-6 sm:pt-8 pb-6 px-5 sm:px-8 mx-3 sm:mx-4">
         {/* Close */}
         <div className="w-full flex justify-end">
           <button
@@ -59,7 +59,7 @@ export function TransactionSuccessModal({
         </div>
 
         {/* Title */}
-        <h2 className="text-[22px] font-bold text-[#0F172A] text-center">Transaction Successful!</h2>
+        <h2 className="text-lg sm:text-[22px] font-bold text-[#0F172A] text-center">Transaction Successful!</h2>
 
         {/* Subtitle */}
         <p className="text-sm text-[#94A3B8] text-center">Your donation has been recorded on-chain</p>

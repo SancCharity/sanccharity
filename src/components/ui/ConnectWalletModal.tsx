@@ -60,11 +60,11 @@ export function ConnectWalletModal({ isOpen, onClose }: ConnectWalletModalProps)
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="modal-backdrop fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="modal-panel relative bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] w-full max-w-[480px] mx-4">
+      <div className="modal-panel relative bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] w-full max-w-[480px] mx-3 sm:mx-4">
         {/* Header */}
-        <div className="flex items-start justify-between px-8 pt-8 pb-2">
+        <div className="flex items-start justify-between px-5 sm:px-8 pt-6 sm:pt-8 pb-2">
           <div className="flex flex-col gap-1.5">
-            <h2 className="text-[22px] font-bold text-[#0F172A]">Connect Wallet</h2>
+            <h2 className="text-lg sm:text-[22px] font-bold text-[#0F172A]">Connect Wallet</h2>
             <p className="text-sm text-[#94A3B8]">Choose your preferred wallet to connect</p>
           </div>
           <button
@@ -76,7 +76,7 @@ export function ConnectWalletModal({ isOpen, onClose }: ConnectWalletModalProps)
         </div>
 
         {/* Wallet rows */}
-        <div className="px-8 py-4 flex flex-col gap-[10px]">
+        <div className="px-5 sm:px-8 py-4 flex flex-col gap-[10px]">
           {wallets.map((wallet) => {
             const Icon = wallet.icon;
             return (
@@ -95,7 +95,7 @@ export function ConnectWalletModal({ isOpen, onClose }: ConnectWalletModalProps)
         </div>
 
         {/* Footer */}
-        <div className="px-8 pb-6 pt-2">
+        <div className="px-5 sm:px-8 pb-6 pt-2">
           <p className="text-xs text-[#94A3B8] text-center">
             By connecting, you agree to our Terms of Service
           </p>

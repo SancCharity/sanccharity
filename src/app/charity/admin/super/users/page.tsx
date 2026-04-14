@@ -190,7 +190,7 @@ export default function UsersPage() {
       {/* Coming Soon Modal */}
       {showComingSoon && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 flex flex-col items-center gap-4">
+          <div className="bg-white rounded-2xl shadow-2xl p-5 sm:p-8 max-w-sm w-full mx-3 sm:mx-4 flex flex-col items-center gap-4">
             <div className="h-12 w-12 rounded-full bg-[#E0F2FE] flex items-center justify-center">
               <Shield className="h-6 w-6 text-accent-primary" />
             </div>

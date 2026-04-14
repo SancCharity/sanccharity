@@ -39,7 +39,7 @@ export function Modal({ isOpen, onClose, title, size = "md", children, footer }:
       <div className="modal-backdrop fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div
         className={cn(
-          "modal-panel relative bg-surface-secondary rounded-2xl shadow-card-dark max-h-[90vh] overflow-y-auto mx-4",
+          "modal-panel relative bg-surface-secondary rounded-2xl shadow-card-dark max-h-[85vh] sm:max-h-[90vh] overflow-y-auto mx-3 sm:mx-4",
           {
             "w-full max-w-sm": size === "sm",
             "w-full max-w-md": size === "md",
