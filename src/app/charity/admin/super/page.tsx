@@ -106,22 +106,22 @@ export default function SuperAdminDashboard() {
   }));
 
   return (
-    <div className="p-8 lg:px-10 lg:py-8" style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
+    <div className="p-4 sm:p-6 lg:px-10 lg:py-8 flex flex-col gap-5 sm:gap-7">
       {/* Top Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-[28px] font-bold text-fg-primary">Platform Administration</h1>
-          <p className="text-sm text-fg-muted">Contract owner dashboard — manage charities, campaigns, treasury & emergency controls</p>
+          <h1 className="text-xl sm:text-2xl lg:text-[28px] font-bold text-fg-primary">Platform Administration</h1>
+          <p className="text-xs sm:text-sm text-fg-muted">Contract owner dashboard — manage charities, campaigns, treasury & emergency controls</p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 rounded-full bg-[#F0F9FF] border border-accent-primary px-3 py-1.5">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="hidden sm:flex items-center gap-1.5 rounded-full bg-[#F0F9FF] border border-accent-primary px-3 py-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-[#22C55E]" />
             <span className="text-[11px] font-medium text-accent-primary">2 admins online</span>
           </div>
           <ComingSoonOverlay action="Emergency Pause All">
-            <button className="flex items-center gap-2 rounded-lg bg-[#FEF2F2] border border-[#FECACA] px-4 py-2.5">
+            <button className="flex items-center gap-2 rounded-lg bg-[#FEF2F2] border border-[#FECACA] px-3 sm:px-4 py-2 sm:py-2.5">
               <Octagon className="h-4 w-4 text-[#EF4444]" />
-              <span className="text-[13px] font-semibold text-[#EF4444]">Emergency Pause All</span>
+              <span className="text-[12px] sm:text-[13px] font-semibold text-[#EF4444]">Emergency Pause All</span>
             </button>
           </ComingSoonOverlay>
         </div>
@@ -135,7 +135,7 @@ export default function SuperAdminDashboard() {
               <span className="text-[13px] text-fg-muted">{stat.label}</span>
               <stat.icon className={`h-[18px] w-[18px] ${stat.iconColor}`} />
             </div>
-            <span className={`text-[28px] font-bold ${(stat as any).valueColor || "text-fg-primary"}`}>{stat.value}</span>
+            <span className={`text-lg sm:text-2xl lg:text-[28px] font-bold ${(stat as any).valueColor || "text-fg-primary"}`}>{stat.value}</span>
             <span className={`text-xs ${stat.changeColor}`}>{stat.change}</span>
           </div>
         ))}
@@ -152,8 +152,10 @@ export default function SuperAdminDashboard() {
           </div>
           <Link href="/charity/admin/super/kyc" className="text-[13px] font-semibold text-accent-primary hover:underline">View All →</Link>
         </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[760px]">
         {/* Column Headers */}
-        <div className="flex items-center px-6 py-2.5 bg-[#F0F9FF] text-xs font-semibold text-fg-muted">
+        <div className="flex items-center px-4 sm:px-6 py-2.5 bg-[#F0F9FF] text-xs font-semibold text-fg-muted">
           <span className="w-[280px]">Organization</span>
           <span className="w-[140px]">Submitted</span>
           <span className="w-[120px]">Documents</span>
@@ -167,7 +169,7 @@ export default function SuperAdminDashboard() {
           const dateStr = new Date(item.submittedAt * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
           return (
             <div key={item.charityId}>
-              <div className="flex items-center px-6 py-3.5">
+              <div className="flex items-center px-4 sm:px-6 py-3.5">
                 <div className="w-[280px] flex flex-col gap-0.5">
                   <span className="text-sm font-semibold text-fg-primary">{item.name}</span>
                   <span className="text-xs text-fg-muted">{item.website}</span>
@@ -201,6 +203,8 @@ export default function SuperAdminDashboard() {
             </div>
           );
         })}
+          </div>
+        </div>
       </div>
 
       {/* Charity Management */}
@@ -217,8 +221,10 @@ export default function SuperAdminDashboard() {
             <span className="text-[13px] text-fg-muted">Search charities...</span>
           </div>
         </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[880px]">
         {/* Column Headers */}
-        <div className="flex items-center px-6 py-2.5 bg-[#F0F9FF] text-xs font-semibold text-fg-muted">
+        <div className="flex items-center px-4 sm:px-6 py-2.5 bg-[#F0F9FF] text-xs font-semibold text-fg-muted">
           <span className="w-[260px]">Charity Name</span>
           <span className="w-[160px]">Wallet</span>
           <span className="w-[100px]">Campaigns</span>
@@ -293,6 +299,8 @@ export default function SuperAdminDashboard() {
             </div>
           );
         })}
+          </div>
+        </div>
       </div>
 
       {/* Campaign Moderation */}
@@ -304,8 +312,10 @@ export default function SuperAdminDashboard() {
           </div>
           <Link href="/charity/admin/super/campaigns" className="text-[13px] font-semibold text-accent-primary hover:underline">View All Campaigns →</Link>
         </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[760px]">
         {/* Column Headers */}
-        <div className="flex items-center px-6 py-2.5 bg-[#F0F9FF] text-xs font-semibold text-fg-muted">
+        <div className="flex items-center px-4 sm:px-6 py-2.5 bg-[#F0F9FF] text-xs font-semibold text-fg-muted">
           <span className="w-[300px]">Campaign</span>
           <span className="w-[180px]">Charity</span>
           <span className="w-[120px]">Raised</span>
@@ -380,6 +390,8 @@ export default function SuperAdminDashboard() {
             </div>
           );
         })}
+          </div>
+        </div>
       </div>
 
       {/* Buyback & Burn + Treasury Row */}

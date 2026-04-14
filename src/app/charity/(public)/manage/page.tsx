@@ -66,10 +66,10 @@ export default function CharityManagePage() {
         )}
 
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2.5">
-              <h1 className="text-2xl font-bold text-fg-primary">Welcome back, {dashboard?.name ?? "Your Charity"}</h1>
+            <div className="flex flex-wrap items-center gap-2.5">
+              <h1 className="text-lg sm:text-2xl font-bold text-fg-primary">Welcome back, {dashboard?.name ?? "Your Charity"}</h1>
               {isVerified && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-[#DCFCE7] px-2.5 py-0.5 text-xs font-semibold text-[#16A34A]">
                   <CircleCheck className="h-3 w-3" /> Verified Charity
@@ -115,20 +115,20 @@ export default function CharityManagePage() {
         </div>
 
         {/* Stats Row */}
-        <div className="flex gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {[
             { icon: DollarSign, label: "Total Raised", value: dashboard ? `$${dashboard.totalRaisedUSD.toLocaleString()}` : "—" },
             { icon: Megaphone, label: "Active Campaigns", value: String(dashboard?.activeCampaigns ?? "—") },
             { icon: CircleCheck, label: "Milestones Completed", value: dashboard ? `${dashboard.milestonesCompleted} / ${dashboard.milestonesTotal}` : "—" },
             { icon: UsersIcon, label: "Donor Count", value: dashboard ? dashboard.donorCount.toLocaleString() : "—" },
           ].map((stat) => (
-            <div key={stat.label} className="flex-1 flex items-center gap-4 bg-white rounded-2xl p-5 shadow-card border border-black/[0.04]">
+            <div key={stat.label} className="flex items-center gap-3 sm:gap-4 bg-white rounded-2xl p-4 sm:p-5 shadow-card border border-black/[0.04]">
               <div className="h-11 w-11 rounded-xl bg-[#E0F2FE] flex items-center justify-center">
                 <stat.icon className="h-[22px] w-[22px] text-accent-primary" />
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="text-xs font-medium text-fg-muted">{stat.label}</span>
-                <span className="text-[22px] font-bold font-mono text-fg-primary">{stat.value}</span>
+                <span className="text-base sm:text-[22px] font-bold font-mono text-fg-primary">{stat.value}</span>
               </div>
             </div>
           ))}
@@ -146,7 +146,9 @@ export default function CharityManagePage() {
               View token breakdown
             </div>
           </div>
-          <div className="flex px-6 py-2.5 bg-surface-sage text-[11px] font-semibold text-fg-muted uppercase">
+          <div className="overflow-x-auto">
+            <div className="min-w-[780px]">
+          <div className="flex px-4 sm:px-6 py-2.5 bg-surface-sage text-[11px] font-semibold text-fg-muted uppercase">
             <span className="w-[260px]">Campaign</span>
             <span className="w-[100px]">Category</span>
             <span className="w-[200px]">Progress</span>
@@ -162,7 +164,7 @@ export default function CharityManagePage() {
           {campaigns.map((c, i) => (
             <div key={c.id}>
               {i > 0 && <div className="h-px bg-line-subtle" />}
-              <div className="flex items-center px-6 py-3.5">
+              <div className="flex items-center px-4 sm:px-6 py-3.5">
                 <span className="w-[260px] text-[13px] font-semibold text-fg-primary">{c.name}</span>
                 <span className="w-[100px]">
                   <span className="inline-flex rounded-full px-2 py-0.5 text-[11px] font-medium bg-[#E0F2FE] text-accent-primary">{c.category}</span>
@@ -201,6 +203,8 @@ export default function CharityManagePage() {
               </div>
             </div>
           ))}
+            </div>
+          </div>
         </div>
 
         {/* Submit Milestone Proof */}
@@ -272,31 +276,35 @@ export default function CharityManagePage() {
               </button>
             </ComingSoonOverlay>
           </div>
-          <div className="flex px-6 py-2.5 bg-surface-sage text-xs font-semibold text-fg-muted">
-            <span className="w-[220px]">Report Title</span>
-            <span className="w-[180px]">Campaign</span>
-            <span className="w-[120px]">Date</span>
-            <span className="flex-1">Status</span>
-          </div>
-          <div className="flex items-center px-6 py-3.5">
-            <span className="w-[220px] text-[13px] font-medium text-fg-primary">Q1 2026 Impact Summary</span>
-            <span className="w-[180px] text-[13px] text-fg-secondary">Clean Water Initiative</span>
-            <span className="w-[120px] text-[13px] text-fg-secondary">Mar 30, 2026</span>
-            <span className="flex-1"><span className="rounded-full bg-[#DCFCE7] px-2.5 py-1 text-[11px] font-semibold text-[#16A34A]">Published</span></span>
-          </div>
-          <div className="h-px bg-line-subtle" />
-          <div className="flex items-center px-6 py-3.5">
-            <span className="w-[220px] text-[13px] font-medium text-fg-primary">Annual Donor Report 2025</span>
-            <span className="w-[180px] text-[13px] text-fg-secondary">Education for All</span>
-            <span className="w-[120px] text-[13px] text-fg-secondary">Mar 15, 2026</span>
-            <span className="flex-1"><span className="rounded-full bg-surface-sage px-2.5 py-1 text-[11px] font-semibold text-fg-muted">Draft</span></span>
+          <div className="overflow-x-auto">
+            <div className="min-w-[580px]">
+              <div className="flex px-4 sm:px-6 py-2.5 bg-surface-sage text-xs font-semibold text-fg-muted">
+                <span className="w-[220px]">Report Title</span>
+                <span className="w-[180px]">Campaign</span>
+                <span className="w-[120px]">Date</span>
+                <span className="flex-1">Status</span>
+              </div>
+              <div className="flex items-center px-4 sm:px-6 py-3.5">
+                <span className="w-[220px] text-[13px] font-medium text-fg-primary">Q1 2026 Impact Summary</span>
+                <span className="w-[180px] text-[13px] text-fg-secondary">Clean Water Initiative</span>
+                <span className="w-[120px] text-[13px] text-fg-secondary">Mar 30, 2026</span>
+                <span className="flex-1"><span className="rounded-full bg-[#DCFCE7] px-2.5 py-1 text-[11px] font-semibold text-[#16A34A]">Published</span></span>
+              </div>
+              <div className="h-px bg-line-subtle" />
+              <div className="flex items-center px-4 sm:px-6 py-3.5">
+                <span className="w-[220px] text-[13px] font-medium text-fg-primary">Annual Donor Report 2025</span>
+                <span className="w-[180px] text-[13px] text-fg-secondary">Education for All</span>
+                <span className="w-[120px] text-[13px] text-fg-secondary">Mar 15, 2026</span>
+                <span className="flex-1"><span className="rounded-full bg-surface-sage px-2.5 py-1 text-[11px] font-semibold text-fg-muted">Draft</span></span>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Stake + Verification Row */}
-        <div className="flex gap-5">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-5">
           {/* Stake Card */}
-          <div className="flex-1 bg-white rounded-2xl shadow-card border border-black/[0.04] p-6 flex flex-col gap-5">
+          <div className="flex-1 bg-white rounded-2xl shadow-card border border-black/[0.04] p-5 sm:p-6 flex flex-col gap-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <Coins className="h-5 w-5 text-accent-primary" />
@@ -339,7 +347,7 @@ export default function CharityManagePage() {
           </div>
 
           {/* Verification Status Card */}
-          <div className="flex-1 bg-white rounded-2xl shadow-card border border-black/[0.04] p-6 flex flex-col gap-5">
+          <div className="flex-1 bg-white rounded-2xl shadow-card border border-black/[0.04] p-5 sm:p-6 flex flex-col gap-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="h-9 w-9 rounded-lg bg-[#E0F2FE] flex items-center justify-center">
@@ -378,9 +386,9 @@ export default function CharityManagePage() {
         </div>
 
         {/* Multi-Sig + Annual Reports Row */}
-        <div className="flex gap-5">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-5">
           {/* Multi-Sig Card */}
-          <div className="flex-1 bg-white rounded-2xl shadow-card border border-black/[0.04] p-6 flex flex-col gap-5">
+          <div className="flex-1 bg-white rounded-2xl shadow-card border border-black/[0.04] p-5 sm:p-6 flex flex-col gap-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <ShieldCheck className="h-5 w-5 text-accent-primary" />
@@ -414,7 +422,7 @@ export default function CharityManagePage() {
           </div>
 
           {/* Annual Reports Card */}
-          <div className="flex-1 bg-white rounded-2xl shadow-card border border-black/[0.04] p-6 flex flex-col gap-5">
+          <div className="flex-1 bg-white rounded-2xl shadow-card border border-black/[0.04] p-5 sm:p-6 flex flex-col gap-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <FileText className="h-5 w-5 text-accent-primary" />
@@ -454,7 +462,7 @@ export default function CharityManagePage() {
         </div>
 
         {/* Funds Row: Released + Pending */}
-        <div className="flex gap-5">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-5">
           {/* Released Funds */}
           <div className="flex-1 bg-white rounded-2xl shadow-card border border-black/[0.04] p-6 flex flex-col gap-4">
             <div className="flex items-center gap-2.5">
