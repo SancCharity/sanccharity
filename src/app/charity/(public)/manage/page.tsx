@@ -53,7 +53,7 @@ export default function CharityManagePage() {
 
   return (
     <div className="bg-surface-primary min-h-screen">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-8 flex flex-col gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-8 flex flex-col gap-6">
 
         {/* Suspended Banner */}
         {isSuspended && (
