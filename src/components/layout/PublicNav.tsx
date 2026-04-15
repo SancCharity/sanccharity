@@ -39,8 +39,6 @@ export function PublicNav() {
       !!address &&
       MOCK_CHARITY_ADDRESSES.map((a) => a.toLowerCase()).includes(address.toLowerCase()));
 
-  const isAdmin = role === "admin";
-
   useEffect(() => {
     function handleOutsideClick(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -97,11 +95,6 @@ export function PublicNav() {
               {isCharityOwner && (
                 <Link href="/charity/manage" className={cn("px-4 py-2 text-sm font-medium rounded-lg transition-colors", isNavActive(pathname, "/charity/manage") ? "text-accent-primary font-semibold" : "text-fg-secondary hover:text-fg-primary")}>
                   Manage
-                </Link>
-              )}
-              {isAdmin && (
-                <Link href="/charity/admin/super" className="px-4 py-2 text-sm font-medium rounded-lg text-[#EF4444] hover:bg-[#FEE2E2] transition-colors">
-                  Admin
                 </Link>
               )}
             </div>
@@ -198,12 +191,6 @@ export function PublicNav() {
                 <Link href="/charity/manage" className={cn("flex items-center justify-between px-3 py-3 rounded-lg text-sm font-medium transition-colors", isNavActive(pathname, "/charity/manage") ? "bg-accent-light text-accent-primary font-semibold" : "text-fg-secondary hover:bg-surface-sage hover:text-fg-primary")}>
                   Manage Charity
                   {isNavActive(pathname, "/charity/manage") && <ChevronRight className="h-4 w-4" />}
-                </Link>
-              )}
-              {isAdmin && (
-                <Link href="/charity/admin/super" className="flex items-center justify-between px-3 py-3 rounded-lg text-sm font-medium text-[#EF4444] hover:bg-[#FEE2E2] transition-colors">
-                  Admin Dashboard
-                  <ChevronRight className="h-4 w-4" />
                 </Link>
               )}
             </nav>

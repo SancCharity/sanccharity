@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 const ROLES: { label: string; value: PreviewRole; href: string }[] = [
   { label: "Donor",   value: "donor",   href: "/charity/dashboard" },
   { label: "Charity", value: "charity", href: "/charity/manage" },
-  { label: "Admin",   value: "admin",   href: "/charity/admin/super" },
 ];
 
 export function PreviewBanner() {
