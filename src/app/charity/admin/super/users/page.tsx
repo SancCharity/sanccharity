@@ -57,7 +57,7 @@ export default function UsersPage() {
   ];
 
   return (
-    <div className="p-4 sm:p-6 lg:px-10 lg:py-8">
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-7">
         <div className="flex flex-col gap-1">

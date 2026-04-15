@@ -90,7 +90,7 @@ export default function CampaignsPage() {
   const [activeTab, setActiveTab] = useState("All (124)");
 
   return (
-    <div className="flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
+    <div className="max-w-7xl mx-auto flex flex-col gap-7 p-4 sm:p-6 lg:px-10 lg:py-8">
       {/* Top Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
