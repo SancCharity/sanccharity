@@ -172,19 +172,34 @@ export default function LandingPage() {
       <section data-fade-up id="how" className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">How It Works</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Three Steps to Transparent Giving</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto w-full">
+
+        <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto w-full">
+          {/* Dashed connector line — desktop only, sits behind the circles */}
+          <div className="hidden sm:block absolute top-8 left-[16.67%] right-[16.67%] h-0 border-t-2 border-dashed border-accent-primary/30" />
+
+          {/* Vertical connector — mobile only */}
+          <div className="sm:hidden absolute top-16 bottom-16 left-8 w-0 border-l-2 border-dashed border-accent-primary/25" />
+
           {[
             { icon: Wallet, num: "01", title: "Connect Your Wallet", desc: "Link your BSC wallet. We support BNB, SANC, USDT, and BUSD for maximum flexibility." },
             { icon: Search, num: "02", title: "Choose a Cause", desc: "Browse campaigns across 8 categories. Every charity stakes 10M SANC and passes KYC verification before listing." },
             { icon: Shield, num: "03", title: "Track Your Impact", desc: "Get an NFT receipt. Vote on milestone releases. Watch your donation create real, verified change on-chain." },
           ].map((step) => (
-            <div key={step.num} className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-4 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
-              <div className="h-12 w-12 rounded-full bg-accent-primary flex items-center justify-center">
-                <step.icon className="h-6 w-6 text-white" />
+            <div key={step.num} className="flex sm:flex-col items-start sm:items-center gap-5 sm:gap-4 text-left sm:text-center">
+              {/* Circle node — boxShadow ring in section bg color visually "cuts" the connector line */}
+              <div
+                className="relative z-10 flex-shrink-0 h-16 w-16 rounded-full bg-white border-2 border-accent-primary/40 flex items-center justify-center"
+                style={{ boxShadow: "0 0 0 8px #F0F9FF, 0 4px 20px rgba(14,165,233,0.15)" }}
+              >
+                <step.icon className="h-6 w-6 text-accent-primary" />
               </div>
-              <span className="text-[40px] font-bold text-accent-primary">{step.num}</span>
-              <span className="text-[20px] font-semibold text-fg-primary">{step.title}</span>
-              <p className="text-[15px] text-fg-secondary leading-relaxed">{step.desc}</p>
+              <div className="flex flex-col gap-2 sm:items-center">
+                <span className="inline-flex items-center bg-accent-light rounded-full px-2.5 py-1 text-[10px] font-mono font-bold text-accent-primary tracking-[0.12em]">
+                  STEP {step.num}
+                </span>
+                <span className="text-[18px] font-bold text-fg-primary leading-tight">{step.title}</span>
+                <p className="text-[14px] text-fg-secondary leading-relaxed">{step.desc}</p>
+              </div>
             </div>
           ))}
         </div>
