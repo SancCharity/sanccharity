@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
 import { useCharity } from "@/hooks/useCharity";
@@ -39,6 +39,27 @@ export default function LandingPage() {
   const { campaigns, platformStats, recentDonations, isLoading, isError } = useCharity(filters);
   const now = Math.floor(Date.now() / 1000);
 
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>("[data-fade-up]");
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const el = e.target as HTMLElement;
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+          obs.unobserve(el);
+        }
+      }),
+      { threshold: 0.08 }
+    );
+    els.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(24px)";
+      el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+      obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -87,7 +108,7 @@ export default function LandingPage() {
               <span className="text-sm text-fg-muted">BNB</span>
             </div>
             <div className="h-1.5 bg-surface-primary rounded-full overflow-hidden">
-              <div className="h-full w-[60%] bg-accent-primary rounded-full" />
+              <div className="h-full bar-fill bg-accent-primary rounded-full" style={{ "--bar-w": "60%" } as React.CSSProperties} />
             </div>
             <div className="flex justify-between mt-1.5">
               <span className="text-[10px] text-fg-muted">60% of goal</span>
@@ -96,7 +117,7 @@ export default function LandingPage() {
           </div>
 
           {/* Card 2 — Platform stats (elevated on desktop only) */}
-          <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.08)] sm:shadow-[0_16px_60px_rgba(0,0,0,0.12)] border border-black/[0.04] sm:[transform:translateY(-16px)]">
+          <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.08)] sm:shadow-[0_16px_60px_rgba(0,0,0,0.12)] border border-black/[0.04] card-float">
             <p className="text-[10px] font-mono text-fg-muted uppercase tracking-wider mb-4">Platform Impact</p>
             <div className="flex flex-col gap-3">
               {[
@@ -126,7 +147,7 @@ export default function LandingPage() {
               <span className="text-[14px] font-bold text-accent-primary">72%</span>
             </div>
             <div className="h-1.5 bg-surface-primary rounded-full overflow-hidden">
-              <div className="h-full w-[72%] bg-accent-primary rounded-full" />
+              <div className="h-full bar-fill bg-accent-primary rounded-full" style={{ "--bar-w": "72%" } as React.CSSProperties} />
             </div>
             <div className="flex items-center justify-between mt-1.5">
               <span className="text-[10px] text-fg-muted">156 votes cast</span>
@@ -148,7 +169,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 02 HOW IT WORKS ===== */}
-      <section id="how" className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
+      <section data-fade-up id="how" className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">How It Works</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Three Steps to Transparent Giving</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto w-full">
@@ -170,7 +191,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 03 FEATURED CAMPAIGNS ===== */}
-      <section id="campaigns" className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section data-fade-up id="campaigns" className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Featured Campaigns</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Verified Causes Making Real Impact</h2>
 
@@ -273,7 +294,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 04 DONATION FLOW ===== */}
-      <section className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section data-fade-up className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Donation Experience</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Donate in Any Token. Pay Less with SANC.</h2>
         <p className="text-base text-fg-secondary text-center max-w-2xl">Multi-token support with transparent fee breakdown. SANC holders get 50% off platform fees.</p>
@@ -364,7 +385,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 05 IMPACT DASHBOARD ===== */}
-      <section className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
+      <section data-fade-up className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
         <span className="bg-surface-primary rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Platform Impact</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Transparency in Numbers</h2>
 
@@ -415,7 +436,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 06 GOVERNANCE & VOTING ===== */}
-      <section className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section data-fade-up className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Governance &amp; Voting</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Community-Powered<br />Fund Releases</h2>
         <p className="text-base text-fg-secondary text-center max-w-2xl">Stake SANC tokens to gain voting power. Approve or reject milestone fund releases. 66% quorum required. 14-day voting windows.</p>
@@ -473,7 +494,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 07 NFT & TRANSPARENCY ===== */}
-      <section className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section data-fade-up className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-surface-primary rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">NFT Receipts &amp; Security</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center leading-[1.15]">Immutable Proof.<br />Audited Security.</h2>
 
@@ -541,7 +562,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 08 FOR CHARITIES ===== */}
-      <section className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section data-fade-up className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">For Charities</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Register Your Charity.<br />Reach Global Donors.</h2>
         <p className="text-base text-fg-secondary text-center max-w-2xl">Stake 10M SANC to register. Pass KYC verification. Create milestone-based campaigns across 8 categories.</p>
@@ -581,7 +602,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 09 FINAL CTA ===== */}
-      <section className="px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+      <section data-fade-up className="px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="max-w-7xl mx-auto rounded-2xl px-6 sm:px-10 lg:px-16 py-12 lg:py-20 flex flex-col items-center gap-6 text-center" style={{ backgroundImage: "linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&q=80')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <h2 className="text-2xl sm:text-3xl lg:text-[44px] font-bold text-white">Start Your Transparent<br />Giving Journey</h2>
           <p className="text-sm sm:text-base lg:text-[17px] text-white/70 max-w-2xl">Connect your wallet. Choose a verified cause. Every dollar tracked on-chain. Every milestone community-verified.</p>
