@@ -5,12 +5,12 @@ import Link from "next/link";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
 import { useCharity } from "@/hooks/useCharity";
 import type { CampaignFilters } from "@/hooks/useCharity";
-import { CampaignCategory, CharityStatus } from "@/types/charity";
+import { CampaignCategory, CharityStatus, MilestoneStatus } from "@/types/charity";
 import { CampaignCardSkeleton, StatCardSkeleton } from "@/components/ui/Skeleton";
 import {
   Wallet, Search, Target, Flame, DollarSign, Users, Shield,
   Award, FileText, ExternalLink, Lock, Undo, BadgeCheck,
-  Coins, UserCheck,
+  Coins, UserCheck, ChevronRight,
   CircleCheck, Hexagon, TriangleAlert,
 } from "lucide-react";
 
@@ -36,6 +36,7 @@ const topDonors = [
 export default function LandingPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [filters, setFilters] = useState<CampaignFilters>({ page: 1, pageSize: 9 });
+  const [selectedId, setSelectedId] = useState<string>("");
   const { campaigns, platformStats, recentDonations, isLoading, isError } = useCharity(filters);
   const now = Math.floor(Date.now() / 1000);
 
@@ -206,26 +207,22 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 03 FEATURED CAMPAIGNS ===== */}
-      <section data-fade-up id="campaigns" className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Featured Campaigns</span>
-        <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Verified Causes Making Real Impact</h2>
-
-        {/* Search + Filters */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 max-w-7xl mx-auto w-full">
-          <div className="flex items-center gap-2 bg-white border border-[#E2E8F0] rounded-full px-4 py-2">
-            <Search className="h-4 w-4 text-fg-muted" />
-            <span className="text-[13px] text-fg-muted">Search campaigns...</span>
+      <section data-fade-up id="campaigns" className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <div className="max-w-7xl mx-auto flex flex-col gap-6 lg:gap-8">
+          {/* Header */}
+          <div className="flex flex-col items-center gap-3">
+            <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Featured Campaigns</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Verified Causes Making Real Impact</h2>
           </div>
+
+          {/* Category filters */}
           <div className="flex gap-2 flex-wrap">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => {
                   setActiveCategory(cat);
-                  setFilters(f => ({
-                    ...f,
-                    category: cat === "All" ? undefined : cat as CampaignCategory,
-                  }));
+                  setFilters(f => ({ ...f, category: cat === "All" ? undefined : cat as CampaignCategory }));
                 }}
                 className={`px-4 py-1.5 rounded-full text-[13px] transition-colors ${
                   activeCategory === cat ? "bg-accent-primary text-white" : "bg-white text-fg-secondary"
@@ -235,76 +232,138 @@ export default function LandingPage() {
               </button>
             ))}
           </div>
-        </div>
 
-        {/* Campaign Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
-          {isLoading && Array.from({ length: 3 }).map((_, i) => (
-            <div key={i}>
-              <CampaignCardSkeleton />
+          {/* Loading skeletons */}
+          {isLoading && (
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+              <div className="lg:w-[400px] flex-shrink-0 flex flex-col gap-2">
+                {Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-[72px] rounded-xl skeleton" />)}
+              </div>
+              <div className="flex-1 h-[440px] rounded-2xl skeleton" />
             </div>
-          ))}
+          )}
+
+          {/* Error */}
           {isError && (
-            <div className="flex flex-col items-center justify-center py-24 gap-4 w-full">
-              <div className="h-12 w-12 rounded-full bg-[#FEE2E2] flex items-center justify-center">
-                <TriangleAlert className="h-6 w-6 text-[#DC2626]" />
+            <div className="flex flex-col items-center justify-center py-24 gap-4">
+              <div className="h-12 w-12 rounded-full bg-error-bg flex items-center justify-center">
+                <TriangleAlert className="h-6 w-6 text-error" />
               </div>
               <p className="text-lg font-semibold text-fg-primary">Something went wrong</p>
               <p className="text-sm text-fg-muted">Failed to load campaigns. Please try again.</p>
             </div>
           )}
-          {!isLoading && !isError && campaigns.map((c) => {
-            const pct = Math.min(100, Math.max(0, (parseFloat(c.totalRaised) / parseFloat(c.totalGoal)) * 100));
-            const daysLeft = Math.max(0, Math.ceil((c.deadline - now) / 86400));
-            const raised = "$" + (c.totalRaisedUSD / 1000).toFixed(0) + "K";
-            const goal = "$" + (c.totalGoalUSD / 1000).toFixed(0) + "K";
+
+          {/* Two-column layout */}
+          {!isLoading && !isError && campaigns.length > 0 && (() => {
+            const selected = campaigns.find(c => c.id === selectedId) ?? campaigns[0];
+            const pct = Math.min(100, Math.max(0, (parseFloat(selected.totalRaised) / parseFloat(selected.totalGoal)) * 100));
+            const daysLeft = Math.max(0, Math.ceil((selected.deadline - now) / 86400));
+            const completedMs = selected.milestones.filter(m => m.status === MilestoneStatus.Released).length;
             return (
-              <div key={c.id} className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
-                <div className="h-[200px] overflow-hidden">
-                  <img src={c.coverImage} alt="" className="w-full h-full object-cover" />
+              <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+
+                {/* Left: compact ranked list */}
+                <div className="lg:w-[400px] flex-shrink-0 bg-white rounded-2xl p-2 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
+                  {campaigns.map((c, i) => {
+                    const cpct = Math.min(100, Math.max(0, (parseFloat(c.totalRaised) / parseFloat(c.totalGoal)) * 100));
+                    const isActive = (selectedId ? selectedId === c.id : i === 0);
+                    return (
+                      <button
+                        key={c.id}
+                        onClick={() => setSelectedId(c.id)}
+                        className={`flex items-center gap-3 p-3 rounded-xl text-left transition-all w-full border-l-[3px] ${
+                          isActive ? "bg-accent-light border-accent-primary" : "border-transparent hover:bg-surface-primary"
+                        }`}
+                      >
+                        <span className="text-[10px] font-mono text-fg-muted w-4 text-center flex-shrink-0">{String(i + 1).padStart(2, "0")}</span>
+                        <div className="h-11 w-14 rounded-lg overflow-hidden flex-shrink-0">
+                          <img src={c.coverImage} alt="" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className={`text-[13px] font-semibold truncate ${isActive ? "text-accent-primary" : "text-fg-primary"}`}>{c.name}</p>
+                          <p className="text-[11px] text-fg-muted truncate">{c.charity.name}</p>
+                          <div className="flex items-center gap-1.5 mt-1.5">
+                            <div className="flex-1 h-1 bg-surface-primary rounded-full overflow-hidden">
+                              <div className="h-full bg-accent-primary rounded-full" style={{ width: `${cpct}%` }} />
+                            </div>
+                            <span className="text-[10px] font-mono text-fg-muted flex-shrink-0">{cpct.toFixed(0)}%</span>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-end flex-shrink-0 gap-0.5">
+                          <span className="text-[12px] font-bold text-fg-primary">${(c.totalRaisedUSD / 1000).toFixed(0)}K</span>
+                          <span className="text-[10px] text-fg-muted">{c.category}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
-                <div className="p-6 flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="bg-surface-primary text-fg-secondary text-[11px] font-mono rounded-full px-3 py-1">{c.category}</span>
-                    {c.charity.status === CharityStatus.Verified && (
-                      <span className="flex items-center gap-1 text-accent-primary text-[11px] font-mono">
-                        <CircleCheck className="h-3 w-3" />Verified
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-base font-semibold text-fg-primary">{c.name}</h3>
-                  <span className="text-[13px] text-fg-muted">{c.charity.name}</span>
-                  {/* Progress */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="h-2 bg-surface-primary rounded-full overflow-hidden">
-                      <div className="h-full bg-accent-primary rounded-full" style={{ width: `${pct}%` }} />
+
+                {/* Right: detail panel */}
+                <div className="flex-1 lg:sticky lg:top-8 h-fit">
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04]">
+                    {/* Cover with gradient overlay */}
+                    <div className="relative h-[200px] lg:h-[220px] overflow-hidden">
+                      <img src={selected.coverImage} alt="" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute bottom-0 left-0 p-5 w-full">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[11px] bg-white/20 text-white rounded-full px-2.5 py-1 backdrop-blur-sm font-mono">{selected.category}</span>
+                          {selected.charity.status === CharityStatus.Verified && (
+                            <span className="flex items-center gap-1 text-white/90 text-[11px]">
+                              <CircleCheck className="h-3 w-3" />Verified
+                            </span>
+                          )}
+                        </div>
+                        <h3 className="text-[18px] font-bold text-white leading-tight">{selected.name}</h3>
+                        <p className="text-sm text-white/70 mt-0.5">{selected.charity.name}</p>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[13px] font-semibold text-fg-primary">{raised} raised</span>
-                      <span className="text-[11px] text-fg-muted font-mono">{pct.toFixed(0)}%</span>
+
+                    <div className="p-5 flex flex-col gap-4">
+                      {/* Raised + progress */}
+                      <div>
+                        <div className="flex justify-between items-baseline mb-1.5">
+                          <span className="text-[22px] font-bold text-fg-primary">${(selected.totalRaisedUSD / 1000).toFixed(1)}K</span>
+                          <span className="text-[13px] text-fg-muted">of ${(selected.totalGoalUSD / 1000).toFixed(0)}K goal</span>
+                        </div>
+                        <div className="h-2 bg-surface-primary rounded-full overflow-hidden">
+                          <div className="h-full bg-accent-primary rounded-full transition-all duration-500" style={{ width: `${pct}%` }} />
+                        </div>
+                        <p className="text-[11px] text-fg-muted mt-1 font-mono">{pct.toFixed(0)}% funded</p>
+                      </div>
+
+                      {/* Stats */}
+                      <div className="grid grid-cols-3 gap-2">
+                        {[
+                          { label: "Donors",     value: String(selected.donorCount) },
+                          { label: "Days Left",  value: `${daysLeft}d`              },
+                          { label: "Milestones", value: `${completedMs}/${selected.milestones.length}` },
+                        ].map((s) => (
+                          <div key={s.label} className="bg-surface-primary rounded-xl py-3 flex flex-col items-center gap-1">
+                            <span className="text-[16px] font-bold text-fg-primary">{s.value}</span>
+                            <span className="text-[10px] text-fg-muted">{s.label}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* CTAs */}
+                      <Link
+                        href={`/charity/campaign/${selected.id}`}
+                        className="flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full py-3 shadow-[0_4px_20px_rgba(14,165,233,0.3)]"
+                      >
+                        <Wallet className="h-4 w-4" />Donate to this Campaign
+                      </Link>
+                      <Link href="/charity#campaigns" className="flex items-center justify-center gap-1 text-[13px] text-fg-muted hover:text-fg-secondary transition-colors">
+                        View all campaigns <ChevronRight className="h-3.5 w-3.5" />
+                      </Link>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between text-[11px] text-fg-muted font-mono">
-                    <span>Goal: {goal}</span>
-                    <span>{c.donorCount} donors</span>
-                    <span>{daysLeft}d left</span>
-                  </div>
-                  <Link href={`/charity/campaign/${c.id}`} className="flex items-center justify-center bg-accent-primary text-white text-sm font-semibold rounded-full py-3 mt-1">
-                    Donate Now
-                  </Link>
                 </div>
+
               </div>
             );
-          })}
-        </div>
-
-        {/* Status Filters */}
-        <div className="flex items-center gap-2">
-          {["All Campaigns", "Active", "Completed", "Featured"].map((f, i) => (
-            <button key={f} className={`px-4 py-1.5 rounded-full text-xs ${i === 0 ? "bg-accent-primary text-white font-semibold" : "bg-white text-fg-secondary border border-[#E2E8F0]"}`}>
-              {f}
-            </button>
-          ))}
+          })()}
         </div>
       </section>
 
