@@ -39,43 +39,111 @@ export default function LandingPage() {
   const { campaigns, platformStats, recentDonations, isLoading, isError } = useCharity(filters);
   const now = Math.floor(Date.now() / 1000);
 
+
   return (
     <div className="min-h-screen">
       {/* ===== 01 HERO ===== */}
-      <section className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
-        {/* Hero Grid */}
-        <div className="flex flex-col lg:flex-row gap-4 max-w-7xl mx-auto">
-          {/* Left Tile */}
-          <div className="w-full lg:w-[720px] bg-white rounded-2xl px-5 sm:px-8 lg:px-10 py-8 lg:py-12 flex flex-col gap-5 lg:gap-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
-            <span className="inline-flex self-start bg-surface-primary rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Transparent Charity on BSC</span>
-            <h1 className="text-2xl sm:text-4xl lg:text-[52px] font-bold text-fg-primary leading-[3.5rem]">Where Every Donation Finds Its Purpose</h1>
-            <p className="text-sm sm:text-base lg:text-[17px] text-fg-secondary leading-relaxed max-w-[600px]">Milestone-based escrow. Community governance. NFT receipts. 8 cause categories. Full on-chain accountability.</p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <ComingSoonOverlay action="Connect wallet">
-                <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5">
-                  <Wallet className="h-4 w-4" />Start Donating
-                </button>
-              </ComingSoonOverlay>
-              <Link href="#how" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface-primary text-fg-primary text-[15px] rounded-full px-8 py-3.5 border border-black/[0.04]">
-                <Search className="h-4 w-4" />Browse Campaigns
-              </Link>
+      <section className="bg-white border-b border-line-subtle px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
+        {/* Badge */}
+        <span className="inline-flex items-center gap-1.5 bg-accent-light text-accent-primary rounded-full px-4 py-1.5 text-xs font-mono">
+          <Hexagon className="h-3 w-3" />Transparent Charity on BSC
+        </span>
+
+        {/* Headline — no forced break on mobile, natural wrap */}
+        <h1 className="text-[32px] sm:text-5xl lg:text-[64px] font-bold text-fg-primary text-center leading-[1.1] max-w-[800px]">
+          Where Every Donation<span className="hidden sm:inline"><br /></span>{" "}Finds Its Purpose
+        </h1>
+
+        {/* Subtext */}
+        <p className="text-[15px] lg:text-[18px] text-fg-secondary text-center max-w-[520px] leading-relaxed -mt-1">
+          Milestone-based escrow. Community governance. NFT receipts. Full on-chain accountability.
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <ComingSoonOverlay action="Connect wallet">
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5 hover:bg-accent-primary/90 transition-colors shadow-[0_4px_24px_rgba(14,165,233,0.35)]">
+              <Wallet className="h-4 w-4" />Start Donating
+            </button>
+          </ComingSoonOverlay>
+          <Link href="#campaigns" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface-primary text-fg-primary text-[15px] rounded-full px-8 py-3.5 border border-line-subtle hover:bg-white transition-colors">
+            <Search className="h-4 w-4" />Browse Campaigns
+          </Link>
+        </div>
+
+        {/* Cards — stack on mobile (no transforms), arc on desktop */}
+        <div className="flex flex-col sm:flex-row sm:items-end gap-4 w-full max-w-[860px] mt-1">
+          {/* Card 1 — Donation receipt */}
+          <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04] sm:[transform:rotate(-1.5deg)]">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="h-6 w-6 rounded-full bg-[#DCFCE7] flex items-center justify-center flex-shrink-0">
+                <CircleCheck className="h-3.5 w-3.5 text-[#16A34A]" />
+              </div>
+              <span className="text-[12px] font-semibold text-fg-primary">Donation Confirmed</span>
+            </div>
+            <p className="text-[11px] text-fg-muted mb-2">School Building · Kenya</p>
+            <div className="flex items-baseline gap-1 mb-3">
+              <span className="text-2xl font-bold text-fg-primary">2.5</span>
+              <span className="text-sm text-fg-muted">BNB</span>
+            </div>
+            <div className="h-1.5 bg-surface-primary rounded-full overflow-hidden">
+              <div className="h-full w-[60%] bg-accent-primary rounded-full" />
+            </div>
+            <div className="flex justify-between mt-1.5">
+              <span className="text-[10px] text-fg-muted">60% of goal</span>
+              <span className="text-[10px] text-accent-primary font-mono">NFT #1247</span>
             </div>
           </div>
-          {/* Right Tile - Hero Image */}
-          <div className="flex-1 h-[250px] sm:h-[350px] lg:h-[480px] rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1497375638960-ca368c7231e4?w=1080&q=80" alt="" className="w-full h-full object-cover" />
+
+          {/* Card 2 — Platform stats (elevated on desktop only) */}
+          <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.08)] sm:shadow-[0_16px_60px_rgba(0,0,0,0.12)] border border-black/[0.04] sm:[transform:translateY(-16px)]">
+            <p className="text-[10px] font-mono text-fg-muted uppercase tracking-wider mb-4">Platform Impact</p>
+            <div className="flex flex-col gap-3">
+              {[
+                { label: "Total Donated",    value: isLoading ? "—" : (platformStats?.totalDonated       ?? "$2.4M+") },
+                { label: "Unique Donors",    value: isLoading ? "—" : (platformStats?.totalDonors        ?? "12,847") },
+                { label: "Campaigns Funded", value: isLoading ? "—" : (platformStats?.campaignsCompleted ?? "86")    },
+              ].map((s) => (
+                <div key={s.label} className="flex items-center justify-between">
+                  <span className="text-[12px] text-fg-muted">{s.label}</span>
+                  <span className="text-[14px] font-bold text-fg-primary">{s.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 3 — Governance vote */}
+          <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04] sm:[transform:rotate(1.5deg)]">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="h-6 w-6 rounded-full bg-accent-light flex items-center justify-center flex-shrink-0">
+                <Shield className="h-3.5 w-3.5 text-accent-primary" />
+              </div>
+              <span className="text-[12px] font-semibold text-fg-primary">Milestone Vote</span>
+            </div>
+            <p className="text-[11px] text-fg-muted mb-3">Clean Water Initiative · M2</p>
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[11px] text-fg-muted">Approval</span>
+              <span className="text-[14px] font-bold text-accent-primary">72%</span>
+            </div>
+            <div className="h-1.5 bg-surface-primary rounded-full overflow-hidden">
+              <div className="h-full w-[72%] bg-accent-primary rounded-full" />
+            </div>
+            <div className="flex items-center justify-between mt-1.5">
+              <span className="text-[10px] text-fg-muted">156 votes cast</span>
+              <span className="text-[10px] text-fg-muted font-mono">8d 14h left</span>
+            </div>
           </div>
         </div>
 
-        {/* Trust Row */}
-        <div className="flex items-center justify-center gap-4 sm:gap-8 lg:gap-12 flex-wrap max-w-7xl mx-auto">
+        {/* Trust row */}
+        <div className="flex items-center gap-3 sm:gap-6 flex-wrap justify-center">
           {["BNB", "SANC", "USDT", "BUSD"].map((t) => (
-            <span key={t} className="text-[13px] text-fg-muted tracking-wider">{t}</span>
+            <span key={t} className="text-[11px] sm:text-[12px] text-fg-muted font-mono">{t}</span>
           ))}
-          <span className="text-[13px] text-fg-muted">·</span>
-          <span className="text-[13px] text-fg-muted">Audited by CertiK</span>
-          <span className="text-[13px] text-fg-muted">·</span>
-          <span className="text-[13px] text-fg-muted">BSC Mainnet</span>
+          <span className="text-fg-muted text-[11px]">·</span>
+          <span className="text-[11px] sm:text-[12px] text-fg-muted">Audited by CertiK</span>
+          <span className="text-fg-muted text-[11px]">·</span>
+          <span className="text-[11px] sm:text-[12px] text-fg-muted">BSC Mainnet</span>
         </div>
       </section>
 
