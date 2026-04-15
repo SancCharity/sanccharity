@@ -42,7 +42,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* ===== 01 HERO ===== */}
-      <section className="bg-surface-primary px-4 sm:px-6 md:px-8 lg:px-12 py-8 flex flex-col gap-8">
+      <section className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
         {/* Hero Grid */}
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Left Tile */}
@@ -80,7 +80,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 02 HOW IT WORKS ===== */}
-      <section id="how" className="bg-[#F0F9FF] px-4 sm:px-6 md:px-8 lg:px-12 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
+      <section id="how" className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">How It Works</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Three Steps to Transparent Giving</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 w-full">
@@ -102,7 +102,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 03 FEATURED CAMPAIGNS ===== */}
-      <section id="campaigns" className="bg-surface-primary px-4 sm:px-6 md:px-8 lg:px-12 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section id="campaigns" className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Featured Campaigns</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Verified Causes Making Real Impact</h2>
 
@@ -205,7 +205,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 04 DONATION FLOW ===== */}
-      <section className="bg-[#F0F9FF] px-4 sm:px-6 md:px-8 lg:px-12 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Donation Experience</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Donate in Any Token. Pay Less with SANC.</h2>
         <p className="text-base text-fg-secondary text-center max-w-2xl">Multi-token support with transparent fee breakdown. SANC holders get 50% off platform fees.</p>
@@ -296,7 +296,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 05 IMPACT DASHBOARD ===== */}
-      <section className="bg-white px-4 sm:px-6 md:px-8 lg:px-12 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
         <span className="bg-surface-primary rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Platform Impact</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Transparency in Numbers</h2>
 
@@ -347,7 +347,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 06 GOVERNANCE & VOTING ===== */}
-      <section className="bg-[#F0F9FF] px-4 sm:px-6 md:px-8 lg:px-12 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Governance &amp; Voting</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Community-Powered<br />Fund Releases</h2>
         <p className="text-base text-fg-secondary text-center max-w-2xl">Stake SANC tokens to gain voting power. Approve or reject milestone fund releases. 66% quorum required. 14-day voting windows.</p>
@@ -405,7 +405,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 07 NFT & TRANSPARENCY ===== */}
-      <section className="bg-white px-4 sm:px-6 md:px-8 lg:px-12 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-surface-primary rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">NFT Receipts &amp; Security</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center leading-[1.15]">Immutable Proof.<br />Audited Security.</h2>
 
@@ -473,7 +473,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 08 FOR CHARITIES ===== */}
-      <section className="bg-[#F0F9FF] px-4 sm:px-6 md:px-8 lg:px-12 py-12 lg:py-20 flex flex-col items-center gap-8">
+      <section className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">For Charities</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Register Your Charity.<br />Reach Global Donors.</h2>
         <p className="text-base text-fg-secondary text-center max-w-2xl">Stake 10M SANC to register. Pass KYC verification. Create milestone-based campaigns across 8 categories.</p>
@@ -513,7 +513,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 09 FINAL CTA ===== */}
-      <section className="px-4 sm:px-6 md:px-8 lg:px-12 py-12 lg:py-20">
+      <section className="px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="rounded-2xl px-6 sm:px-10 lg:px-16 py-12 lg:py-20 flex flex-col items-center gap-6 text-center" style={{ backgroundImage: "linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&q=80')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <h2 className="text-2xl sm:text-3xl lg:text-[44px] font-bold text-white">Start Your Transparent<br />Giving Journey</h2>
           <p className="text-sm sm:text-base lg:text-[17px] text-white/70 max-w-2xl">Connect your wallet. Choose a verified cause. Every dollar tracked on-chain. Every milestone community-verified.</p>

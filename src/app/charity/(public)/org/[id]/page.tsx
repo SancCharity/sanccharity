@@ -67,7 +67,7 @@ export default function CharityProfilePage() {
       <div className="h-[200px]" style={{ background: "linear-gradient(180deg, #E0F2FE 0%, #BAE6FD 50%, #7DD3FC 100%)" }} />
 
       {/* Body Content */}
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 w-full">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 px-4 sm:px-6 lg:px-8 w-full">
         {/* Left Column */}
         <div className="w-full md:w-[320px] shrink-0 flex flex-col gap-6 md:-mt-16">
 
@@ -405,7 +405,7 @@ export default function CharityProfilePage() {
       </div>
 
       {/* Trust Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 mt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 px-5 sm:px-6 bg-[#0F172A] rounded-xl">
           <ShieldCheck className="h-6 w-6 text-[#0EA5E9] shrink-0" />
           <div className="flex-1 flex flex-col gap-1">

@@ -47,7 +47,7 @@ export default function NFTDetailPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       {/* Breadcrumb */}
-      <div className="max-w-7xl mx-auto flex items-center gap-2 px-4 sm:px-6 md:px-8 lg:px-12 py-4">
+      <div className="max-w-7xl mx-auto flex items-center gap-2 px-4 sm:px-6 lg:px-8 py-4">
         <Link href="/charity" className="text-[13px] text-[#94A3B8]">Home</Link>
         <span className="text-[13px] text-[#94A3B8]">/</span>
         <Link href="/charity/dashboard" className="text-[13px] text-[#94A3B8]">Donations</Link>
@@ -56,7 +56,7 @@ export default function NFTDetailPage() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-center gap-6 lg:gap-10 px-4 sm:px-6 md:px-8 lg:px-12 pt-6 lg:pt-10 pb-10 lg:pb-[60px]">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-center gap-6 lg:gap-10 px-4 sm:px-6 lg:px-8 pt-6 lg:pt-10 pb-10 lg:pb-[60px]">
         {/* Left Column */}
         <div className="w-full lg:w-[400px] flex flex-col gap-5 shrink-0">
           {/* NFT Card */}
