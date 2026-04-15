@@ -3,7 +3,8 @@ import { MessageCircle, Globe } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="px-4 sm:px-6 md:px-8 lg:px-12 pt-12 pb-8 flex flex-col gap-10">
+    <footer className="pt-12 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col gap-10">
       <div className="flex flex-col md:flex-row gap-8 md:gap-16">
         <div className="flex flex-col gap-3.5 w-full md:w-[320px]">
           <span className="text-[22px] font-bold text-[#0F172A]">SancCharity</span>
@@ -62,6 +63,7 @@ export function Footer() {
           <span className="text-xs text-[#94A3B8]">&middot;</span>
           <span className="text-xs font-semibold text-[#0EA5E9]">SancSwap</span>
         </div>
+      </div>
       </div>
     </footer>
   );
