@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { PageContainer } from "@/components/layout/PageContainer";
 import { useParams } from "next/navigation";
 import { useAccount } from "wagmi";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
@@ -90,7 +91,7 @@ export default function CampaignDetailPage() {
         </span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 flex flex-col gap-6">
+      <PageContainer className="py-6 md:py-8 flex flex-col gap-6">
         {/* Back Link */}
         <Link href="/charity" className="text-sm text-fg-muted">← Back to Campaigns</Link>
 
@@ -460,7 +461,7 @@ export default function CampaignDetailPage() {
             ))}
           </div>
         )}
-      </div>
+      </PageContainer>
     </div>
   );
 }

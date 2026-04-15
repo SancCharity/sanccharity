@@ -44,11 +44,11 @@ export default function LandingPage() {
       {/* ===== 01 HERO ===== */}
       <section className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
         {/* Hero Grid */}
-        <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex flex-col lg:flex-row gap-4 max-w-7xl mx-auto">
           {/* Left Tile */}
-          <div className="w-full lg:w-[820px] bg-white rounded-2xl px-5 sm:px-8 lg:px-10 py-8 lg:py-12 flex flex-col gap-5 lg:gap-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
+          <div className="w-full lg:w-[720px] bg-white rounded-2xl px-5 sm:px-8 lg:px-10 py-8 lg:py-12 flex flex-col gap-5 lg:gap-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
             <span className="inline-flex self-start bg-surface-primary rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Transparent Charity on BSC</span>
-            <h1 className="text-2xl sm:text-4xl lg:text-[52px] font-bold text-fg-primary leading-[1.1]">Where Every Donation Finds Its Purpose</h1>
+            <h1 className="text-2xl sm:text-4xl lg:text-[52px] font-bold text-fg-primary leading-[3.5rem]">Where Every Donation Finds Its Purpose</h1>
             <p className="text-sm sm:text-base lg:text-[17px] text-fg-secondary leading-relaxed max-w-[600px]">Milestone-based escrow. Community governance. NFT receipts. 8 cause categories. Full on-chain accountability.</p>
             <div className="flex flex-col sm:flex-row gap-3">
               <ComingSoonOverlay action="Connect wallet">
@@ -68,7 +68,7 @@ export default function LandingPage() {
         </div>
 
         {/* Trust Row */}
-        <div className="flex items-center justify-center gap-4 sm:gap-8 lg:gap-12 flex-wrap">
+        <div className="flex items-center justify-center gap-4 sm:gap-8 lg:gap-12 flex-wrap max-w-7xl mx-auto">
           {["BNB", "SANC", "USDT", "BUSD"].map((t) => (
             <span key={t} className="text-[13px] text-fg-muted tracking-wider">{t}</span>
           ))}
@@ -83,7 +83,7 @@ export default function LandingPage() {
       <section id="how" className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
         <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">How It Works</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Three Steps to Transparent Giving</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto w-full">
           {[
             { icon: Wallet, num: "01", title: "Connect Your Wallet", desc: "Link your BSC wallet. We support BNB, SANC, USDT, and BUSD for maximum flexibility." },
             { icon: Search, num: "02", title: "Choose a Cause", desc: "Browse campaigns across 8 categories. Every charity stakes 10M SANC and passes KYC verification before listing." },
@@ -107,7 +107,7 @@ export default function LandingPage() {
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Verified Causes Making Real Impact</h2>
 
         {/* Search + Filters */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 w-full">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 max-w-7xl mx-auto w-full">
           <div className="flex items-center gap-2 bg-white border border-[#E2E8F0] rounded-full px-4 py-2">
             <Search className="h-4 w-4 text-fg-muted" />
             <span className="text-[13px] text-fg-muted">Search campaigns...</span>
@@ -134,7 +134,7 @@ export default function LandingPage() {
         </div>
 
         {/* Campaign Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
           {isLoading && Array.from({ length: 3 }).map((_, i) => (
             <div key={i}>
               <CampaignCardSkeleton />
@@ -210,7 +210,7 @@ export default function LandingPage() {
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Donate in Any Token. Pay Less with SANC.</h2>
         <p className="text-base text-fg-secondary text-center max-w-2xl">Multi-token support with transparent fee breakdown. SANC holders get 50% off platform fees.</p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
           {/* Token Selector Card */}
           <div className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
             <span className="text-[11px] text-fg-muted font-mono">Select Token</span>
@@ -289,7 +289,7 @@ export default function LandingPage() {
         </div>
 
         {/* Large Donation Warning */}
-        <div className="flex items-center gap-3 bg-white border border-[#E2E8F0] rounded-xl px-5 py-3 w-full">
+        <div className="flex items-center gap-3 bg-white border border-[#E2E8F0] rounded-xl px-5 py-3 max-w-7xl mx-auto w-full">
           <Shield className="h-4 w-4 text-accent-primary flex-shrink-0" />
           <span className="text-xs text-fg-secondary">Large donations (&gt;100 BNB) trigger multi-sig approval for added security. All transactions are publicly verifiable on BSCScan.</span>
         </div>
@@ -301,7 +301,7 @@ export default function LandingPage() {
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Transparency in Numbers</h2>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto w-full">
           {isLoading ? Array.from({ length: 4 }).map((_, i) => <StatCardSkeleton key={i} />) :
           [
             { icon: DollarSign, value: platformStats?.totalDonated ?? "$2.4M+", label: "Total Donated (USD)" },
@@ -319,7 +319,7 @@ export default function LandingPage() {
 
 
         {/* Category Row */}
-        <div className="grid grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 w-full">
+        <div className="grid grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 max-w-7xl mx-auto w-full">
           {impactCategories.map((cat) => (
             <div key={cat.label} className="flex flex-col items-center gap-1 bg-surface-primary rounded-xl p-3 sm:p-4">
               <span className="text-[13px] font-semibold text-fg-primary">{cat.value}</span>
@@ -329,7 +329,7 @@ export default function LandingPage() {
         </div>
 
         {/* Top Donors */}
-        <div className="w-full bg-surface-primary rounded-2xl p-6 flex flex-col gap-4">
+        <div className="max-w-7xl mx-auto w-full bg-surface-primary rounded-2xl p-6 flex flex-col gap-4">
           <span className="text-lg font-bold text-fg-primary">Top Donors</span>
           {topDonors.map((d) => (
             <div key={d.rank} className={`flex items-center justify-between ${d.rank % 2 === 0 ? "bg-[#F0F9FF]" : "bg-white"} rounded-xl px-5 py-3`}>
@@ -352,7 +352,7 @@ export default function LandingPage() {
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Community-Powered<br />Fund Releases</h2>
         <p className="text-base text-fg-secondary text-center max-w-2xl">Stake SANC tokens to gain voting power. Approve or reject milestone fund releases. 66% quorum required. 14-day voting windows.</p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto w-full">
           {/* Voter Tiers */}
           <div className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
             <span className="text-[22px] font-bold text-fg-primary">Voter Tiers</span>
@@ -409,7 +409,7 @@ export default function LandingPage() {
         <span className="bg-surface-primary rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">NFT Receipts &amp; Security</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center leading-[1.15]">Immutable Proof.<br />Audited Security.</h2>
 
-        <div className="flex flex-col lg:flex-row gap-4 w-full">
+        <div className="flex flex-col lg:flex-row gap-4 max-w-7xl mx-auto w-full">
           {/* NFT Card Tile */}
           <div className="w-full lg:w-[400px] bg-surface-primary rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col">
             {/* NFT Art Image */}
@@ -478,7 +478,7 @@ export default function LandingPage() {
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Register Your Charity.<br />Reach Global Donors.</h2>
         <p className="text-base text-fg-secondary text-center max-w-2xl">Stake 10M SANC to register. Pass KYC verification. Create milestone-based campaigns across 8 categories.</p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
           {[
             { icon: Coins, title: "Stake 10M SANC", desc: "Register by staking 10 million SANC tokens. Stake is slashed on revocation, returned on good standing." },
             { icon: UserCheck, title: "Pass KYC Verification", desc: "Submit KYC documents (stored on IPFS). Admin reviews and verifies your charity before it can create campaigns." },
@@ -514,7 +514,7 @@ export default function LandingPage() {
 
       {/* ===== 09 FINAL CTA ===== */}
       <section className="px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <div className="rounded-2xl px-6 sm:px-10 lg:px-16 py-12 lg:py-20 flex flex-col items-center gap-6 text-center" style={{ backgroundImage: "linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&q=80')", backgroundSize: "cover", backgroundPosition: "center" }}>
+        <div className="max-w-7xl mx-auto rounded-2xl px-6 sm:px-10 lg:px-16 py-12 lg:py-20 flex flex-col items-center gap-6 text-center" style={{ backgroundImage: "linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&q=80')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <h2 className="text-2xl sm:text-3xl lg:text-[44px] font-bold text-white">Start Your Transparent<br />Giving Journey</h2>
           <p className="text-sm sm:text-base lg:text-[17px] text-white/70 max-w-2xl">Connect your wallet. Choose a verified cause. Every dollar tracked on-chain. Every milestone community-verified.</p>
           <div className="flex flex-col sm:flex-row gap-4 mt-4">

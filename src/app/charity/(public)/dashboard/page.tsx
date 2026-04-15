@@ -1,6 +1,7 @@
 "use client";
 
 import { useAccount } from "wagmi";
+import { PageContainer } from "@/components/layout/PageContainer";
 import Link from "next/link";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
 import { useDonorDashboard } from "@/hooks/useDonorDashboard";
@@ -72,7 +73,7 @@ export default function DonorDashboardPage() {
         </div>
       )}
 
-      <div className="flex flex-col gap-6 px-4 sm:px-6 lg:px-8 py-6 md:py-8 max-w-7xl mx-auto">
+      <PageContainer className="flex flex-col gap-6 py-6 md:py-8">
 
         {/* Welcome Header */}
         <div className="flex items-center justify-between">
@@ -370,7 +371,7 @@ export default function DonorDashboardPage() {
             <span className="text-[13px] font-semibold text-[#0F172A]">View on BscScan</span>
           </button>
         </div>
-      </div>
+      </PageContainer>
     </div>
   );
 }

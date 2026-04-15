@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PageContainer } from "@/components/layout/PageContainer";
 import { useQuery } from "@tanstack/react-query";
 import { charityApi } from "@/services/charityApi";
 import type { CategoryBreakdownItem } from "@/types/charity";
@@ -106,7 +107,7 @@ export default function ImpactDashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] overflow-hidden">
-      <div className="flex flex-col gap-6 px-4 sm:px-6 lg:px-8 py-6 md:py-8 max-w-7xl mx-auto">
+      <PageContainer className="flex flex-col gap-6 py-6 md:py-8">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
@@ -364,7 +365,7 @@ export default function ImpactDashboardPage() {
             <span className="text-[13px] font-semibold text-[#0F172A]">View on BscScan</span>
           </button>
         </div>
-      </div>
+      </PageContainer>
     </div>
   );
 }

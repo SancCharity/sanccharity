@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import { PageContainer } from "@/components/layout/PageContainer";
 import Link from "next/link";
 import { Gem, ShieldCheck, LinkIcon, Download, BadgeCheck, Flag, CircleCheck, CircleDashed, ArrowRightLeft, ExternalLink, Copy, Heart, Info } from "lucide-react";
 import { useNFTDetail } from "@/hooks/useNFTDetail";
@@ -47,16 +48,16 @@ export default function NFTDetailPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       {/* Breadcrumb */}
-      <div className="max-w-7xl mx-auto flex items-center gap-2 px-4 sm:px-6 lg:px-8 py-4">
+      <PageContainer className="flex items-center gap-2 py-4">
         <Link href="/charity" className="text-[13px] text-[#94A3B8]">Home</Link>
         <span className="text-[13px] text-[#94A3B8]">/</span>
         <Link href="/charity/dashboard" className="text-[13px] text-[#94A3B8]">Donations</Link>
         <span className="text-[13px] text-[#94A3B8]">/</span>
         <span className="text-[13px] font-medium text-[#0F172A]">Receipt #{tokenId}</span>
-      </div>
+      </PageContainer>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-center gap-6 lg:gap-10 px-4 sm:px-6 lg:px-8 pt-6 lg:pt-10 pb-10 lg:pb-[60px]">
+      <PageContainer className="flex flex-col lg:flex-row justify-center gap-6 lg:gap-10 pt-6 lg:pt-10 pb-10 lg:pb-[60px]">
         {/* Left Column */}
         <div className="w-full lg:w-[400px] flex flex-col gap-5 shrink-0">
           {/* NFT Card */}
@@ -345,7 +346,7 @@ export default function NFTDetailPage() {
             <span className="text-[12px] text-[#94A3B8]">This NFT is a permanent on-chain record of your donation.</span>
           </div>
         </div>
-      </div>
+      </PageContainer>
     </div>
   );
 }

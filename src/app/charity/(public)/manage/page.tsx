@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PageContainer } from "@/components/layout/PageContainer";
 import Link from "next/link";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
@@ -53,7 +54,7 @@ export default function CharityManagePage() {
 
   return (
     <div className="bg-surface-primary min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 flex flex-col gap-6">
+      <PageContainer className="py-6 md:py-8 flex flex-col gap-6">
 
         {/* Suspended Banner */}
         {isSuspended && (
@@ -520,7 +521,7 @@ export default function CharityManagePage() {
           </div>
         </div>
 
-      </div>
+      </PageContainer>
     </div>
   );
 }

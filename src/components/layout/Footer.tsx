@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { MessageCircle, Globe } from "lucide-react";
+import { PageContainer } from "@/components/layout/PageContainer";
 
 export function Footer() {
   return (
     <footer className="pt-12 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-10">
+      <PageContainer className="flex flex-col gap-10">
       <div className="flex flex-col md:flex-row gap-8 md:gap-16">
         <div className="flex flex-col gap-3.5 w-full md:w-[320px]">
           <span className="text-[22px] font-bold text-[#0F172A]">SancCharity</span>
@@ -64,7 +65,7 @@ export function Footer() {
           <span className="text-xs font-semibold text-[#0EA5E9]">SancSwap</span>
         </div>
       </div>
-      </div>
+      </PageContainer>
     </footer>
   );
 }

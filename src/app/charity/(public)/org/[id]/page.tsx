@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { PageContainer } from "@/components/layout/PageContainer";
 import { useParams } from "next/navigation";
 import {
   Heart, BadgeCheck, ShieldCheck, Globe, MapPin, Calendar, Copy,
@@ -67,7 +68,7 @@ export default function CharityProfilePage() {
       <div className="h-[200px]" style={{ background: "linear-gradient(180deg, #E0F2FE 0%, #BAE6FD 50%, #7DD3FC 100%)" }} />
 
       {/* Body Content */}
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 px-4 sm:px-6 lg:px-8 w-full">
+      <PageContainer className="flex flex-col md:flex-row gap-6 md:gap-8 w-full">
         {/* Left Column */}
         <div className="w-full md:w-[320px] shrink-0 flex flex-col gap-6 md:-mt-16">
 
@@ -402,10 +403,10 @@ export default function CharityProfilePage() {
             )}
           </div>
         </div>
-      </div>
+      </PageContainer>
 
       {/* Trust Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      <PageContainer className="mt-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 px-5 sm:px-6 bg-[#0F172A] rounded-xl">
           <ShieldCheck className="h-6 w-6 text-[#0EA5E9] shrink-0" />
           <div className="flex-1 flex flex-col gap-1">
@@ -417,7 +418,7 @@ export default function CharityProfilePage() {
             <span className="text-[14px] font-semibold text-white">Donate Now</span>
           </button>
         </div>
-      </div>
+      </PageContainer>
     </div>
   );
 }

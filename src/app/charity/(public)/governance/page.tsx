@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PageContainer } from "@/components/layout/PageContainer";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
 import { useGovernance } from "@/hooks/useGovernance";
 import { useAccount } from "wagmi";
@@ -57,7 +58,7 @@ export default function GovernancePage() {
         </div>
       )}
 
-      <div className="flex flex-col gap-6 px-4 sm:px-6 lg:px-8 py-6 md:py-8 max-w-7xl mx-auto">
+      <PageContainer className="flex flex-col gap-6 py-6 md:py-8">
 
         {/* Page Header */}
         <div>
@@ -338,7 +339,7 @@ export default function GovernancePage() {
             <span className="text-[13px] font-semibold text-[#0F172A]">View Contract</span>
           </button>
         </div>
-      </div>
+      </PageContainer>
     </div>
   );
 }
