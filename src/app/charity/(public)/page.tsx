@@ -6,10 +6,10 @@ import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
 import { useCharity } from "@/hooks/useCharity";
 import type { CampaignFilters } from "@/hooks/useCharity";
 import { CampaignCategory, CharityStatus, MilestoneStatus } from "@/types/charity";
-import { CampaignCardSkeleton, StatCardSkeleton } from "@/components/ui/Skeleton";
+import { StatCardSkeleton } from "@/components/ui/Skeleton";
 import {
   Wallet, Search, Target, Flame, DollarSign, Users, Shield,
-  Award, FileText, ExternalLink, Lock, Undo, BadgeCheck,
+  FileText, ExternalLink, Lock, Undo, BadgeCheck,
   Coins, UserCheck, ChevronRight,
   CircleCheck, Hexagon, TriangleAlert,
 } from "lucide-react";
@@ -36,8 +36,7 @@ const topDonors = [
 export default function LandingPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [filters, setFilters] = useState<CampaignFilters>({ page: 1, pageSize: 9 });
-  const [selectedId, setSelectedId] = useState<string>("");
-  const { campaigns, platformStats, recentDonations, isLoading, isError } = useCharity(filters);
+  const { campaigns, platformStats, isLoading, isError } = useCharity(filters);
   const now = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
@@ -68,7 +67,7 @@ export default function LandingPage() {
       <section className="bg-white border-b border-line-subtle px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
         {/* Badge */}
         <span className="inline-flex items-center gap-1.5 bg-accent-light text-accent-primary rounded-full px-4 py-1.5 text-xs font-mono">
-          <Hexagon className="h-3 w-3" />Transparent Charity on BSC
+          <Hexagon className="h-3 w-3" />Blockchain-verified charity
         </span>
 
         {/* Headline — no forced break on mobile, natural wrap */}
@@ -78,7 +77,7 @@ export default function LandingPage() {
 
         {/* Subtext */}
         <p className="text-[15px] lg:text-[18px] text-fg-secondary text-center max-w-[520px] leading-relaxed -mt-1">
-          Milestone-based escrow. Community governance. NFT receipts. Full on-chain accountability.
+          Your donation is locked until real results are proven — verified by the community, recorded on-chain forever.
         </p>
 
         {/* CTAs */}
@@ -97,12 +96,13 @@ export default function LandingPage() {
         <div className="flex flex-col sm:flex-row sm:items-end gap-4 w-full max-w-[860px] mt-1">
           {/* Card 1 — Donation receipt */}
           <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04] sm:[transform:rotate(-1.5deg)]">
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-1">
               <div className="h-6 w-6 rounded-full bg-[#DCFCE7] flex items-center justify-center flex-shrink-0">
                 <CircleCheck className="h-3.5 w-3.5 text-[#16A34A]" />
               </div>
               <span className="text-[12px] font-semibold text-fg-primary">Donation Confirmed</span>
             </div>
+            <p className="text-[10px] text-fg-muted mb-2">Your receipt lives on the blockchain forever</p>
             <p className="text-[11px] text-fg-muted mb-2">School Building · Kenya</p>
             <div className="flex items-baseline gap-1 mb-3">
               <span className="text-2xl font-bold text-fg-primary">2.5</span>
@@ -136,12 +136,13 @@ export default function LandingPage() {
 
           {/* Card 3 — Governance vote */}
           <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04] sm:[transform:rotate(1.5deg)]">
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-1">
               <div className="h-6 w-6 rounded-full bg-accent-light flex items-center justify-center flex-shrink-0">
                 <Shield className="h-3.5 w-3.5 text-accent-primary" />
               </div>
               <span className="text-[12px] font-semibold text-fg-primary">Milestone Vote</span>
             </div>
+            <p className="text-[10px] text-fg-muted mb-2">Donors vote before any money is released</p>
             <p className="text-[11px] text-fg-muted mb-3">Clean Water Initiative · M2</p>
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-[11px] text-fg-muted">Approval</span>
@@ -171,7 +172,7 @@ export default function LandingPage() {
 
       {/* ===== 02 HOW IT WORKS ===== */}
       <section data-fade-up id="how" className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
-        <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">How It Works</span>
+        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">How It Works</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Three Steps to Transparent Giving</h2>
 
         <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto w-full">
@@ -211,7 +212,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto flex flex-col gap-6 lg:gap-8">
           {/* Header */}
           <div className="flex flex-col items-center gap-3">
-            <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Featured Campaigns</span>
+            <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Featured Campaigns</span>
             <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Verified Causes Making Real Impact</h2>
           </div>
 
@@ -233,13 +234,38 @@ export default function LandingPage() {
             ))}
           </div>
 
-          {/* Loading skeletons */}
+          {/* Loading skeletons — mirrors real layout */}
           {isLoading && (
-            <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
-              <div className="lg:w-[400px] flex-shrink-0 flex flex-col gap-2">
-                {Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-[72px] rounded-xl skeleton" />)}
+            <div className="flex flex-col gap-4">
+              {/* Hero skeleton */}
+              <div className="bg-white rounded-2xl overflow-hidden border border-black/[0.04] flex flex-col lg:flex-row">
+                <div className="lg:w-[55%] h-[240px] lg:h-auto skeleton flex-shrink-0" />
+                <div className="flex-1 p-6 lg:p-8 flex flex-col gap-4">
+                  <div className="skeleton h-4 w-24 rounded" />
+                  <div className="skeleton h-7 w-3/4 rounded" />
+                  <div className="skeleton h-4 w-1/2 rounded" />
+                  <div className="skeleton h-2 w-full rounded-full" />
+                  <div className="flex gap-6">
+                    {[40, 32, 44].map((w) => <div key={w} className={`skeleton h-8 w-${w === 40 ? "10" : w === 32 ? "8" : "11"} rounded`} />)}
+                  </div>
+                  <div className="skeleton h-10 w-36 rounded-full mt-auto" />
+                </div>
               </div>
-              <div className="flex-1 h-[440px] rounded-2xl skeleton" />
+              {/* Compact grid skeletons */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="bg-white rounded-2xl overflow-hidden border border-black/[0.04]">
+                    <div className="h-[160px] skeleton" />
+                    <div className="p-4 flex flex-col gap-2.5">
+                      <div className="skeleton h-3 w-20 rounded" />
+                      <div className="skeleton h-4 w-4/5 rounded" />
+                      <div className="skeleton h-3 w-1/2 rounded" />
+                      <div className="skeleton h-1.5 w-full rounded-full" />
+                      <div className="skeleton h-9 w-full rounded-full mt-1" />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
@@ -254,112 +280,119 @@ export default function LandingPage() {
             </div>
           )}
 
-          {/* Two-column layout */}
+          {/* Magazine grid */}
           {!isLoading && !isError && campaigns.length > 0 && (() => {
-            const selected = campaigns.find(c => c.id === selectedId) ?? campaigns[0];
-            const pct = Math.min(100, Math.max(0, (parseFloat(selected.totalRaised) / parseFloat(selected.totalGoal)) * 100));
-            const daysLeft = Math.max(0, Math.ceil((selected.deadline - now) / 86400));
-            const completedMs = selected.milestones.filter(m => m.status === MilestoneStatus.Released).length;
+            const hero = campaigns[0];
+            const heroPct = Math.min(100, Math.max(0, (parseFloat(hero.totalRaised) / parseFloat(hero.totalGoal)) * 100));
+            const heroDaysLeft = Math.max(0, Math.ceil((hero.deadline - now) / 86400));
+            const heroCompletedMs = hero.milestones.filter(m => m.status === MilestoneStatus.Released).length;
             return (
-              <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+              <div className="flex flex-col gap-4">
 
-                {/* Left: compact ranked list */}
-                <div className="lg:w-[400px] flex-shrink-0 bg-white rounded-2xl p-2 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
-                  {campaigns.map((c, i) => {
-                    const cpct = Math.min(100, Math.max(0, (parseFloat(c.totalRaised) / parseFloat(c.totalGoal)) * 100));
-                    const isActive = (selectedId ? selectedId === c.id : i === 0);
-                    return (
-                      <button
-                        key={c.id}
-                        onClick={() => setSelectedId(c.id)}
-                        className={`flex items-center gap-3 p-3 rounded-xl text-left transition-all w-full border-l-[3px] ${
-                          isActive ? "bg-accent-light border-accent-primary" : "border-transparent hover:bg-surface-primary"
-                        }`}
-                      >
-                        <span className="text-[10px] font-mono text-fg-muted w-4 text-center flex-shrink-0">{String(i + 1).padStart(2, "0")}</span>
-                        <div className="h-11 w-14 rounded-lg overflow-hidden flex-shrink-0">
-                          <img src={c.coverImage} alt="" className="w-full h-full object-cover" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className={`text-[13px] font-semibold truncate ${isActive ? "text-accent-primary" : "text-fg-primary"}`}>{c.name}</p>
-                          <p className="text-[11px] text-fg-muted truncate">{c.charity.name}</p>
-                          <div className="flex items-center gap-1.5 mt-1.5">
-                            <div className="flex-1 h-1 bg-surface-primary rounded-full overflow-hidden">
-                              <div className="h-full bg-accent-primary rounded-full" style={{ width: `${cpct}%` }} />
-                            </div>
-                            <span className="text-[10px] font-mono text-fg-muted flex-shrink-0">{cpct.toFixed(0)}%</span>
-                          </div>
-                        </div>
-                        <div className="flex flex-col items-end flex-shrink-0 gap-0.5">
-                          <span className="text-[12px] font-bold text-fg-primary">${(c.totalRaisedUSD / 1000).toFixed(0)}K</span>
-                          <span className="text-[10px] text-fg-muted">{c.category}</span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Right: detail panel */}
-                <div className="flex-1 lg:sticky lg:top-8 h-fit">
-                  <div className="bg-white rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04]">
-                    {/* Cover with gradient overlay */}
-                    <div className="relative h-[200px] lg:h-[220px] overflow-hidden">
-                      <img src={selected.coverImage} alt="" className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      <div className="absolute bottom-0 left-0 p-5 w-full">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-[11px] bg-white/20 text-white rounded-full px-2.5 py-1 backdrop-blur-sm font-mono">{selected.category}</span>
-                          {selected.charity.status === CharityStatus.Verified && (
-                            <span className="flex items-center gap-1 text-white/90 text-[11px]">
-                              <CircleCheck className="h-3 w-3" />Verified
-                            </span>
-                          )}
-                        </div>
-                        <h3 className="text-[18px] font-bold text-white leading-tight">{selected.name}</h3>
-                        <p className="text-sm text-white/70 mt-0.5">{selected.charity.name}</p>
-                      </div>
+                {/* Hero card — first campaign, full width */}
+                <div className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_32px_rgba(0,0,0,0.07)] border border-black/[0.04] flex flex-col lg:flex-row">
+                  {/* Cover */}
+                  <div className="relative lg:w-[55%] h-[240px] lg:h-auto lg:max-h-[300px] overflow-hidden flex-shrink-0">
+                    <img src={hero.coverImage} alt="" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+                    <div className="absolute top-4 left-4">
+                      <span className="flex items-center gap-1.5 bg-accent-light text-accent-primary text-[11px] font-semibold rounded-full px-3 py-1.5">
+                        <Flame className="h-3 w-3" />Featured
+                      </span>
                     </div>
-
-                    <div className="p-5 flex flex-col gap-4">
-                      {/* Raised + progress */}
-                      <div>
-                        <div className="flex justify-between items-baseline mb-1.5">
-                          <span className="text-[22px] font-bold text-fg-primary">${(selected.totalRaisedUSD / 1000).toFixed(1)}K</span>
-                          <span className="text-[13px] text-fg-muted">of ${(selected.totalGoalUSD / 1000).toFixed(0)}K goal</span>
-                        </div>
-                        <div className="h-2 bg-surface-primary rounded-full overflow-hidden">
-                          <div className="h-full bg-accent-primary rounded-full transition-all duration-500" style={{ width: `${pct}%` }} />
-                        </div>
-                        <p className="text-[11px] text-fg-muted mt-1 font-mono">{pct.toFixed(0)}% funded</p>
+                  </div>
+                  {/* Details */}
+                  <div className="p-6 lg:p-8 flex flex-col gap-4 flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="bg-surface-primary text-fg-secondary text-[11px] font-mono rounded-full px-3 py-1">{hero.category}</span>
+                      {hero.charity.status === CharityStatus.Verified && (
+                        <span className="flex items-center gap-1 text-accent-primary text-[11px] font-mono">
+                          <CircleCheck className="h-3 w-3" />Verified
+                        </span>
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="text-[20px] lg:text-[22px] font-bold text-fg-primary leading-tight">{hero.name}</h3>
+                      <p className="text-[14px] text-fg-muted mt-1">{hero.charity.name}</p>
+                    </div>
+                    <div>
+                      <div className="flex justify-between items-baseline mb-1.5">
+                        <span className="text-[20px] font-bold text-fg-primary">${(hero.totalRaisedUSD / 1000).toFixed(1)}K</span>
+                        <span className="text-[13px] text-fg-muted">of ${(hero.totalGoalUSD / 1000).toFixed(0)}K goal</span>
                       </div>
-
-                      {/* Stats */}
-                      <div className="grid grid-cols-3 gap-2">
-                        {[
-                          { label: "Donors",     value: String(selected.donorCount) },
-                          { label: "Days Left",  value: `${daysLeft}d`              },
-                          { label: "Milestones", value: `${completedMs}/${selected.milestones.length}` },
-                        ].map((s) => (
-                          <div key={s.label} className="bg-surface-primary rounded-xl py-3 flex flex-col items-center gap-1">
-                            <span className="text-[16px] font-bold text-fg-primary">{s.value}</span>
-                            <span className="text-[10px] text-fg-muted">{s.label}</span>
-                          </div>
-                        ))}
+                      <div className="h-2 bg-surface-primary rounded-full overflow-hidden">
+                        <div className="h-full bg-accent-primary rounded-full" style={{ width: `${heroPct}%` }} />
                       </div>
-
-                      {/* CTAs */}
+                      <p className="text-[11px] text-fg-muted mt-1 font-mono">{heroPct.toFixed(0)}% funded</p>
+                    </div>
+                    <div className="flex items-center gap-6">
+                      {[
+                        { label: "Donors",     value: String(hero.donorCount) },
+                        { label: "Days Left",  value: `${heroDaysLeft}d`      },
+                        { label: "Milestones", value: `${heroCompletedMs}/${hero.milestones.length}` },
+                      ].map((s) => (
+                        <div key={s.label} className="flex flex-col gap-0.5">
+                          <span className="text-[17px] font-bold text-fg-primary">{s.value}</span>
+                          <span className="text-[11px] text-fg-muted">{s.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-3 mt-auto pt-1">
                       <Link
-                        href={`/charity/campaign/${selected.id}`}
-                        className="flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full py-3 shadow-[0_4px_20px_rgba(14,165,233,0.3)]"
+                        href={`/charity/campaign/${hero.id}`}
+                        className="flex items-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-7 py-3 shadow-[0_4px_20px_rgba(14,165,233,0.3)]"
                       >
-                        <Wallet className="h-4 w-4" />Donate to this Campaign
+                        <Wallet className="h-4 w-4" />Donate Now
                       </Link>
-                      <Link href="/charity#campaigns" className="flex items-center justify-center gap-1 text-[13px] text-fg-muted hover:text-fg-secondary transition-colors">
-                        View all campaigns <ChevronRight className="h-3.5 w-3.5" />
+                      <Link href={`/charity/campaign/${hero.id}`} className="flex items-center gap-1 text-[13px] text-fg-muted hover:text-fg-secondary transition-colors">
+                        View campaign <ChevronRight className="h-3.5 w-3.5" />
                       </Link>
                     </div>
                   </div>
                 </div>
+
+                {/* Compact grid — remaining campaigns */}
+                {campaigns.length > 1 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {campaigns.slice(1).map((c) => {
+                      const cpct = Math.min(100, Math.max(0, (parseFloat(c.totalRaised) / parseFloat(c.totalGoal)) * 100));
+                      const dLeft = Math.max(0, Math.ceil((c.deadline - now) / 86400));
+                      return (
+                        <div key={c.id} className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
+                          <div className="h-[160px] overflow-hidden">
+                            <img src={c.coverImage} alt="" className="w-full h-full object-cover" />
+                          </div>
+                          <div className="p-4 flex flex-col gap-2.5">
+                            <div className="flex items-center gap-1.5">
+                              <span className="bg-surface-primary text-fg-secondary text-[10px] font-mono rounded-full px-2.5 py-0.5">{c.category}</span>
+                              {c.charity.status === CharityStatus.Verified && (
+                                <span className="flex items-center gap-1 text-accent-primary text-[10px] font-mono">
+                                  <CircleCheck className="h-2.5 w-2.5" />Verified
+                                </span>
+                              )}
+                            </div>
+                            <h3 className="text-[14px] font-semibold text-fg-primary leading-snug">{c.name}</h3>
+                            <p className="text-[12px] text-fg-muted">{c.charity.name}</p>
+                            <div className="h-1.5 bg-surface-primary rounded-full overflow-hidden">
+                              <div className="h-full bg-accent-primary rounded-full" style={{ width: `${cpct}%` }} />
+                            </div>
+                            <div className="flex items-center justify-between text-[11px] text-fg-muted font-mono">
+                              <span>${(c.totalRaisedUSD / 1000).toFixed(0)}K raised</span>
+                              <span>{cpct.toFixed(0)}%</span>
+                              <span>{dLeft}d left</span>
+                            </div>
+                            <Link
+                              href={`/charity/campaign/${c.id}`}
+                              className="flex items-center justify-center bg-surface-primary text-fg-primary text-[13px] font-semibold rounded-full py-2.5 hover:bg-accent-light hover:text-accent-primary transition-colors mt-1"
+                            >
+                              Donate Now
+                            </Link>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
 
               </div>
             );
@@ -369,325 +402,557 @@ export default function LandingPage() {
 
       {/* ===== 04 DONATION FLOW ===== */}
       <section data-fade-up className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Donation Experience</span>
+        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Donation Experience</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Donate in Any Token. Pay Less with SANC.</h2>
-        <p className="text-base text-fg-secondary text-center max-w-2xl">Multi-token support with transparent fee breakdown. SANC holders get 50% off platform fees.</p>
+        <div className="flex flex-col gap-4 max-w-7xl mx-auto w-full">
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
-          {/* Token Selector Card */}
-          <div className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
-            <span className="text-[11px] text-fg-muted font-mono">Select Token</span>
-            <div className="flex gap-3">
-              {["BNB", "SANC", "USDT", "BUSD"].map((t, i) => (
-                <button key={t} className={`px-5 py-2 rounded-full text-sm ${i === 1 ? "bg-accent-primary text-white font-semibold" : "bg-surface-primary text-fg-secondary"}`}>
-                  {t}
-                </button>
-              ))}
+          {/* Proof card — donation in progress */}
+          <div className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/[0.04] flex flex-col sm:flex-row">
+            {/* Campaign thumbnail */}
+            <div className="relative sm:w-[200px] lg:w-[220px] h-[140px] sm:h-auto flex-shrink-0 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&q=80" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/50 to-transparent" />
+              <div className="absolute bottom-3 left-3 sm:hidden">
+                <p className="text-sm font-bold text-white leading-snug">School Building · Kenya</p>
+              </div>
             </div>
-            <div className="flex items-center justify-between bg-surface-primary rounded-xl h-14 px-4">
-              <span className="text-2xl font-bold text-fg-primary">2,500,000</span>
-              <span className="text-sm text-fg-muted">SANC</span>
-            </div>
-            <div className="flex gap-2">
-              {["100K", "500K", "1M", "5M", "Max"].map((q) => (
-                <button key={q} className="flex-1 bg-surface-primary text-fg-secondary text-xs rounded-full py-1.5">{q}</button>
-              ))}
-            </div>
-            <ComingSoonOverlay action="Confirm donation">
-              <button className="w-full bg-accent-primary text-white text-[15px] font-semibold rounded-full py-3.5">Confirm Donation</button>
-            </ComingSoonOverlay>
-            <div className="flex items-center justify-center gap-1.5">
-              <Hexagon className="h-3.5 w-3.5 text-accent-primary" />
-              <span className="text-[11px] text-fg-muted">You&apos;ll receive an ERC-721 NFT receipt</span>
-            </div>
-          </div>
 
-          {/* Fee Breakdown Card */}
-          <div className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
-            <span className="text-lg font-semibold text-fg-primary">Fee Breakdown</span>
-            <div className="flex flex-col gap-3">
-              {[
-                { label: "Platform Fee", val: "2%", note: "Standard rate" },
-                { label: "With SANC Discount", val: "1%", note: "50% discount", highlight: true },
-                { label: "Gas Estimate", val: "~0.002 BNB", note: "Network fee" },
-              ].map((f) => (
-                <div key={f.label} className={`flex items-center justify-between p-3.5 rounded-xl ${f.highlight ? "bg-[#DCFCE7]" : "bg-surface-primary"}`}>
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-sm font-medium text-fg-primary">{f.label}</span>
-                    <span className="text-[11px] text-fg-muted">{f.note}</span>
-                  </div>
-                  <span className={`text-sm font-bold ${f.highlight ? "text-[#16A34A]" : "text-fg-primary"}`}>{f.val}</span>
+            {/* Form area */}
+            <div className="flex-1 p-5 sm:p-6 flex flex-col gap-3.5">
+              <div className="hidden sm:flex items-center gap-2">
+                <span className="text-[13px] font-semibold text-fg-primary">School Building · Kenya Education Trust</span>
+                <span className="flex items-center gap-1 text-accent-primary text-[11px] font-mono"><CircleCheck className="h-3 w-3" />Verified</span>
+              </div>
+
+              {/* Token + Amount */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2.5">
+                <div className="flex gap-2 pointer-events-none">
+                  {["BNB", "SANC", "USDT", "BUSD"].map((t, i) => (
+                    <button key={t} className={`px-4 py-1.5 rounded-full text-[13px] font-medium ${i === 1 ? "bg-accent-primary text-white" : "bg-surface-primary text-fg-secondary"}`}>
+                      {t}
+                    </button>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="bg-[#FEF3C7] rounded-xl p-3.5 flex items-center gap-2">
-              <Flame className="h-4 w-4 text-[#D97706]" />
-              <span className="text-xs text-[#92400E]">50% of fees are burned, reducing SANC supply</span>
+                <div className="flex items-center gap-2 bg-surface-primary rounded-xl px-4 py-2.5 sm:ml-auto">
+                  <span className="text-[18px] font-bold text-fg-primary">2,500,000</span>
+                  <span className="text-sm text-fg-muted font-mono">SANC</span>
+                </div>
+              </div>
+
+              {/* Quick amounts */}
+              <div className="flex gap-2 pointer-events-none">
+                {["100K", "500K", "1M", "5M", "Max"].map((q) => (
+                  <button key={q} className="flex-1 bg-surface-primary text-fg-secondary text-xs rounded-full py-1.5">
+                    {q}
+                  </button>
+                ))}
+              </div>
+
+              {/* Fee summary + CTA */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-0.5">
+                <div className="flex flex-col gap-0.5 flex-1">
+                  <p className="text-[12px] text-fg-muted font-mono">
+                    2,500,000 SANC · <span className="text-success font-medium">1% fee</span> · <span className="font-semibold text-fg-primary">2,475,000 to charity</span>
+                  </p>
+                  <p className="text-[11px] text-fg-muted flex items-center gap-1">
+                    <Flame className="h-2.5 w-2.5 text-warning flex-shrink-0" />50% of fee burned · reduces SANC supply
+                  </p>
+                </div>
+                <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent-primary text-white text-sm font-semibold rounded-full px-6 py-2.5 shadow-[0_4px_20px_rgba(14,165,233,0.3)] whitespace-nowrap pointer-events-none opacity-60">
+                  Confirm Donation
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* NFT Receipt Preview */}
-          <div className="bg-[#0F172A] rounded-2xl p-6 sm:p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
-            <span className="text-lg font-semibold text-white">Your NFT Receipt</span>
-            <div className="flex-1 bg-gradient-to-b from-accent-primary/20 to-transparent rounded-xl flex flex-col items-center justify-center gap-4 py-8">
-              <Award className="h-16 w-16 text-[#FFD700]" />
-              <span className="text-white font-semibold">Donation #1,248</span>
-              <span className="text-white/60 text-xs font-mono">ERC-721 · BEP-721</span>
-            </div>
-            <div className="flex flex-col gap-2">
-              <div className="flex justify-between">
-                <span className="text-xs text-white/50">Amount</span>
-                <span className="text-xs text-white font-semibold">2,500,000 SANC</span>
+          {/* Benefit chips */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              { icon: Hexagon, title: "NFT Receipt Included",    desc: "ERC-721 minted to your wallet automatically after every donation."      },
+              { icon: Coins,   title: "50% Discount with SANC", desc: "Pay fees in SANC to get half off — only 1% instead of the standard 2%." },
+              { icon: Lock,    title: "Funds Held in Escrow",   desc: "DonationVault holds all funds. Released only after community vote."      },
+            ].map((b) => (
+              <div key={b.title} className="flex items-start gap-3.5 bg-white rounded-xl p-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-black/[0.03]">
+                <div className="h-8 w-8 rounded-full bg-accent-light flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <b.icon className="h-4 w-4 text-accent-primary" />
+                </div>
+                <div>
+                  <p className="text-[13px] font-semibold text-fg-primary">{b.title}</p>
+                  <p className="text-[12px] text-fg-muted mt-0.5 leading-relaxed">{b.desc}</p>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-xs text-white/50">Campaign</span>
-                <span className="text-xs text-white font-semibold">School Building</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-xs text-white/50">Date</span>
-                <span className="text-xs text-white font-semibold">Apr 12, 2026</span>
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
 
-        {/* Large Donation Warning */}
-        <div className="flex items-center gap-3 bg-white border border-[#E2E8F0] rounded-xl px-5 py-3 max-w-7xl mx-auto w-full">
-          <Shield className="h-4 w-4 text-accent-primary flex-shrink-0" />
-          <span className="text-xs text-fg-secondary">Large donations (&gt;100 BNB) trigger multi-sig approval for added security. All transactions are publicly verifiable on BSCScan.</span>
+          {/* Security notice */}
+          <div className="flex items-center gap-3 bg-white border border-line-subtle rounded-xl px-5 py-3 w-full">
+            <Shield className="h-4 w-4 text-accent-primary flex-shrink-0" />
+            <span className="text-xs text-fg-secondary">Large donations (&gt;100 BNB) trigger multi-sig approval for added security. All transactions are publicly verifiable on BSCScan.</span>
+          </div>
+
         </div>
       </section>
 
       {/* ===== 05 IMPACT DASHBOARD ===== */}
-      <section data-fade-up className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
-        <span className="bg-surface-primary rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Platform Impact</span>
+      <section data-fade-up className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Platform Impact</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Transparency in Numbers</h2>
 
-        {/* Stats Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto w-full">
-          {isLoading ? Array.from({ length: 4 }).map((_, i) => <StatCardSkeleton key={i} />) :
-          [
-            { icon: DollarSign, value: platformStats?.totalDonated ?? "$2.4M+", label: "Total Donated (USD)" },
-            { icon: Users, value: platformStats?.totalDonors ?? "12,847", label: "Unique Donors" },
-            { icon: Target, value: platformStats?.campaignsCompleted ?? "86", label: "Campaigns Funded" },
-            { icon: Flame, value: platformStats?.sancBurned ?? "1.2B", label: "SANC Burned" },
-          ].map((s) => (
-            <div key={s.label} className="bg-surface-primary rounded-2xl p-5 sm:p-6 flex flex-col items-center gap-3">
-              <s.icon className="h-7 w-7 text-fg-muted" />
-              <span className="text-2xl sm:text-3xl lg:text-[44px] font-bold text-fg-primary">{s.value}</span>
-              <span className="text-xs text-fg-muted">{s.label}</span>
+        {/* Single unified card */}
+        <div className="max-w-7xl mx-auto w-full bg-white rounded-2xl shadow-[0_4px_32px_rgba(0,0,0,0.07)] border border-black/[0.04] overflow-hidden flex flex-col lg:flex-row">
+
+          {/* Left: stats + category chart */}
+          <div className="flex-1 p-6 lg:p-8 flex flex-col gap-6 border-b lg:border-b-0 lg:border-r border-line-subtle">
+
+            {/* 2×2 stat grid */}
+            <div className="grid grid-cols-2 gap-4 sm:gap-6">
+              {isLoading
+                ? Array.from({ length: 4 }).map((_, i) => <StatCardSkeleton key={i} />)
+                : [
+                    { icon: DollarSign, value: platformStats?.totalDonated      ?? "$2.4M+", label: "Total Donated",    trend: "12%" },
+                    { icon: Users,      value: platformStats?.totalDonors        ?? "12,847", label: "Unique Donors",    trend: "8%"  },
+                    { icon: Target,     value: platformStats?.campaignsCompleted ?? "86",     label: "Campaigns Funded", trend: "4%"  },
+                    { icon: Flame,      value: platformStats?.sancBurned         ?? "1.2B",   label: "SANC Burned",      trend: "23%" },
+                  ].map((s) => (
+                    <div key={s.label} className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-1.5">
+                        <s.icon className="h-4 w-4 text-fg-muted" />
+                        <span className="text-[11px] text-fg-muted">{s.label}</span>
+                      </div>
+                      <span className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-fg-primary leading-none">{s.value}</span>
+                      <span className="text-[11px] font-semibold text-success">↑ {s.trend} this month</span>
+                    </div>
+                  ))
+              }
             </div>
-          ))}
-        </div>
 
+            <div className="h-px bg-line-subtle" />
 
-        {/* Category Row */}
-        <div className="grid grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 max-w-7xl mx-auto w-full">
-          {impactCategories.map((cat) => (
-            <div key={cat.label} className="flex flex-col items-center gap-1 bg-surface-primary rounded-xl p-3 sm:p-4">
-              <span className="text-[13px] font-semibold text-fg-primary">{cat.value}</span>
-              <span className="text-[10px] text-fg-muted">{cat.label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Top Donors */}
-        <div className="max-w-7xl mx-auto w-full bg-surface-primary rounded-2xl p-6 flex flex-col gap-4">
-          <span className="text-lg font-bold text-fg-primary">Top Donors</span>
-          {topDonors.map((d) => (
-            <div key={d.rank} className={`flex items-center justify-between ${d.rank % 2 === 0 ? "bg-[#F0F9FF]" : "bg-white"} rounded-xl px-5 py-3`}>
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-bold text-accent-primary">#{d.rank}</span>
-                <span className="text-sm font-mono text-fg-primary">{d.addr}</span>
+            {/* Category bar chart */}
+            <div>
+              <span className="text-[12px] font-semibold text-fg-secondary uppercase tracking-[0.08em] mb-4 block">Impact by Category</span>
+              <div className="flex flex-col gap-2.5">
+                {impactCategories.map((cat) => {
+                  const val = parseFloat(cat.value.replace(/[$K]/g, ""));
+                  const pct = (val / 420) * 100;
+                  return (
+                    <div key={cat.label} className="flex items-center gap-3">
+                      <span className="text-[12px] text-fg-muted w-20 flex-shrink-0">{cat.label}</span>
+                      <div className="flex-1 h-1.5 bg-surface-primary rounded-full overflow-hidden">
+                        <div className="h-full bg-accent-primary rounded-full" style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="text-[12px] font-semibold text-fg-primary w-12 text-right flex-shrink-0">{cat.value}</span>
+                    </div>
+                  );
+                })}
               </div>
-              <div className="flex items-center gap-6">
-                <span className="text-sm font-semibold text-fg-primary">{d.total}</span>
-                <span className="text-xs text-fg-muted">{d.count} donations</span>
-              </div>
             </div>
-          ))}
+
+          </div>
+
+          {/* Right: leaderboard */}
+          <div className="lg:w-[360px] flex-shrink-0 p-6 lg:p-8 flex flex-col gap-5">
+            <div className="flex items-center justify-between">
+              <span className="text-[13px] font-semibold text-fg-primary">Top Donors</span>
+              <span className="text-[11px] text-fg-muted font-mono">All time</span>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {topDonors.map((d) => {
+                const amount = parseFloat(d.total.replace(/[$,]/g, ""));
+                const barPct = (amount / 48200) * 100;
+                const avatarColors = ["bg-accent-primary", "bg-success", "bg-warning"];
+                return (
+                  <div key={d.rank} className="flex items-center gap-3">
+                    {/* Avatar */}
+                    <div className={`h-9 w-9 rounded-full ${avatarColors[d.rank - 1]} flex items-center justify-center flex-shrink-0`}>
+                      <span className="text-[11px] font-bold text-white">{d.addr.slice(2, 4).toUpperCase()}</span>
+                    </div>
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[13px] font-mono text-fg-primary truncate">{d.addr}</span>
+                        <span className="text-[13px] font-bold text-fg-primary flex-shrink-0 ml-2">{d.total}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 h-1 bg-surface-primary rounded-full overflow-hidden">
+                          <div className="h-full bg-accent-primary rounded-full" style={{ width: `${barPct}%` }} />
+                        </div>
+                        <span className="text-[10px] text-fg-muted flex-shrink-0">{d.count} donations</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <Link href="/charity/impact" className="flex items-center justify-center gap-1 text-[13px] text-fg-muted hover:text-fg-secondary transition-colors mt-auto pt-2">
+              View full leaderboard <ChevronRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
         </div>
       </section>
 
+      {/* Section divider */}
+      <div className="bg-white flex items-center px-4 sm:px-6 lg:px-8 py-0">
+        <div className="flex items-center gap-3 w-full max-w-7xl mx-auto">
+          <div className="flex-1 h-px bg-line-subtle" />
+          <div className="h-1.5 w-1.5 rounded-full bg-accent-primary/40" />
+          <div className="flex-1 h-px bg-line-subtle" />
+        </div>
+      </div>
+
       {/* ===== 06 GOVERNANCE & VOTING ===== */}
       <section data-fade-up className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Governance &amp; Voting</span>
+        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Governance &amp; Voting</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Community-Powered<br />Fund Releases</h2>
-        <p className="text-base text-fg-secondary text-center max-w-2xl">Stake SANC tokens to gain voting power. Approve or reject milestone fund releases. 66% quorum required. 14-day voting windows.</p>
+        <p className="text-base text-fg-secondary text-center max-w-xl">Stake SANC tokens to gain voting power. Every milestone fund release requires community approval.</p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto w-full">
-          {/* Voter Tiers */}
-          <div className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
-            <span className="text-[22px] font-bold text-fg-primary">Voter Tiers</span>
-            <p className="text-sm text-fg-secondary">Stake more SANC to increase your voting power and unlock governance features.</p>
+        <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-4 items-stretch">
+
+          {/* Left: light tier ladder (40%) */}
+          <div className="lg:w-[38%] flex-shrink-0 bg-white rounded-2xl p-6 lg:p-8 flex flex-col gap-6 border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+            <div>
+              <span className="text-[11px] font-bold text-fg-muted uppercase tracking-[0.1em]">Voter Tiers</span>
+              <p className="text-sm font-semibold text-fg-primary mt-1.5">Stake SANC to earn voting power</p>
+              <p className="text-[13px] text-fg-secondary mt-1">Higher stake = more weight per vote. All tiers can approve or reject milestone releases.</p>
+            </div>
+
             <div className="flex flex-col gap-3">
               {[
-                { tier: "Community", stake: "1M SANC", power: "1x", color: "bg-[#E0F2FE]" },
-                { tier: "Guardian", stake: "10M SANC", power: "2x", color: "bg-[#E0F2FE]" },
+                { tier: "Standard", stake: "1M SANC",  power: "1×",  dot: "bg-[#0EA5E9]", val: "text-[#0EA5E9]", desc: "Base voting rights",    ring: "bg-[#F0F9FF] border-[#0EA5E9]/20" },
+                { tier: "Elite",    stake: "10M SANC", power: "3×",  dot: "bg-[#22C55E]", val: "text-[#22C55E]", desc: "3× weighted vote",      ring: "bg-[#F0FDF4] border-[#22C55E]/20" },
+                { tier: "Whale",    stake: "50M SANC", power: "10×", dot: "bg-[#EAB308]", val: "text-[#CA8A04]", desc: "Maximum voting impact", ring: "bg-[#FEFCE8] border-[#EAB308]/20" },
               ].map((t) => (
-                <div key={t.tier} className={`flex items-center justify-between ${t.color} rounded-xl px-5 py-4`}>
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-sm font-semibold text-fg-primary">{t.tier}</span>
-                    <span className="text-xs text-fg-muted font-mono">{t.stake}</span>
+                <div key={t.tier} className={`flex items-center gap-3 border rounded-xl px-4 py-3 ${t.ring}`}>
+                  <span className={`h-2 w-2 rounded-full flex-shrink-0 ${t.dot}`} />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] font-semibold text-fg-primary">{t.tier}</span>
+                      <span className="text-[11px] font-mono text-fg-muted">{t.stake}</span>
+                    </div>
+                    <span className="text-[11px] text-fg-muted">{t.desc}</span>
                   </div>
-                  <span className="text-[28px] font-bold text-accent-primary">{t.power}</span>
+                  <span className={`text-[22px] font-bold flex-shrink-0 ${t.val}`}>{t.power}</span>
                 </div>
               ))}
             </div>
+
+            <div className="mt-auto flex flex-col gap-2.5 bg-surface-primary border border-line-subtle rounded-xl p-4">
+              <div className="flex items-center justify-between">
+                <span className="text-[12px] text-fg-muted">Your stake</span>
+                <span className="text-[12px] font-mono text-fg-muted">Not staked</span>
+              </div>
+              <div className="h-1.5 bg-line-subtle rounded-full" />
+              <ComingSoonOverlay action="Stake SANC">
+                <button className="w-full bg-accent-primary text-white text-sm font-semibold rounded-xl py-2.5 hover:bg-accent-primary/90 transition-colors">
+                  Stake SANC to Vote
+                </button>
+              </ComingSoonOverlay>
+            </div>
           </div>
 
-          {/* How Voting Works */}
-          <div className="bg-[#0F172A] rounded-2xl p-6 sm:p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
-            <span className="text-[20px] font-bold text-white">How Voting Works</span>
-            <div className="bg-white/10 rounded-xl p-5 flex flex-col gap-3">
-              <span className="text-[13px] text-fg-secondary">Clean Water Initiative — Milestone #2: Equipment Purchase</span>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {[
-                  { label: "Approval", val: "72%" },
-                  { label: "Votes", val: "156" },
-                  { label: "Quorum", val: "66%" },
-                  { label: "Time Left", val: "8d 14h" },
-                ].map((s) => (
-                  <div key={s.label} className="flex flex-col gap-0.5">
-                    <span className="text-white text-lg font-bold">{s.val}</span>
-                    <span className="text-white/50 text-[10px] font-mono">{s.label}</span>
-                  </div>
-                ))}
+          {/* Right: white vote simulation (60%) */}
+          <div className="flex-1 bg-white rounded-2xl p-6 lg:p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
+
+            {/* Proposal header */}
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <span className="text-[11px] font-mono text-fg-muted uppercase tracking-wide">Active Proposal #42</span>
+                <p className="text-[16px] sm:text-[17px] font-semibold text-fg-primary mt-0.5 leading-snug">Clean Water Initiative — Milestone #2: Equipment Purchase</p>
               </div>
-              <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                <div className="h-full w-[72%] bg-accent-primary rounded-full" />
-              </div>
-              <div className="flex gap-3 mt-2">
-                <button className="flex-1 bg-accent-primary text-white text-sm font-semibold rounded-full py-2.5">Approve</button>
-                <button className="flex-1 bg-red-500/50 text-white text-sm font-semibold rounded-full py-2.5">Reject</button>
-                <button className="flex-1 bg-white/10 text-white/80 text-sm font-semibold rounded-full py-2.5">Abstain</button>
-              </div>
+              <span className="flex-shrink-0 bg-[#F0FDF4] border border-[#22C55E]/30 rounded-full px-3 py-1 text-[11px] font-semibold text-[#22C55E]">● Live</span>
             </div>
+
+            {/* Vote bars */}
+            <div className="flex flex-col gap-3">
+              {[
+                { label: "Approve", pct: 72, votes: 112, bar: "bg-[#22C55E]" },
+                { label: "Reject",  pct: 19, votes: 30,  bar: "bg-[#EF4444]" },
+                { label: "Abstain", pct: 9,  votes: 14,  bar: "bg-fg-muted"  },
+              ].map((v) => (
+                <div key={v.label} className="flex items-center gap-3">
+                  <span className="text-[12px] text-fg-muted w-14 flex-shrink-0">{v.label}</span>
+                  <div className="flex-1 h-2 bg-surface-primary rounded-full overflow-hidden">
+                    <div className={`h-full ${v.bar} rounded-full bar-fill`} style={{ "--bar-w": `${v.pct}%` } as React.CSSProperties} />
+                  </div>
+                  <span className="text-[12px] font-semibold text-fg-secondary w-9 text-right flex-shrink-0">{v.pct}%</span>
+                  <span className="text-[11px] text-fg-muted w-16 flex-shrink-0 hidden sm:block">{v.votes} votes</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Voter breakdown table */}
+            <div className="flex flex-col gap-0 border border-line-subtle rounded-xl overflow-hidden">
+              <div className="grid grid-cols-3 bg-surface-primary px-4 py-2 border-b border-line-subtle">
+                <span className="text-[10px] font-bold text-fg-muted uppercase tracking-wide">Voter</span>
+                <span className="text-[10px] font-bold text-fg-muted uppercase tracking-wide">Tier</span>
+                <span className="text-[10px] font-bold text-fg-muted uppercase tracking-wide">Vote</span>
+              </div>
+              {[
+                { addr: "0x7a3B...4f2E", tier: "Whale",    vote: "Approve", voteColor: "text-[#22C55E]", tierColor: "text-[#CA8A04]" },
+                { addr: "0xB4c1...3fA7", tier: "Elite",    vote: "Approve", voteColor: "text-[#22C55E]", tierColor: "text-[#22C55E]" },
+                { addr: "0x2eD8...71cF", tier: "Standard", vote: "Reject",  voteColor: "text-[#EF4444]", tierColor: "text-[#0EA5E9]" },
+                { addr: "0x9Fa4...8bC2", tier: "Elite",    vote: "Abstain", voteColor: "text-fg-muted",  tierColor: "text-[#22C55E]" },
+              ].map((row, i) => (
+                <div key={row.addr} className={`grid grid-cols-3 px-4 py-2.5 ${i < 3 ? "border-b border-line-subtle" : ""}`}>
+                  <span className="text-[12px] font-mono text-fg-secondary truncate pr-2">{row.addr}</span>
+                  <span className={`text-[12px] font-semibold ${row.tierColor}`}>{row.tier}</span>
+                  <span className={`text-[12px] font-semibold ${row.voteColor}`}>{row.vote}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Quorum banner + vote buttons */}
+            <div className="flex items-center gap-2 bg-[#F0FDF4] border border-[#22C55E]/20 rounded-xl px-4 py-2.5">
+              <CircleCheck className="h-4 w-4 text-[#22C55E] flex-shrink-0" />
+              <span className="text-[12px] text-[#22C55E] font-semibold">Quorum reached · 72% approval exceeds the 66% threshold</span>
+            </div>
+
+            <div className="flex gap-3 mt-auto pointer-events-none">
+              <button className="flex-1 bg-[#F0FDF4] border border-[#22C55E]/30 text-[#22C55E] text-sm font-semibold rounded-xl py-3 px-5 opacity-60">✓ Approve</button>
+              <button className="flex-1 bg-[#FEF2F2] border border-[#EF4444]/30 text-[#EF4444] text-sm font-semibold rounded-xl py-3 px-5 opacity-60">✕ Reject</button>
+              <button className="flex-1 bg-surface-primary border border-line-subtle text-fg-muted text-sm font-semibold rounded-xl py-3 px-5 opacity-60">— Abstain</button>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* ===== 07 NFT & TRANSPARENCY ===== */}
       <section data-fade-up className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-surface-primary rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">NFT Receipts &amp; Security</span>
+        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">NFT Receipts &amp; Security</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center leading-[1.15]">Immutable Proof.<br />Audited Security.</h2>
 
-        <div className="flex flex-col lg:flex-row gap-4 max-w-7xl mx-auto w-full">
-          {/* NFT Card Tile */}
-          <div className="w-full lg:w-[400px] bg-surface-primary rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col">
-            {/* NFT Art Image */}
-            <div className="h-[200px] overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?w=600&q=80" alt="NFT Art" className="w-full h-full object-cover" />
+        <div className="flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto w-full items-stretch">
+
+          {/* Left: NFT Certificate Card (~45%) */}
+          <div className="w-full lg:w-[420px] flex-shrink-0 rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.10)] border border-black/[0.06]">
+            {/* Art header */}
+            <div className="h-[180px] flex flex-col items-center justify-center gap-2 relative overflow-hidden"
+              style={{ background: "linear-gradient(135deg, #0F172A 0%, #1E3A5F 50%, #0EA5E9 100%)" }}>
+              <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <div className="h-[320px] w-[320px] rounded-full border-2 border-white" />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <div className="h-[220px] w-[220px] rounded-full border border-white" />
+              </div>
+              <Shield className="h-9 w-9 text-white/90 relative z-10" />
+              <span className="text-white text-[13px] font-bold tracking-widest relative z-10 font-mono">SANC CHARITY</span>
+              <span className="text-white/50 text-[10px] font-mono relative z-10">ERC-721 · BSC Mainnet</span>
             </div>
-            {/* NFT Body */}
-            <div className="p-6 flex flex-col gap-3.5">
-              <span className="self-start bg-[#E0F2FE] rounded-full px-3 py-1 text-[11px] font-semibold text-accent-primary font-mono">Donation Receipt #1247</span>
-              <span className="text-[17px] font-semibold text-fg-primary">School Building in Rural Kenya</span>
-              {/* Receipt Grid */}
-              <div className="flex flex-col gap-2">
+
+            {/* Receipt body */}
+            <div className="bg-white p-6 flex flex-col gap-4">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <span className="text-[10px] font-mono text-fg-muted uppercase tracking-wide">Donation Receipt</span>
+                  <p className="text-[15px] font-semibold text-fg-primary mt-0.5 leading-snug">School Building in Rural Kenya</p>
+                </div>
+                <span className="flex-shrink-0 bg-accent-light text-accent-primary text-[11px] font-bold font-mono rounded-full px-2.5 py-1">#1247</span>
+              </div>
+              <div className="flex flex-col gap-2 border-t border-line-subtle pt-4">
                 {[
-                  { label: "Amount", value: "2.5 BNB", color: "text-fg-primary font-semibold" },
-                  { label: "Token", value: "BNB (Native)", color: "text-fg-primary font-semibold" },
-                  { label: "Date", value: "Mar 28, 2026", color: "text-fg-primary font-semibold" },
-                  { label: "Fee Paid", value: "2% (0.05 BNB)", color: "text-fg-secondary" },
-                  { label: "Token ID", value: "#1247 (ERC-721)", color: "text-accent-primary font-semibold" },
-                  { label: "Contract", value: "0x7a3B...9f2E", color: "text-accent-primary font-semibold" },
+                  { label: "Amount",   value: "2.5 BNB",         mono: false },
+                  { label: "Date",     value: "Mar 28, 2026",    mono: false },
+                  { label: "Token ID", value: "#1247 (ERC-721)", mono: true  },
+                  { label: "Contract", value: "0x7a3B...9f2E",   mono: true  },
                 ].map((r) => (
-                  <div key={r.label} className="flex justify-between">
-                    <span className="text-xs font-mono text-fg-muted">{r.label}</span>
-                    <span className={`text-sm ${r.color}`}>{r.value}</span>
+                  <div key={r.label} className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono text-fg-muted">{r.label}</span>
+                    <span className={`text-[12px] font-semibold ${r.mono ? "font-mono text-accent-primary" : "text-fg-primary"}`}>{r.value}</span>
                   </div>
                 ))}
               </div>
-              {/* Actions */}
-              <div className="flex items-center gap-2.5">
-                <span className="flex items-center gap-1 bg-[#E0F2FE] rounded-full px-3 py-1.5">
+              <div className="flex items-center gap-3 pt-1">
+                <span className="flex items-center gap-1.5 bg-accent-light rounded-full px-3 py-1.5">
                   <BadgeCheck className="h-3.5 w-3.5 text-accent-primary" />
                   <span className="text-[11px] font-semibold text-accent-primary">Verified on BSC</span>
                 </span>
-                <span className="flex items-center gap-1">
-                  <ExternalLink className="h-3 w-3 text-fg-muted" />
-                  <span className="text-[11px] text-fg-muted">View on BscScan</span>
+                <span className="flex items-center gap-1.5 ml-auto text-fg-muted hover:text-fg-secondary cursor-pointer transition-colors">
+                  <ExternalLink className="h-3 w-3" />
+                  <span className="text-[11px]">BscScan</span>
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Security Features */}
-          <div className="flex-1 flex flex-col gap-4">
+          {/* Right: numbered editorial feature list (~55%) */}
+          <div className="flex-1 flex flex-col justify-center gap-0 divide-y divide-line-subtle">
             {[
-              { icon: Lock, title: "Smart Contract Escrow", desc: "DonationVault holds all funds. Released only after 66% community vote approval on milestone proof." },
-              { icon: Shield, title: "SourceHat Audited", desc: "5 contracts audited with ReentrancyGuard, Ownable2Step, Pausable circuit breakers, and SafeERC20." },
-              { icon: Undo, title: "Pull-Pattern Refunds", desc: "Cancelled campaigns trigger pro-rata refunds. Donors claim individually — no reentrancy risk." },
-              { icon: FileText, title: "Tax Receipt NFTs", desc: "ERC-721 NFTs with on-chain metadata: donor, campaign, token, amount, timestamp, and tax receipt URI." },
+              { n: "01", icon: Lock,     title: "Smart Contract Escrow",  desc: "DonationVault holds all funds in escrow. Every release requires a milestone proof submission and 66% community vote approval — no admin override." },
+              { n: "02", icon: Shield,   title: "SourceHat Audited",      desc: "All 5 core contracts were audited by SourceHat. ReentrancyGuard, Ownable2Step, Pausable circuit breakers, and SafeERC20 throughout." },
+              { n: "03", icon: Undo,     title: "Pull-Pattern Refunds",   desc: "If a campaign is cancelled, donors reclaim funds individually. No push transfers, no reentrancy risk, no admin-controlled withdrawals." },
+              { n: "04", icon: FileText, title: "On-Chain Tax Receipts",  desc: "Every donation mints an ERC-721 NFT with on-chain metadata: donor address, campaign, token, amount, timestamp, and a tax receipt URI." },
             ].map((item) => (
-              <div key={item.title} className="flex-1 bg-surface-primary rounded-2xl p-6 flex items-start gap-4 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
-                <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center flex-shrink-0">
-                  <item.icon className="h-[18px] w-[18px] text-accent-primary" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-base font-semibold text-fg-primary">{item.title}</span>
+              <div key={item.n} className="flex items-start gap-5 py-6 first:pt-0 last:pb-0">
+                <span className="text-[32px] font-bold text-line-subtle leading-none flex-shrink-0 w-10 pt-0.5">{item.n}</span>
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2">
+                    <item.icon className="h-4 w-4 text-accent-primary flex-shrink-0" />
+                    <span className="text-[15px] font-semibold text-fg-primary">{item.title}</span>
+                  </div>
                   <p className="text-[13px] text-fg-secondary leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
+      {/* Section divider */}
+      <div className="bg-white flex items-center px-4 sm:px-6 lg:px-8 py-0">
+        <div className="flex items-center gap-3 w-full max-w-7xl mx-auto">
+          <div className="flex-1 h-px bg-line-subtle" />
+          <div className="h-1.5 w-1.5 rounded-full bg-accent-primary/40" />
+          <div className="flex-1 h-px bg-line-subtle" />
+        </div>
+      </div>
+
       {/* ===== 08 FOR CHARITIES ===== */}
       <section data-fade-up className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-white rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">For Charities</span>
+        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">For Charities</span>
         <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Register Your Charity.<br />Reach Global Donors.</h2>
-        <p className="text-base text-fg-secondary text-center max-w-2xl">Stake 10M SANC to register. Pass KYC verification. Create milestone-based campaigns across 8 categories.</p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
-          {[
-            { icon: Coins, title: "Stake 10M SANC", desc: "Register by staking 10 million SANC tokens. Stake is slashed on revocation, returned on good standing." },
-            { icon: UserCheck, title: "Pass KYC Verification", desc: "Submit KYC documents (stored on IPFS). Admin reviews and verifies your charity before it can create campaigns." },
-            { icon: Target, title: "Create Campaigns", desc: "Define milestones that sum to your funding goal. Submit proof for each milestone. Community votes to release funds." },
-          ].map((step) => (
-            <div key={step.title} className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-4 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
-              <step.icon className="h-5 w-5 text-accent-primary" />
-              <span className="text-lg font-semibold text-fg-primary">{step.title}</span>
-              <p className="text-sm text-fg-secondary leading-relaxed">{step.desc}</p>
+        <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-6 items-stretch">
+
+          {/* Left: value card (~40%) */}
+          <div className="lg:w-[38%] flex-shrink-0 bg-white rounded-2xl p-7 lg:p-8 flex flex-col gap-6 border border-accent-primary/20 shadow-[0_0_0_1px_rgba(14,165,233,0.08),0_8px_32px_rgba(14,165,233,0.08)]">
+            <div className="flex flex-col gap-2">
+              <span className="text-[11px] font-bold text-accent-primary uppercase tracking-[0.1em]">Why SancCharity</span>
+              <h3 className="text-[22px] sm:text-[26px] font-bold text-fg-primary leading-snug">Build Trust.<br />Raise More.</h3>
+              <p className="text-[13px] text-fg-secondary leading-relaxed">The only platform where every dollar is milestone-locked, community-verified, and permanently on-chain.</p>
             </div>
-          ))}
-        </div>
 
-        {/* Categories Row */}
-        <div className="flex gap-3 flex-wrap justify-center">
-          {["Education", "Health", "Environment", "Disaster Relief", "Animal Welfare", "Community", "Technology", "Arts & Culture"].map((cat) => (
-            <span key={cat} className="bg-white text-fg-secondary text-xs rounded-full px-4 py-1.5">{cat}</span>
-          ))}
-        </div>
+            {/* Stats */}
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { value: "12",    label: "Verified Charities" },
+                { value: "$2.4M", label: "Total Raised"       },
+                { value: "86",    label: "Campaigns Funded"   },
+                { value: "8",     label: "Categories"         },
+              ].map((s) => (
+                <div key={s.label} className="bg-surface-primary rounded-xl px-4 py-3 flex flex-col gap-0.5">
+                  <span className="text-[20px] font-bold text-fg-primary leading-none">{s.value}</span>
+                  <span className="text-[11px] text-fg-muted">{s.label}</span>
+                </div>
+              ))}
+            </div>
 
-        {/* Register CTA */}
-        <div className="flex flex-col items-center gap-3 mt-2">
-          <Link
-            href="/charity/register"
-            className="flex items-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-10 py-3.5 shadow-[0_4px_24px_rgba(14,165,233,0.35)]"
-          >
-            <UserCheck className="h-4 w-4" />
-            Register Your Charity
-          </Link>
-          <span className="text-xs text-fg-muted">Takes ~5 minutes · 10M SANC required to stake</span>
+            {/* Categories */}
+            <div className="flex gap-2 flex-wrap">
+              {["Education", "Health", "Environment", "Disaster Relief", "Animals", "Community", "Technology", "Arts"].map((cat) => (
+                <span key={cat} className="bg-accent-light text-accent-primary text-[11px] font-medium rounded-full px-3 py-1">{cat}</span>
+              ))}
+            </div>
+
+            <div className="flex flex-col gap-2 mt-auto">
+              <Link
+                href="/charity/register"
+                className="flex items-center justify-center gap-2 bg-accent-primary text-white text-[14px] font-semibold rounded-xl px-6 py-3 shadow-[0_4px_20px_rgba(14,165,233,0.3)] hover:bg-accent-primary/90 transition-colors"
+              >
+                <UserCheck className="h-4 w-4" />Register Your Charity
+              </Link>
+              <span className="text-[11px] text-fg-muted text-center">Takes ~5 minutes · 10M SANC required to stake</span>
+            </div>
+          </div>
+
+          {/* Right: numbered steps (~60%) */}
+          <div className="flex-1 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col divide-y divide-line-subtle">
+            {[
+              { n: "01", icon: Coins,     title: "Stake 10M SANC",        desc: "Register by staking 10 million SANC tokens. Your stake is returned when you leave in good standing — and slashed if your charity is revoked for misconduct." },
+              { n: "02", icon: UserCheck, title: "Pass KYC Verification", desc: "Submit your organisation's KYC documents (stored on IPFS). A platform admin reviews and verifies your charity before you can publish any campaigns." },
+              { n: "03", icon: Target,    title: "Create Milestone Campaigns", desc: "Define a funding goal split across milestones. Submit on-chain proof for each completed milestone. The community votes to release the next tranche of funds." },
+            ].map((step) => (
+              <div key={step.n} className="flex items-start gap-5 p-6 lg:p-8">
+                <span className="text-[36px] font-bold text-line-subtle leading-none flex-shrink-0 w-12 pt-0.5">{step.n}</span>
+                <div className="flex flex-col gap-1.5 pt-1">
+                  <div className="flex items-center gap-2">
+                    <step.icon className="h-4 w-4 text-accent-primary flex-shrink-0" />
+                    <span className="text-[15px] font-semibold text-fg-primary">{step.title}</span>
+                  </div>
+                  <p className="text-[13px] text-fg-secondary leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ===== 09 FINAL CTA ===== */}
-      <section data-fade-up className="px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <div className="max-w-7xl mx-auto rounded-2xl px-6 sm:px-10 lg:px-16 py-12 lg:py-20 flex flex-col items-center gap-6 text-center" style={{ backgroundImage: "linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&q=80')", backgroundSize: "cover", backgroundPosition: "center" }}>
-          <h2 className="text-2xl sm:text-3xl lg:text-[44px] font-bold text-white">Start Your Transparent<br />Giving Journey</h2>
-          <p className="text-sm sm:text-base lg:text-[17px] text-white/70 max-w-2xl">Connect your wallet. Choose a verified cause. Every dollar tracked on-chain. Every milestone community-verified.</p>
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
-            <ComingSoonOverlay action="Connect wallet">
-              <button className="flex items-center gap-2 bg-white text-[#0F172A] text-[15px] font-semibold rounded-full px-8 py-3.5">
-                <Wallet className="h-4 w-4" />Connect Wallet &amp; Donate
-              </button>
-            </ComingSoonOverlay>
-            <Link href="/charity/register" className="text-[15px] text-white rounded-full px-8 py-3.5 border border-white/20">Register Your Charity</Link>
+      <section data-fade-up className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-black/[0.06] shadow-[0_4px_32px_rgba(0,0,0,0.06)]">
+
+          {/* Left: CTA (~55%) */}
+          <div className="flex-1 bg-white p-8 lg:p-12 flex flex-col gap-6 justify-center">
+            <div className="flex flex-col gap-3">
+              <span className="text-[11px] font-bold text-accent-primary uppercase tracking-[0.1em]">Join the Community</span>
+              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary leading-[1.1]">
+                Join {platformStats?.totalDonors ?? "12,847"}+ donors<br />making impact you can verify.
+              </h2>
+              <p className="text-[15px] text-fg-secondary leading-relaxed max-w-md">Every dollar locked until results are proven. Every milestone voted on by the community. Every transaction on-chain, forever.</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <ComingSoonOverlay action="Connect wallet">
+                <button className="flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5 shadow-[0_4px_20px_rgba(14,165,233,0.3)] hover:bg-accent-primary/90 transition-colors whitespace-nowrap">
+                  <Wallet className="h-4 w-4" />Connect Wallet &amp; Donate
+                </button>
+              </ComingSoonOverlay>
+              <Link href="/charity/register" className="flex items-center justify-center gap-2 text-[15px] text-fg-secondary rounded-full px-8 py-3.5 border border-line-subtle hover:bg-white hover:text-fg-primary transition-colors whitespace-nowrap">
+                <UserCheck className="h-4 w-4" />Register Your Charity
+              </Link>
+            </div>
+            {/* Live counter strip */}
+            <div className="flex items-center gap-2 pt-2">
+              {isLoading
+                ? <div className="skeleton h-3 w-64 rounded" />
+                : <span className="text-[12px] font-mono text-fg-muted">
+                    {platformStats?.totalDonors ?? "12,847"} donors &nbsp;·&nbsp; {platformStats?.totalDonated ?? "$2.4M+"} raised &nbsp;·&nbsp; {platformStats?.campaignsCompleted ?? "86"} campaigns funded
+                  </span>
+              }
+            </div>
           </div>
+
+          {/* Right: impact story panel (~45%) */}
+          <div className="lg:w-[42%] flex-shrink-0 bg-[#F0F9FF] p-8 lg:p-10 flex flex-col justify-center gap-5 border-t lg:border-t-0 lg:border-l border-line-subtle">
+            <span className="text-[11px] font-bold text-fg-muted uppercase tracking-[0.1em]">Real Impact</span>
+
+            {/* Impact vignette card */}
+            <div className="bg-white rounded-2xl p-5 flex flex-col gap-4 shadow-[0_2px_16px_rgba(0,0,0,0.05)] border border-black/[0.04]">
+              <div className="flex items-center gap-3">
+                <img
+                  src="https://ui-avatars.com/api/?name=Kenya+Education+Trust&background=0EA5E9&color=fff&size=48&bold=true"
+                  alt="Kenya Education Trust"
+                  className="h-10 w-10 rounded-full flex-shrink-0"
+                />
+                <div>
+                  <p className="text-[13px] font-semibold text-fg-primary">Kenya Education Trust</p>
+                  <p className="text-[11px] font-mono text-fg-muted">Verified charity · 5 campaigns</p>
+                </div>
+                <span className="ml-auto flex-shrink-0 bg-[#F0FDF4] border border-[#22C55E]/30 rounded-full px-2.5 py-1 text-[10px] font-semibold text-[#22C55E]">Milestone 3 of 4</span>
+              </div>
+              <p className="text-[13px] text-fg-secondary leading-relaxed">
+                &ldquo;The classroom block is complete. 240 students now have a safe place to learn &mdash; something they didn&apos;t have six months ago.&rdquo;
+              </p>
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] text-fg-muted">School Building in Rural Kenya</span>
+                  <span className="text-[11px] font-semibold text-fg-primary">$48,200 raised</span>
+                </div>
+                <div className="h-1.5 bg-surface-primary rounded-full overflow-hidden">
+                  <div className="h-full w-[75%] bg-accent-primary rounded-full" />
+                </div>
+              </div>
+            </div>
+
+            <p className="text-[12px] text-fg-muted leading-relaxed">
+              Every release above was voted on by SANC stakers. The funds were locked in escrow until the community confirmed the milestone was complete.
+            </p>
+          </div>
+
         </div>
       </section>
 
