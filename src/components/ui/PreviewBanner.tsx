@@ -24,7 +24,7 @@ export function PreviewBanner() {
       <div className="flex items-center gap-2 flex-1">
         <Rocket className="h-3.5 w-3.5 text-accent-primary flex-shrink-0" />
         <span className="text-[13px] font-medium hidden sm:inline">
-          SancCharity is in preview — launching soon on BSC
+          SancCharity is in preview — launching soon on the blockchain
         </span>
         <span className="text-[13px] font-medium sm:hidden">Preview mode</span>
       </div>
