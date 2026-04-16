@@ -55,7 +55,7 @@ export function useRegistrationStake() {
 
   const stakeRaw = isLive && rawAmount != null
     ? (typeof rawAmount === "bigint" ? rawAmount : BigInt(String(rawAmount)))
-    : BigInt(MOCK_STAKE_AMOUNT) * 10n ** BigInt(SANC_DECIMALS);
+    : BigInt(MOCK_STAKE_AMOUNT) * BigInt(10 ** SANC_DECIMALS);
 
   return {
     stakeUsd,       // e.g. 500  (USD target)
