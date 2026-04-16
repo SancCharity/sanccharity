@@ -15,6 +15,7 @@ import {
   Clock4,
 } from "lucide-react";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
+import { useRegistrationStake } from "@/hooks/useRegistrationStake";
 
 const STEPS = ["Charity Info", "KYC Documents", "Stake SANC", "Confirm"] as const;
 
@@ -239,7 +240,9 @@ function StepKYC({ onNext, onBack }: { onNext: () => void; onBack: () => void })
 /* ------------------------------------------------------------------ */
 /*  Step 3 – Stake SANC                                               */
 /* ------------------------------------------------------------------ */
-function StepStake({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
+function StepStake({ onNext, onBack, stakeUsd, stakeTokens }: { onNext: () => void; onBack: () => void; stakeUsd: number; stakeTokens: number }) {
+  const stakeDisplay = stakeTokens.toLocaleString();
+
   return (
     <>
       <h2 className="text-[24px] font-bold text-fg-primary">Stake SANC</h2>
@@ -251,17 +254,22 @@ function StepStake({ onNext, onBack }: { onNext: () => void; onBack: () => void 
       <div className="bg-accent-light rounded-xl p-4 flex gap-3 mb-6">
         <ShieldCheck className="h-5 w-5 text-accent-primary flex-shrink-0 mt-0.5" />
         <p className="text-[13px] text-accent-primary leading-relaxed">
-          Staking 10,000,000 SANC secures your charity registration and demonstrates your
-          commitment to the platform. Your stake is fully refundable after all campaigns are
-          completed.
+          A stake worth <span className="font-bold">${stakeUsd} USD</span> in SANC secures your
+          charity registration and demonstrates your commitment to the platform. Your stake is
+          fully refundable after all campaigns are completed.
         </p>
       </div>
 
       {/* Stake details card */}
       <div className="bg-surface-primary rounded-xl border border-line-subtle mb-6">
         <div className="flex items-center justify-between py-3.5 px-5">
-          <span className="text-[14px] font-medium text-fg-secondary">Required Stake</span>
-          <span className="text-[14px] font-bold text-fg-primary">10,000,000 SANC</span>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-[14px] font-medium text-fg-secondary">Required Stake</span>
+            <span className="text-[11px] text-fg-muted">${stakeUsd} USD equivalent · updates with market price</span>
+          </div>
+          <div className="text-right">
+            <span className="text-[14px] font-bold text-fg-primary">{stakeDisplay} SANC</span>
+          </div>
         </div>
         <div className="h-px bg-line-subtle" />
         <div className="flex items-center justify-between py-3.5 px-5">
@@ -314,7 +322,7 @@ function StepStake({ onNext, onBack }: { onNext: () => void; onBack: () => void 
 /* ------------------------------------------------------------------ */
 /*  Step 4 – Confirmation                                             */
 /* ------------------------------------------------------------------ */
-function StepConfirm() {
+function StepConfirm({ stakeUsd, stakeTokens }: { stakeUsd: number; stakeTokens: number }) {
   return (
     <>
       {/* Success area */}
@@ -345,7 +353,9 @@ function StepConfirm() {
         <div className="h-px bg-line-subtle" />
         <div className="flex items-center justify-between py-3 px-5">
           <span className="text-[14px] font-medium text-fg-secondary">Stake</span>
-          <span className="text-[14px] font-semibold text-fg-primary">10,000,000 SANC</span>
+          <span className="text-[14px] font-semibold text-fg-primary">
+            {stakeTokens.toLocaleString()} SANC (${stakeUsd})
+          </span>
         </div>
         <div className="h-px bg-line-subtle" />
         <div className="flex items-center justify-between py-3 px-5">
@@ -383,6 +393,7 @@ function StepConfirm() {
 /* ------------------------------------------------------------------ */
 export default function CharityRegisterPage() {
   const [step, setStep] = useState(0);
+  const { stakeUsd, stakeTokens } = useRegistrationStake();
 
   return (
     <div className="min-h-screen bg-surface-primary flex items-start justify-center pt-12 pb-16 px-4">
@@ -391,8 +402,8 @@ export default function CharityRegisterPage() {
 
         {step === 0 && <StepCharityInfo onNext={() => setStep(1)} />}
         {step === 1 && <StepKYC onNext={() => setStep(2)} onBack={() => setStep(0)} />}
-        {step === 2 && <StepStake onNext={() => setStep(3)} onBack={() => setStep(1)} />}
-        {step === 3 && <StepConfirm />}
+        {step === 2 && <StepStake onNext={() => setStep(3)} onBack={() => setStep(1)} stakeUsd={stakeUsd} stakeTokens={stakeTokens} />}
+        {step === 3 && <StepConfirm stakeUsd={stakeUsd} stakeTokens={stakeTokens} />}
       </div>
     </div>
   );

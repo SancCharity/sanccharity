@@ -5,6 +5,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
+import { RegistrationStakeCard } from "@/components/admin/RegistrationStakeCard";
 import { useState } from "react";
 
 const tabs = ["All (47)", "Verified (38)", "Suspended (6)", "Revoked (3)"];
@@ -29,6 +30,24 @@ export default function CharitiesPage() {
 
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-7 p-4 sm:p-6 lg:px-8 lg:py-8">
+      {/* Registration Stake Panel */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-7">
+        <div className="lg:col-span-1">
+          <RegistrationStakeCard />
+        </div>
+        <div className="lg:col-span-2 flex flex-col gap-4">
+          {/* Stats Row */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {stats.map((s) => (
+              <div key={s.label} className="bg-white rounded-2xl p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-2">
+                <span className="text-xs text-fg-muted">{s.label}</span>
+                <span className={`text-xl sm:text-2xl lg:text-[28px] font-bold ${s.color}`}>{s.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Top Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
@@ -61,16 +80,6 @@ export default function CharitiesPage() {
           >
             {tab}
           </button>
-        ))}
-      </div>
-
-      {/* Stats Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {stats.map((s) => (
-          <div key={s.label} className="bg-white rounded-2xl p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-2">
-            <span className="text-xs text-fg-muted">{s.label}</span>
-            <span className={`text-xl sm:text-2xl lg:text-[28px] font-bold ${s.color}`}>{s.value}</span>
-          </div>
         ))}
       </div>
 
