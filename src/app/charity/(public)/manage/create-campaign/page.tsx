@@ -44,6 +44,13 @@ export default function CreateCampaignPage() {
     setMilestones(milestones.filter((_, i) => i !== idx));
   };
 
+  const updateMilestone = (idx: number, field: "title" | "amount" | "description", val: string) => {
+    setMilestones(milestones.map((ms, i) => (i === idx ? { ...ms, [field]: val } : ms)));
+  };
+
+  const canSubmit = campaignType === CampaignType.Public
+    || approvers.filter((a) => a.trim()).length >= 2;
+
   return (
     <div className="min-h-screen bg-surface-primary flex items-start justify-center py-12 px-4">
       <div className="w-full max-w-[480px] bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-5 sm:p-8 flex flex-col gap-5">
@@ -272,6 +279,8 @@ export default function CreateCampaignPage() {
                   <label className="text-[12px] font-medium text-fg-muted">Title</label>
                   <input
                     type="text"
+                    value={ms.title}
+                    onChange={e => updateMilestone(i, "title", e.target.value)}
                     placeholder="e.g. Land acquisition"
                     className="h-[38px] rounded-lg bg-white border border-line-subtle px-3 text-[13px] text-fg-primary placeholder:text-fg-muted focus:outline-none focus:ring-2 focus:ring-accent-primary/20"
                   />
@@ -280,6 +289,8 @@ export default function CreateCampaignPage() {
                   <label className="text-[12px] font-medium text-fg-muted">Amount (USDT)</label>
                   <input
                     type="text"
+                    value={ms.amount}
+                    onChange={e => updateMilestone(i, "amount", e.target.value)}
                     placeholder="0.00"
                     className="h-[38px] rounded-lg bg-white border border-line-subtle px-3 text-[13px] text-fg-primary placeholder:text-fg-muted focus:outline-none focus:ring-2 focus:ring-accent-primary/20"
                   />
@@ -287,6 +298,8 @@ export default function CreateCampaignPage() {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[12px] font-medium text-fg-muted">Description</label>
                   <textarea
+                    value={ms.description}
+                    onChange={e => updateMilestone(i, "description", e.target.value)}
                     placeholder="What will be accomplished..."
                     className="h-[60px] rounded-lg bg-white border border-line-subtle px-3 py-2 text-[13px] text-fg-primary placeholder:text-fg-muted resize-none focus:outline-none focus:ring-2 focus:ring-accent-primary/20"
                   />
@@ -445,8 +458,9 @@ export default function CreateCampaignPage() {
             ) : (
               <ComingSoonOverlay action="Submit campaign">
                 <button
-                  onClick={() => setSubmitted(true)}
-                  className="flex items-center gap-2 rounded-lg bg-accent-primary px-6 py-3 text-sm font-semibold text-fg-inverse"
+                  onClick={() => { if (canSubmit) setSubmitted(true); }}
+                  disabled={!canSubmit}
+                  className="flex items-center gap-2 rounded-lg bg-accent-primary px-6 py-3 text-sm font-semibold text-fg-inverse disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Submit Campaign <ArrowRight className="h-4 w-4" />
                 </button>
