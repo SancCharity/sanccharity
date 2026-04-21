@@ -13,8 +13,13 @@ import {
   Funnel,
   Flame,
   ChevronDown,
+  Lock,
+  Globe,
+  RefreshCcw,
+  TrendingUp,
 } from "lucide-react";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
+import { mockOrgTypeStats, mockRefundStats, mockTokenEconomics } from "@/services/mockData/tokenEconomics";
 
 const stats = [
   { label: "Total Donations", value: "$2.4M", sub: "1,247 donations", icon: DollarSign, iconColor: "text-[#22C55E]" },
@@ -334,6 +339,139 @@ export default function PlatformMetricsPage() {
               <span className="text-[11px] font-medium text-fg-muted">{bar.month}</span>
             </div>
           ))}
+        </div>
+      </div>
+      {/* Org-Type Performance Table */}
+      <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
+        <div className="flex items-center gap-2.5">
+          <Building2 className="h-5 w-5 text-[#F59E0B]" />
+          <span className="text-base font-semibold text-fg-primary">Performance by Organization Type</span>
+        </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[680px]">
+            <div className="flex items-center py-2.5 px-3 bg-surface-sage rounded-lg text-[11px] font-semibold text-fg-muted uppercase mb-1">
+              <span className="flex-1">Type</span>
+              <span className="w-[80px] text-right">Orgs</span>
+              <span className="w-[110px] text-right">Total Raised</span>
+              <span className="w-[110px] text-right">Avg Campaign</span>
+              <span className="w-[110px] text-right">Milestone Rate</span>
+              <span className="w-[90px] text-right">Avg Trust</span>
+            </div>
+            {mockOrgTypeStats.map((org, i) => (
+              <div key={org.orgType}>
+                <div className="flex items-center px-3 py-3.5">
+                  <span className="flex-1 text-[13px] font-medium text-fg-primary">{org.label}</span>
+                  <span className="w-[80px] text-right text-[13px] text-fg-secondary">{org.charityCount}</span>
+                  <span className="w-[110px] text-right text-[13px] font-semibold text-fg-primary">${(org.totalRaisedUSD / 1000).toFixed(1)}K</span>
+                  <span className="w-[110px] text-right text-[13px] text-fg-secondary">${(org.avgCampaignSizeUSD / 1000).toFixed(1)}K</span>
+                  <span className="w-[110px] text-right">
+                    <span className={`text-[12px] font-semibold ${org.milestoneApprovalRate >= 80 ? "text-[#16A34A]" : "text-[#D97706]"}`}>{org.milestoneApprovalRate}%</span>
+                  </span>
+                  <span className="w-[90px] text-right text-[13px] font-semibold text-accent-primary">{org.avgTrustScore}/100</span>
+                </div>
+                {i < mockOrgTypeStats.length - 1 && <div className="h-px bg-line-subtle" />}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Private vs Public Campaigns */}
+      <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
+        <div className="flex items-center gap-2.5">
+          <Lock className="h-5 w-5 text-[#8B5CF6]" />
+          <span className="text-base font-semibold text-fg-primary">Public vs Private Campaigns</span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col gap-3 p-5 bg-[#F0F9FF] rounded-xl">
+            <div className="flex items-center gap-2">
+              <Globe className="h-5 w-5 text-accent-primary" />
+              <span className="text-[13px] font-semibold text-fg-primary">Public Campaigns</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="text-[28px] font-bold text-fg-primary">102</span>
+              <span className="text-[12px] text-fg-muted">campaigns open to all donors</span>
+            </div>
+            <div className="flex items-center justify-between text-[12px]">
+              <span className="text-fg-muted">Avg Raised</span>
+              <span className="font-semibold text-fg-primary">$22,400</span>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 p-5 bg-[#F5F3FF] rounded-xl">
+            <div className="flex items-center gap-2">
+              <Lock className="h-5 w-5 text-[#8B5CF6]" />
+              <span className="text-[13px] font-semibold text-fg-primary">Private Campaigns</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="text-[28px] font-bold text-fg-primary">25</span>
+              <span className="text-[12px] text-fg-muted">invite-only or multi-sig campaigns</span>
+            </div>
+            <div className="flex items-center justify-between text-[12px]">
+              <span className="text-fg-muted">Avg Raised</span>
+              <span className="font-semibold text-fg-primary">$41,700</span>
+            </div>
+          </div>
+        </div>
+        <p className="text-[11px] text-fg-muted italic">Private campaigns require whitelisted approvers and multi-sig fund release. Not listed in public explore.</p>
+      </div>
+
+      {/* Refund & Failed Campaign Stats */}
+      <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
+        <div className="flex items-center gap-2.5">
+          <RefreshCcw className="h-5 w-5 text-[#EF4444]" />
+          <span className="text-base font-semibold text-fg-primary">Refund & Failed Campaign Stats</span>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: "Total Refund Claims", value: String(mockRefundStats.totalRefundClaims), sub: "since platform launch", accent: "#EF4444" },
+            { label: "Total Refunded", value: `$${mockRefundStats.totalRefundedUSD.toLocaleString()}`, sub: "returned to donors", accent: "#F59E0B" },
+            { label: "Failed Campaigns", value: String(mockRefundStats.failedCampaigns), sub: `${mockRefundStats.failureRatePercent}% failure rate`, accent: "#EF4444" },
+            { label: "Avg Refund Time", value: `${mockRefundStats.avgRefundDays}d`, sub: "days to process", accent: "#22C55E" },
+          ].map((c) => (
+            <div key={c.label} className="flex flex-col gap-2 p-4 bg-surface-primary rounded-xl border border-line-subtle">
+              <span className="text-[12px] text-fg-muted">{c.label}</span>
+              <span className="text-[24px] font-bold text-fg-primary">{c.value}</span>
+              <span className="text-[11px]" style={{ color: c.accent }}>{c.sub}</span>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col gap-2">
+          <span className="text-[13px] font-semibold text-fg-secondary">Monthly Refund Volume</span>
+          <div className="flex items-end gap-3 h-[120px]">
+            {(() => {
+              const maxCount = Math.max(...mockRefundStats.refundsByMonth.map((d) => d.count));
+              return mockRefundStats.refundsByMonth.map((d) => (
+                <div key={d.month} className="flex-1 flex flex-col items-center justify-end h-full gap-1.5">
+                  <div className="w-full rounded-t bg-[#FCA5A5]" style={{ height: `${(d.count / maxCount) * 100}%` }} />
+                  <span className="text-[11px] text-fg-muted">{d.month}</span>
+                </div>
+              ));
+            })()}
+          </div>
+        </div>
+      </div>
+
+      {/* Stake Value Volatility */}
+      <div className="bg-white rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <TrendingUp className="h-5 w-5 text-[#8B5CF6]" />
+            <span className="text-base font-semibold text-fg-primary">Registration Stake Value (USD)</span>
+          </div>
+          <span className="text-sm font-semibold text-[#8B5CF6]">${mockTokenEconomics.registrationStakeTotalUSD.toLocaleString()} locked</span>
+        </div>
+        <p className="text-[12px] text-fg-muted">Total USD value of all active charity registration stakes — reflects SANC price volatility impact on tier eligibility.</p>
+        <div className="flex items-end gap-3 h-[160px]">
+          {mockTokenEconomics.stakeHistory.map((d) => {
+            const max = Math.max(...mockTokenEconomics.stakeHistory.map((x) => x.valueUSD));
+            return (
+              <div key={d.month} className="flex-1 flex flex-col items-center justify-end h-full gap-1.5">
+                <span className="text-[10px] text-fg-muted">${(d.valueUSD / 1000).toFixed(1)}K</span>
+                <div className="w-full rounded-t bg-[#8B5CF6]" style={{ height: `${(d.valueUSD / max) * 130}px` }} />
+                <span className="text-[11px] text-fg-muted">{d.month}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

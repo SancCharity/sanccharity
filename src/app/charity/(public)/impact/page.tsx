@@ -6,8 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import { charityApi } from "@/services/charityApi";
 import type { CategoryBreakdownItem } from "@/types/charity";
 import {
+  mockTokenEconomics, mockNFTMintStats, mockOrgTypeStats,
+} from "@/services/mockData/tokenEconomics";
+import {
   DollarSign, Users, Trophy, Flame, Download, ShieldCheck,
-  HandCoins, TrendingUp, Target,
+  HandCoins, TrendingUp, Target, Coins, Award, Building2,
 } from "lucide-react";
 
 const periodTabs = ["7D", "30D", "90D", "All Time"];
@@ -90,16 +93,15 @@ export default function ImpactDashboardPage() {
   ];
 
   const monthlyData = impactData?.monthlyDonations ?? [
-    { month: "Nov", amount: 320 },
-    { month: "Dec", amount: 380 },
-    { month: "Jan", amount: 420 },
-    { month: "Feb", amount: 390 },
-    { month: "Mar", amount: 480 },
-    { month: "Apr", amount: 520 },
+    { month: "Nov", amountUSD: 320 },
+    { month: "Dec", amountUSD: 380 },
+    { month: "Jan", amountUSD: 420 },
+    { month: "Feb", amountUSD: 390 },
+    { month: "Mar", amountUSD: 480 },
+    { month: "Apr", amountUSD: 520 },
   ];
 
-  type MonthlyItem = { month: string; amountUSD?: number; amount?: number };
-  const maxAmount = Math.max(...(monthlyData as MonthlyItem[]).map((d) => d.amountUSD ?? d.amount ?? 0));
+  const maxAmount = Math.max(...monthlyData.map((d) => d.amountUSD ?? 0));
 
   const matchingFundUSD = impactData
     ? (parseFloat(impactData.matchingFundBalance) / 1e18 * 625).toFixed(0)
@@ -178,7 +180,7 @@ export default function ImpactDashboardPage() {
           <div className="flex-1 flex flex-col gap-4 p-5 sm:p-7 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <span className="text-[18px] font-bold text-[#0F172A]">Donations by Category →</span>
             <div className="flex flex-col gap-2.5">
-              {(categories as { name: string; pct: number; color: string }[]).map((cat) => (
+              {categories.map((cat) => (
                 <div key={cat.name} className="flex items-center gap-3">
                   <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
                   <span className="text-[13px] text-[#475569] w-28 shrink-0">{cat.name}</span>
@@ -198,9 +200,9 @@ export default function ImpactDashboardPage() {
 
             {/* Simple Bar Chart */}
             <div className="flex items-end gap-2 sm:gap-3 h-[140px] sm:h-[200px]">
-              {(monthlyData as MonthlyItem[]).map((d) => (
+              {monthlyData.map((d) => (
                 <div key={d.month} className="flex-1 flex flex-col items-center gap-2">
-                  <div className="w-full bg-[#0EA5E9] rounded-t-md" style={{ height: `${((d.amountUSD ?? d.amount ?? 0) / maxAmount) * 160}px` }} />
+                  <div className="w-full bg-[#0EA5E9] rounded-t-md" style={{ height: `${((d.amountUSD ?? 0) / maxAmount) * 160}px` }} />
                   <span className="text-[11px] text-[#94A3B8]">{d.month}</span>
                 </div>
               ))}
@@ -224,6 +226,89 @@ export default function ImpactDashboardPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* SANC Utility */}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-2">
+            <Coins className="h-5 w-5 text-[#8B5CF6]" />
+            <span className="text-[22px] font-bold text-[#0F172A]">SANC Token Utility</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="flex flex-col gap-2 p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+              <div className="h-9 w-9 rounded-full flex items-center justify-center bg-[#F3E8FF]">
+                <Coins className="h-[18px] w-[18px] text-[#8B5CF6]" />
+              </div>
+              <span className="text-[13px] font-medium text-[#94A3B8]">Donated in SANC</span>
+              <span className="text-[28px] font-bold text-[#0F172A]">{mockTokenEconomics.donationSplit.find((d) => d.symbol === "SANC")?.percentage ?? 23}%</span>
+              <span className="text-[12px] text-[#8B5CF6]">of total donation volume</span>
+            </div>
+            <div className="flex flex-col gap-2 p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+              <div className="h-9 w-9 rounded-full flex items-center justify-center bg-[#DCFCE7]">
+                <TrendingUp className="h-[18px] w-[18px] text-[#16A34A]" />
+              </div>
+              <span className="text-[13px] font-medium text-[#94A3B8]">Fee Discount Uptake</span>
+              <span className="text-[28px] font-bold text-[#0F172A]">{mockTokenEconomics.feeDiscountUptakePercent}%</span>
+              <span className="text-[12px] text-[#16A34A]">of donors chose SANC to save fees</span>
+            </div>
+            <div className="flex flex-col gap-2 p-6 bg-[#0F172A] rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
+              <div className="h-9 w-9 rounded-full flex items-center justify-center bg-white/[0.13]">
+                <Flame className="h-[18px] w-[18px] text-white/70" />
+              </div>
+              <span className="text-[13px] font-medium text-white/60">Total SANC Burned</span>
+              <span className="text-[28px] font-bold text-white">{(mockTokenEconomics.sancBurnedLifetime / 1_000_000).toFixed(1)}M</span>
+              <span className="text-[12px] text-white/60">SANC removed from supply</span>
+            </div>
+          </div>
+        </div>
+
+        {/* NFT Minting Analytics */}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-2">
+            <Award className="h-5 w-5 text-[#F59E0B]" />
+            <span className="text-[22px] font-bold text-[#0F172A]">NFT Donation Receipts</span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[
+              { label: "Total Minted", value: mockNFTMintStats.totalMinted.toLocaleString(), sub: "receipts issued", bg: "bg-[#FFFBEB]", accent: "#F59E0B", emoji: "🏅" },
+              { label: "Bronze", value: mockNFTMintStats.bronze.toLocaleString(), sub: "< 100 USDT", bg: "bg-white", accent: "#CD7F32", emoji: "🥉" },
+              { label: "Silver", value: mockNFTMintStats.silver.toLocaleString(), sub: "100–999 USDT", bg: "bg-white", accent: "#94A3B8", emoji: "🥈" },
+              { label: "Gold", value: mockNFTMintStats.gold.toLocaleString(), sub: "≥ 1000 USDT", bg: "bg-white", accent: "#F59E0B", emoji: "🥇" },
+            ].map((tier) => (
+              <div key={tier.label} className={`flex flex-col gap-2 p-6 ${tier.bg} rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]`}>
+                <span className="text-[22px]">{tier.emoji}</span>
+                <span className="text-[13px] font-medium text-[#94A3B8]">{tier.label}</span>
+                <span className="text-[24px] font-bold text-[#0F172A]">{tier.value}</span>
+                <span className="text-[11px]" style={{ color: tier.accent }}>{tier.sub}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Org-Type Breakdown */}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-2">
+            <Building2 className="h-5 w-5 text-[#0EA5E9]" />
+            <span className="text-[22px] font-bold text-[#0F172A]">Donations by Organization Type</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {(() => {
+              const maxRaised = Math.max(...mockOrgTypeStats.map((o) => o.totalRaisedUSD));
+              return mockOrgTypeStats.map((org) => (
+                <div key={org.orgType} className="flex flex-col gap-3 p-6 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+                  <span className="text-[13px] font-semibold text-[#475569]">{org.label}</span>
+                  <span className="text-[28px] font-bold text-[#0F172A]">${(org.totalRaisedUSD / 1_000_000).toFixed(2)}M</span>
+                  <div className="flex items-center justify-between text-[12px] text-[#94A3B8]">
+                    <span>{org.charityCount} organizations</span>
+                    <span className="text-[#22C55E] font-semibold">{org.milestoneApprovalRate}% milestone rate</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-[#F0F9FF] rounded-full">
+                    <div className="h-1.5 bg-[#0EA5E9] rounded-full" style={{ width: `${(org.totalRaisedUSD / maxRaised) * 100}%` }} />
+                  </div>
+                </div>
+              ));
+            })()}
           </div>
         </div>
 

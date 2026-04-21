@@ -9,7 +9,7 @@ import { formatAddress } from "@/lib/utils";
 import {
   Shield, ShieldAlert, ShieldOff, LayoutDashboard, BarChart3, ScrollText,
   UserCheck, Building2, Megaphone, Flame, Vault, Activity, Key, Menu, X, Users,
-  ChevronLeft, ChevronRight,
+  ChevronLeft, ChevronRight, Coins,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -43,9 +43,10 @@ const navSections: { label: string; items: NavItem[] }[] = [
   {
     label: "OPERATIONS",
     items: [
-      { label: "Buyback & Burn",  href: "/charity/admin/super/buyback",   icon: Flame },
-      { label: "Treasury",        href: "/charity/admin/super/treasury",  icon: Vault },
-      { label: "Event Listener",  href: "/charity/admin/super/events",    icon: Activity },
+      { label: "Buyback & Burn",    href: "/charity/admin/super/buyback",  icon: Flame },
+      { label: "Treasury",          href: "/charity/admin/super/treasury", icon: Vault },
+      { label: "Token Economics",   href: "/charity/admin/super/token",    icon: Coins },
+      { label: "Event Listener",    href: "/charity/admin/super/events",   icon: Activity },
     ],
   },
   {

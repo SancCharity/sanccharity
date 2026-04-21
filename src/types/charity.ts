@@ -65,6 +65,70 @@ export enum OrgType {
   Other            = "other",
 }
 
+// --- Statistics & Economics Interfaces ---
+
+export interface TokenDonationSplit {
+  token: string;
+  symbol: string;
+  amountUSD: number;
+  percentage: number;
+  donorCount: number;
+}
+
+export interface StakingConcentration {
+  topTenPercent: number;
+  uniqueStakers: number;
+  avgStakeUSD: number;
+  giniCoefficient: number;
+}
+
+export interface TokenEconomics {
+  donationSplit: TokenDonationSplit[];
+  feeDiscountUptakePercent: number;
+  totalFeeSavedUSD: number;
+  sancBurnedLifetime: number;
+  burnRateMonthly: number;
+  stakingConcentration: StakingConcentration;
+  registrationStakeTotalUSD: number;
+  stakeHistory: { month: string; valueUSD: number }[];
+}
+
+export interface OrgTypeStats {
+  orgType: OrgType;
+  label: string;
+  charityCount: number;
+  totalRaisedUSD: number;
+  avgCampaignSizeUSD: number;
+  milestoneApprovalRate: number;
+  avgTrustScore: number;
+}
+
+export interface RefundStats {
+  totalRefundClaims: number;
+  totalRefundedUSD: number;
+  failedCampaigns: number;
+  cancelledCampaigns: number;
+  failureRatePercent: number;
+  avgRefundDays: number;
+  refundsByMonth: { month: string; count: number; amountUSD: number }[];
+}
+
+export interface BenchmarkData {
+  metric: string;
+  label: string;
+  charityValue: number;
+  platformAverage: number;
+  unit: string;
+  higherIsBetter: boolean;
+}
+
+export interface NFTMintStats {
+  totalMinted: number;
+  bronze: number;
+  silver: number;
+  gold: number;
+}
+
 // --- Core Interfaces ---
 
 export interface Charity {

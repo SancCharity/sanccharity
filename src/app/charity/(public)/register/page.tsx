@@ -66,10 +66,26 @@ function StepIndicator({ current }: { current: number }) {
   );
 }
 
+const ORG_TYPE_LABELS: Record<OrgType, string> = {
+  [OrgType.Nonprofit]:        "Nonprofit (501c3 or equivalent)",
+  [OrgType.Church]:           "Church / Faith-based",
+  [OrgType.SocialEnterprise]: "Social Enterprise",
+  [OrgType.Other]:            "Other",
+};
+
 /* ------------------------------------------------------------------ */
 /*  Step 1 – Charity Info                                             */
 /* ------------------------------------------------------------------ */
-function StepCharityInfo({ onNext }: { onNext: () => void }) {
+interface StepCharityInfoProps {
+  onNext: () => void;
+  orgType: OrgType;
+  setOrgType: (v: OrgType) => void;
+  orgTypeOther: string;
+  setOrgTypeOther: (v: string) => void;
+}
+
+function StepCharityInfo({ onNext, orgType, setOrgType, orgTypeOther, setOrgTypeOther }: StepCharityInfoProps) {
+
   return (
     <>
       <h2 className="text-[24px] font-bold text-fg-primary">Register Your Charity</h2>
@@ -91,16 +107,39 @@ function StepCharityInfo({ onNext }: { onNext: () => void }) {
         </div>
 
         {/* Organization Type */}
-        <div>
-          <label className="block text-[13px] font-semibold text-fg-secondary mb-1.5">
-            Organization Type
-          </label>
-          <select className="w-full bg-surface-primary border border-line-subtle rounded-lg px-3.5 py-3 text-[14px] text-fg-primary outline-none focus:border-accent-primary appearance-none">
-            <option value={OrgType.Nonprofit}>Nonprofit (501c3 or equivalent)</option>
-            <option value={OrgType.Church}>Church / Faith-based</option>
-            <option value={OrgType.SocialEnterprise}>Social Enterprise</option>
-            <option value={OrgType.Other}>Other</option>
-          </select>
+        <div className="flex flex-col gap-[18px]">
+          <div>
+            <label className="block text-[13px] font-semibold text-fg-secondary mb-1.5">
+              Organization Type
+            </label>
+            <select
+              value={orgType}
+              onChange={(e) => {
+                setOrgType(e.target.value as OrgType);
+                setOrgTypeOther("");
+              }}
+              className="w-full bg-surface-primary border border-line-subtle rounded-lg px-3.5 py-3 text-[14px] text-fg-primary outline-none focus:border-accent-primary appearance-none"
+            >
+              <option value={OrgType.Nonprofit}>Nonprofit (501c3 or equivalent)</option>
+              <option value={OrgType.Church}>Church / Faith-based</option>
+              <option value={OrgType.SocialEnterprise}>Social Enterprise</option>
+              <option value={OrgType.Other}>Other</option>
+            </select>
+          </div>
+          {orgType === OrgType.Other && (
+            <div>
+              <label className="block text-[13px] font-semibold text-fg-secondary mb-1.5">
+                Please specify your organization type
+              </label>
+              <input
+                type="text"
+                value={orgTypeOther}
+                onChange={(e) => setOrgTypeOther(e.target.value)}
+                placeholder="e.g. Community cooperative, DAO, NGO..."
+                className="w-full bg-surface-primary border border-line-subtle rounded-lg px-3.5 py-3 text-[14px] text-fg-primary placeholder:text-fg-muted outline-none focus:border-accent-primary"
+              />
+            </div>
+          )}
         </div>
 
         {/* Description */}
@@ -336,7 +375,10 @@ function StepStake({ onNext, onBack, stakeUsd, stakeTokens }: { onNext: () => vo
 /* ------------------------------------------------------------------ */
 /*  Step 4 – Confirmation                                             */
 /* ------------------------------------------------------------------ */
-function StepConfirm({ stakeUsd, stakeTokens }: { stakeUsd: number; stakeTokens: number }) {
+function StepConfirm({ stakeUsd, stakeTokens, orgType, orgTypeOther }: { stakeUsd: number; stakeTokens: number; orgType: OrgType; orgTypeOther: string }) {
+  const orgLabel = orgType === OrgType.Other && orgTypeOther.trim()
+    ? orgTypeOther.trim()
+    : ORG_TYPE_LABELS[orgType];
   return (
     <>
       {/* Success area */}
@@ -355,6 +397,11 @@ function StepConfirm({ stakeUsd, stakeTokens }: { stakeUsd: number; stakeTokens:
         <div className="flex items-center justify-between py-3 px-5">
           <span className="text-[14px] font-medium text-fg-secondary">Organization</span>
           <span className="text-[14px] font-semibold text-fg-primary">Hope Foundation</span>
+        </div>
+        <div className="h-px bg-line-subtle" />
+        <div className="flex items-center justify-between py-3 px-5">
+          <span className="text-[14px] font-medium text-fg-secondary">Organization Type</span>
+          <span className="text-[14px] font-semibold text-fg-primary">{orgLabel}</span>
         </div>
         <div className="h-px bg-line-subtle" />
         <div className="flex items-center justify-between py-3 px-5">
@@ -407,6 +454,8 @@ function StepConfirm({ stakeUsd, stakeTokens }: { stakeUsd: number; stakeTokens:
 /* ------------------------------------------------------------------ */
 export default function CharityRegisterPage() {
   const [step, setStep] = useState(0);
+  const [orgType, setOrgType] = useState<OrgType>(OrgType.Nonprofit);
+  const [orgTypeOther, setOrgTypeOther] = useState("");
   const { stakeUsd, stakeTokens } = useRegistrationStake();
 
   return (
@@ -414,10 +463,18 @@ export default function CharityRegisterPage() {
       <div className="w-full max-w-[660px] bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04] p-5 sm:p-8 md:p-10">
         <StepIndicator current={step} />
 
-        {step === 0 && <StepCharityInfo onNext={() => setStep(1)} />}
+        {step === 0 && (
+          <StepCharityInfo
+            onNext={() => setStep(1)}
+            orgType={orgType}
+            setOrgType={setOrgType}
+            orgTypeOther={orgTypeOther}
+            setOrgTypeOther={setOrgTypeOther}
+          />
+        )}
         {step === 1 && <StepKYC onNext={() => setStep(2)} onBack={() => setStep(0)} />}
         {step === 2 && <StepStake onNext={() => setStep(3)} onBack={() => setStep(1)} stakeUsd={stakeUsd} stakeTokens={stakeTokens} />}
-        {step === 3 && <StepConfirm stakeUsd={stakeUsd} stakeTokens={stakeTokens} />}
+        {step === 3 && <StepConfirm stakeUsd={stakeUsd} stakeTokens={stakeTokens} orgType={orgType} orgTypeOther={orgTypeOther} />}
       </div>
     </div>
   );

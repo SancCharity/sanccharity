@@ -6,11 +6,20 @@ import Link from "next/link";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
 import { useCharityManage } from "@/hooks/useCharityManage";
-import { CharityStatus } from "@/types/charity";
+import { CharityStatus, OrgType } from "@/types/charity";
+import { mockBenchmarks, mockOrgTypeStats } from "@/services/mockData/tokenEconomics";
+
+const ORG_TYPE_LABELS: Record<OrgType, string> = {
+  [OrgType.Nonprofit]:        "Nonprofit",
+  [OrgType.Church]:           "Church / Faith-based",
+  [OrgType.SocialEnterprise]: "Social Enterprise",
+  [OrgType.Other]:            "Other",
+};
 import {
   DollarSign, Megaphone, CircleCheck, Users as UsersIcon, Plus, Timer, Heart, X,
   CloudUpload, Send, Coins, Lock, ExternalLink, ShieldCheck, BadgeCheck,
   Settings, Pencil, Image as ImageIcon, FileText, FileCheck, Upload, Clock4, TriangleAlert, Copy, Circle,
+  TrendingUp, TrendingDown, Minus,
 } from "lucide-react";
 
 const fmtDate = (ts: number) =>
@@ -373,7 +382,7 @@ export default function CharityManagePage() {
               <div className="flex-1 flex flex-col gap-4">
                 <div className="rounded-lg bg-surface-sage p-3 flex flex-col gap-1"><span className="text-[11px] text-fg-muted">Registry Status</span><span className="text-[13px] font-semibold text-[#16A34A]">Verified ✓</span></div>
                 <div className="rounded-lg bg-surface-sage p-3 flex flex-col gap-1"><span className="text-[11px] text-fg-muted">Category</span><span className="text-[13px] font-semibold text-fg-primary">Education, Health</span></div>
-                <div className="rounded-lg bg-surface-sage p-3 flex flex-col gap-1"><span className="text-[11px] text-fg-muted">Organization Type</span><span className="text-[13px] font-semibold text-fg-primary">Nonprofit</span></div>
+                <div className="rounded-lg bg-surface-sage p-3 flex flex-col gap-1"><span className="text-[11px] text-fg-muted">Organization Type</span><span className="text-[13px] font-semibold text-fg-primary">{dashboard?.orgType ? ORG_TYPE_LABELS[dashboard.orgType] : "—"}</span></div>
               </div>
             </div>
             <div className="flex items-center gap-2 rounded-lg bg-surface-sage px-3.5 py-2.5">
@@ -384,6 +393,51 @@ export default function CharityManagePage() {
             <button className="flex items-center justify-center gap-2 rounded-lg bg-surface-inverse py-2.5 text-[13px] font-semibold text-fg-inverse">
               <ExternalLink className="h-4 w-4" /> View on BscScan
             </button>
+          </div>
+        </div>
+
+        {/* Comparative Benchmarks */}
+        <div className="bg-white rounded-2xl shadow-card border border-black/[0.04] p-5 sm:p-6 flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="h-9 w-9 rounded-lg bg-[#E0F2FE] flex items-center justify-center">
+                <TrendingUp className="h-[18px] w-[18px] text-accent-primary" />
+              </div>
+              <h2 className="text-lg font-bold text-fg-primary">Your Performance vs. Platform</h2>
+            </div>
+            <span className="text-[11px] text-fg-muted italic">Platform averages across {mockOrgTypeStats.reduce((sum, org) => sum + org.charityCount, 0)} charities</span>
+          </div>
+          <div className="overflow-x-auto">
+            <div className="min-w-[520px] flex flex-col gap-0">
+              <div className="flex px-3 py-2 bg-surface-sage rounded-lg text-[11px] font-semibold text-fg-muted uppercase mb-1">
+                <span className="flex-1">Metric</span>
+                <span className="w-[110px] text-right">Your Charity</span>
+                <span className="w-[110px] text-right">Platform Avg</span>
+                <span className="w-[80px] text-center">Result</span>
+              </div>
+              {mockBenchmarks.map((b) => {
+                const diff = b.charityValue - b.platformAverage;
+                const pct = Math.abs((diff / b.platformAverage) * 100);
+                const isNeutral = pct < 5;
+                const isBetter = b.higherIsBetter ? diff > 0 : diff < 0;
+                return (
+                  <div key={b.metric} className="flex items-center px-3 py-3 border-b border-line-subtle last:border-0">
+                    <span className="flex-1 text-[13px] text-fg-primary">{b.label}</span>
+                    <span className="w-[110px] text-right text-[13px] font-bold text-fg-primary">{b.charityValue}{b.unit === "%" ? "%" : b.unit === "USD" ? " USD" : ` ${b.unit}`}</span>
+                    <span className="w-[110px] text-right text-[13px] text-fg-muted">{b.platformAverage}{b.unit === "%" ? "%" : b.unit === "USD" ? " USD" : ` ${b.unit}`}</span>
+                    <div className="w-[80px] flex items-center justify-center">
+                      {isNeutral ? (
+                        <span className="flex items-center gap-1 text-[11px] font-semibold text-fg-muted"><Minus className="h-3.5 w-3.5" /> Par</span>
+                      ) : isBetter ? (
+                        <span className="flex items-center gap-1 text-[11px] font-semibold text-[#16A34A]"><TrendingUp className="h-3.5 w-3.5" /> +{pct.toFixed(0)}%</span>
+                      ) : (
+                        <span className="flex items-center gap-1 text-[11px] font-semibold text-[#DC2626]"><TrendingDown className="h-3.5 w-3.5" /> -{pct.toFixed(0)}%</span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
 

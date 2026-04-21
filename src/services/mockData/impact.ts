@@ -28,8 +28,11 @@ export const mockImpactData: ImpactData = {
 };
 
 export const mockPlatformStats = {
-  totalDonated: "$2.4M+",
-  totalDonors: "12,847",
+  totalDonated: "$2.85M+",
+  totalDonors: "18,492",
   campaignsCompleted: "86",
-  sancBurned: "1.2B",
+  sancBurned: "4.2M",
 };
+
+// Re-export stats used on the impact page
+export { mockNFTMintStats, mockOrgTypeStats, mockTokenEconomics } from "./tokenEconomics";
