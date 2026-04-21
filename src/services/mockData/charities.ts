@@ -1,4 +1,4 @@
-import { Charity, CharityStatus } from "@/types/charity";
+import { Charity, CharityStatus, OrgType } from "@/types/charity";
 
 export const mockCharities: Charity[] = [
   {
@@ -9,6 +9,7 @@ export const mockCharities: Charity[] = [
     description: "Empowering communities through education in East Africa since 2018. Building schools, training teachers, and providing resources for underserved regions.",
     logoUrl: "https://ui-avatars.com/api/?name=Kenya+Education+Trust&background=0EA5E9&color=fff&size=120&bold=true",
     website: "https://kenyaeducationtrust.org",
+    orgType: OrgType.Nonprofit,
     status: CharityStatus.Verified,
     kycVerified: true,
     campaignCount: 5,
@@ -22,6 +23,7 @@ export const mockCharities: Charity[] = [
     description: "Environmental conservation and reforestation across South America and Southeast Asia.",
     logoUrl: "https://ui-avatars.com/api/?name=Green+Earth+Foundation&background=22C55E&color=fff&size=120&bold=true",
     website: "https://greenearthfoundation.org",
+    orgType: OrgType.Nonprofit,
     status: CharityStatus.Verified,
     kycVerified: true,
     campaignCount: 3,
@@ -35,6 +37,7 @@ export const mockCharities: Charity[] = [
     description: "Delivering healthcare solutions to remote communities worldwide. Mobile clinics, medical supplies, and health education.",
     logoUrl: "https://ui-avatars.com/api/?name=Global+Health+Initiative&background=3B82F6&color=fff&size=120&bold=true",
     website: "https://globalhealthinitiative.org",
+    orgType: OrgType.Church,
     status: CharityStatus.Verified,
     kycVerified: true,
     campaignCount: 4,
@@ -48,6 +51,7 @@ export const mockCharities: Charity[] = [
     description: "Technology education and digital literacy programs across Africa.",
     logoUrl: "https://ui-avatars.com/api/?name=Code+for+Africa&background=8B5CF6&color=fff&size=120&bold=true",
     website: "https://codeforafrica.org",
+    orgType: OrgType.SocialEnterprise,
     status: CharityStatus.Verified,
     kycVerified: true,
     campaignCount: 2,
@@ -61,6 +65,7 @@ export const mockCharities: Charity[] = [
     description: "Disaster relief and humanitarian aid for communities affected by natural disasters.",
     logoUrl: "https://ui-avatars.com/api/?name=Global+Aid+Network&background=D97706&color=fff&size=120&bold=true",
     website: "https://globalaidnetwork.org",
+    orgType: OrgType.Church,
     status: CharityStatus.Verified,
     kycVerified: true,
     campaignCount: 3,

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
 import { useRegistrationStake } from "@/hooks/useRegistrationStake";
+import { OrgType } from "@/types/charity";
 
 const STEPS = ["Charity Info", "KYC Documents", "Stake SANC", "Confirm"] as const;
 
@@ -87,6 +88,19 @@ function StepCharityInfo({ onNext }: { onNext: () => void }) {
             placeholder="e.g. Hope Foundation"
             className="w-full bg-surface-primary border border-line-subtle rounded-lg px-3.5 py-3 text-[14px] text-fg-primary placeholder:text-fg-muted outline-none focus:border-accent-primary"
           />
+        </div>
+
+        {/* Organization Type */}
+        <div>
+          <label className="block text-[13px] font-semibold text-fg-secondary mb-1.5">
+            Organization Type
+          </label>
+          <select className="w-full bg-surface-primary border border-line-subtle rounded-lg px-3.5 py-3 text-[14px] text-fg-primary outline-none focus:border-accent-primary appearance-none">
+            <option value={OrgType.Nonprofit}>Nonprofit (501c3 or equivalent)</option>
+            <option value={OrgType.Church}>Church / Faith-based</option>
+            <option value={OrgType.SocialEnterprise}>Social Enterprise</option>
+            <option value={OrgType.Other}>Other</option>
+          </select>
         </div>
 
         {/* Description */}

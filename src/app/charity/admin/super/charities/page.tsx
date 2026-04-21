@@ -18,11 +18,11 @@ const stats = [
 ];
 
 const charities = [
-  { name: "Kenya Education Trust", wallet: "0x4a07...4C3d", status: "Verified", statusBg: "bg-[#DCFCE7]", statusColor: "text-[#16A34A]", stake: "18,000,000", campaigns: "5", registered: "Jun 15, 2025", action: "Revoke" },
-  { name: "Hope Foundation", wallet: "0x9TA2...6b9c", status: "Verified", statusBg: "bg-[#DCFCE7]", statusColor: "text-[#16A34A]", stake: "58,000,000", campaigns: "3", registered: "Feb 2, 2025", action: "Revoke" },
-  { name: "Community Aid Network", wallet: "0x8E3d...u77s", status: "Suspended", statusBg: "bg-[#FEF3C7]", statusColor: "text-[#D97706]", stake: "5,000,000", campaigns: "2", registered: "Mar 20, 2025", action: "Reinstate" },
-  { name: "Global Relief Fund", wallet: "0x4C2F...8b0c", status: "Revoked", statusBg: "bg-[#FEF2F2]", statusColor: "text-[#EF4444]", stake: "0 (slashed)", campaigns: "0", registered: "Dec 1, 2024", action: "Reinstatement rejected" },
-  { name: "Rural Health Initiative", wallet: "0x6Qa...3B4T", status: "Verified", statusBg: "bg-[#DCFCE7]", statusColor: "text-[#16A34A]", stake: "1,000,000", campaigns: "2", registered: "Apr 2, 2025", action: "Revoke" },
+  { name: "Kenya Education Trust", wallet: "0x4a07...4C3d", orgType: "Nonprofit", status: "Verified", statusBg: "bg-[#DCFCE7]", statusColor: "text-[#16A34A]", stake: "18,000,000", campaigns: "5", registered: "Jun 15, 2025", action: "Revoke" },
+  { name: "Hope Foundation", wallet: "0x9TA2...6b9c", orgType: "Church / Faith-based", status: "Verified", statusBg: "bg-[#DCFCE7]", statusColor: "text-[#16A34A]", stake: "58,000,000", campaigns: "3", registered: "Feb 2, 2025", action: "Revoke" },
+  { name: "Community Aid Network", wallet: "0x8E3d...u77s", orgType: "Social Enterprise", status: "Suspended", statusBg: "bg-[#FEF3C7]", statusColor: "text-[#D97706]", stake: "5,000,000", campaigns: "2", registered: "Mar 20, 2025", action: "Reinstate" },
+  { name: "Global Relief Fund", wallet: "0x4C2F...8b0c", orgType: "Nonprofit", status: "Revoked", statusBg: "bg-[#FEF2F2]", statusColor: "text-[#EF4444]", stake: "0 (slashed)", campaigns: "0", registered: "Dec 1, 2024", action: "Reinstatement rejected" },
+  { name: "Rural Health Initiative", wallet: "0x6Qa...3B4T", orgType: "Church / Faith-based", status: "Verified", statusBg: "bg-[#DCFCE7]", statusColor: "text-[#16A34A]", stake: "1,000,000", campaigns: "2", registered: "Apr 2, 2025", action: "Revoke" },
 ];
 
 export default function CharitiesPage() {
@@ -103,6 +103,7 @@ export default function CharitiesPage() {
                     <div className="flex flex-col gap-0.5">
                       <span className="text-[13px] font-medium text-fg-primary">{c.name}</span>
                       <span className="text-[11px] font-mono text-fg-muted">{c.wallet}</span>
+                      <span className="mt-0.5 inline-block text-[10px] font-medium text-fg-muted bg-surface-primary border border-line-subtle rounded-full px-2 py-0.5 w-fit">{c.orgType}</span>
                     </div>
                   </div>
                   <span className="w-[120px]">

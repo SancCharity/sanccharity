@@ -373,6 +373,7 @@ export default function CharityManagePage() {
               <div className="flex-1 flex flex-col gap-4">
                 <div className="rounded-lg bg-surface-sage p-3 flex flex-col gap-1"><span className="text-[11px] text-fg-muted">Registry Status</span><span className="text-[13px] font-semibold text-[#16A34A]">Verified ✓</span></div>
                 <div className="rounded-lg bg-surface-sage p-3 flex flex-col gap-1"><span className="text-[11px] text-fg-muted">Category</span><span className="text-[13px] font-semibold text-fg-primary">Education, Health</span></div>
+                <div className="rounded-lg bg-surface-sage p-3 flex flex-col gap-1"><span className="text-[11px] text-fg-muted">Organization Type</span><span className="text-[13px] font-semibold text-fg-primary">Nonprofit</span></div>
               </div>
             </div>
             <div className="flex items-center gap-2 rounded-lg bg-surface-sage px-3.5 py-2.5">

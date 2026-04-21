@@ -54,7 +54,7 @@ import type {
   PaginatedResponse,
   ImpactReport,
 } from "@/types/charity";
-import { CharityStatus } from "@/types/charity";
+import { CharityStatus, OrgType } from "@/types/charity";
 import { mockCampaignSuggestions as suggestions } from "./mockData/suggestions";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -321,6 +321,7 @@ export class MockApiClient {
       charityId,
       name: mockCharities.find((c) => c.id === charityId)?.name ?? "Your Charity",
       status: CharityStatus.Verified,
+      orgType: mockCharities.find((c) => c.id === charityId)?.orgType ?? OrgType.Nonprofit,
       stakeAmount: "10000000000000000",
       stakeEligibleForWithdrawal: false,
       totalRaised: campaigns.reduce((sum, c) => sum + Number(c.totalRaised), 0).toString(),

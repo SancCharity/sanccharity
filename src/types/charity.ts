@@ -58,6 +58,13 @@ export enum CampaignCategory {
   ArtsCulture = "Arts & Culture",
 }
 
+export enum OrgType {
+  Nonprofit        = "nonprofit",
+  Church           = "church",
+  SocialEnterprise = "social_enterprise",
+  Other            = "other",
+}
+
 // --- Core Interfaces ---
 
 export interface Charity {
@@ -68,6 +75,7 @@ export interface Charity {
   description: string;
   logoUrl: string;
   website: string;
+  orgType: OrgType;
   status: CharityStatus;
   kycVerified: boolean;
   campaignCount: number;
@@ -237,6 +245,7 @@ export interface CharityDashboard {
   charityId: string;
   name: string;
   status: CharityStatus;
+  orgType: OrgType;
   stakeAmount: string;
   stakeEligibleForWithdrawal: boolean;
   totalRaised: string;
