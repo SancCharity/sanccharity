@@ -160,9 +160,10 @@ export class CharityService {
     throw new Error("Not implemented");
   }
 
-  async estimateDonateFee(tokenAddress: string, amount: bigint): Promise<bigint> {
+  async estimateDonateFee(tokenAddress: string, amount: bigint, isPrivateCampaign?: boolean): Promise<bigint> {
+    if (isPrivateCampaign) return BigInt(0);
     const isSANC = tokenAddress.toLowerCase() === ACCEPTED_TOKENS.find((t) => t.symbol === "SANC")?.address.toLowerCase();
-    const feeBps = isSANC ? 100 : 200; // 1% for SANC, 2% for others
+    const feeBps = isSANC ? 100 : 200; // 1% for SANC, 2% for others on public campaigns
     return (amount * BigInt(feeBps)) / BigInt(10000);
   }
 

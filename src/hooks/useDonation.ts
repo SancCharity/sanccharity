@@ -18,7 +18,7 @@ const DEFAULT_STATE: DonationFormState = {
   nftTokenId: null,
 };
 
-export function useDonation(initialCampaignId?: string) {
+export function useDonation(initialCampaignId?: string, isPrivateCampaign?: boolean) {
   const { address } = useAccount();
   const publicClient = usePublicClient();
   const { data: walletClient } = useWalletClient();
@@ -37,8 +37,8 @@ export function useDonation(initialCampaignId?: string) {
   const isBNB = selectedToken.symbol === "BNB";
   const isSANC = selectedToken.symbol === "SANC";
 
-  // Fee: 1% for SANC, 2% for all others
-  const feePercent = isSANC ? 1 : 2;
+  // Fee: 0% for private campaigns; 1% for SANC, 2% for others on public campaigns
+  const feePercent = isPrivateCampaign ? 0 : (isSANC ? 1 : 2);
   const amountNum = parseFloat(form.amount) || 0;
   const feeAmount = amountNum * (feePercent / 100);
   const netAmount = amountNum - feeAmount;

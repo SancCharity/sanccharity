@@ -13,6 +13,7 @@ import {
   OPERATIONS_PCT,
   LARGE_DONATION_THRESHOLD_BNB,
 } from "@/lib/constants";
+import { CampaignType } from "@/types/charity";
 import {
   ArrowLeft,
   Heart,
@@ -66,8 +67,9 @@ function DonateContent() {
 
   const campaign =
     mockCampaigns.find((c) => c.id === selectedCampaignId) || mockCampaigns[0];
+  const isPrivateCampaign = campaign?.campaignType === CampaignType.Private;
   const amountNum = parseFloat(amount) || 0;
-  const feeRate = selectedToken.fee;
+  const feeRate = isPrivateCampaign ? 0 : selectedToken.fee;
   const feeAmount = amountNum * (feeRate / 100);
   const usdRate =
     selectedToken.symbol === "BNB"
@@ -181,10 +183,9 @@ function DonateContent() {
                         Balance: 0.00
                       </p>
                       <p
-                        className={`text-[11px] mt-1 font-medium ${token.fee === 1 ? "text-[#16A34A]" : "text-[#94A3B8]"}`}
+                        className={`text-[11px] mt-1 font-medium ${isPrivateCampaign ? "text-[#16A34A]" : token.fee === 1 ? "text-[#16A34A]" : "text-[#94A3B8]"}`}
                       >
-                        {token.fee}% fee
-                        {token.fee === 1 && " ✓"}
+                        {isPrivateCampaign ? "No fee ✓" : `${token.fee}% fee${token.fee === 1 ? " ✓" : ""}`}
                       </p>
                       {isSelected && (
                         <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#0EA5E9] flex items-center justify-center">
@@ -268,7 +269,7 @@ function DonateContent() {
               </div>
 
               {/* Percentage Buttons */}
-              <div className="grid grid-cols-4 gap-2 mt-2 hidden sm:grid">
+              <div className="hidden sm:grid sm:grid-cols-4 gap-2 mt-2">
                 {percentages.map((pct) => (
                   <button
                     key={pct}
@@ -453,8 +454,8 @@ function DonateContent() {
                 </div>
               </div>
 
-              {/* SANC fee tip */}
-              {selectedToken.symbol !== "SANC" && (
+              {/* SANC fee tip — only on public campaigns */}
+              {!isPrivateCampaign && selectedToken.symbol !== "SANC" && (
                 <div className="mt-4 p-3 bg-[#F0F9FF] rounded-xl flex items-start gap-2">
                   <Info className="w-4 h-4 text-[#0EA5E9] flex-shrink-0 mt-0.5" />
                   <p className="text-[12px] text-[#0369A1]">
@@ -466,54 +467,66 @@ function DonateContent() {
                 </div>
               )}
 
-              {/* Fee Breakdown */}
-              <div className="mt-5 pt-5 border-t border-[#E2E8F0]">
-                <h4 className="text-[13px] font-semibold text-[#0F172A] mb-3">
-                  Where Your Fee Goes
-                </h4>
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Flame className="w-3.5 h-3.5 text-[#F59E0B]" />
-                      <span className="text-[12px] text-[#475569]">
-                        40% → Buyback &amp; Burn
-                      </span>
-                    </div>
-                    <span className="text-[12px] font-medium text-[#0F172A]">
-                      {buybackAmount.toFixed(4)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <HandCoins className="w-3.5 h-3.5 text-[#0EA5E9]" />
-                      <span className="text-[12px] text-[#475569]">
-                        30% → Charity Matching
-                      </span>
-                    </div>
-                    <span className="text-[12px] font-medium text-[#0F172A]">
-                      {matchingAmount.toFixed(4)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Settings className="w-3.5 h-3.5 text-[#8B5CF6]" />
-                      <span className="text-[12px] text-[#475569]">
-                        30% → Platform Ops
-                      </span>
-                    </div>
-                    <span className="text-[12px] font-medium text-[#0F172A]">
-                      {opsAmount.toFixed(4)}
-                    </span>
-                  </div>
+              {/* Private campaign — no fee notice */}
+              {isPrivateCampaign && (
+                <div className="mt-4 p-3 bg-[#DCFCE7] rounded-xl flex items-start gap-2">
+                  <Info className="w-4 h-4 text-[#16A34A] flex-shrink-0 mt-0.5" />
+                  <p className="text-[12px] text-[#166534]">
+                    <span className="font-semibold">No platform fee</span> — private campaigns are free. 100% of your donation goes to the charity.
+                  </p>
                 </div>
+              )}
 
-                {/* Fee visual bar */}
-                <div className="flex h-2 rounded-full overflow-hidden mt-3">
-                  <div className="bg-[#F59E0B]" style={{ width: "40%" }} />
-                  <div className="bg-[#0EA5E9]" style={{ width: "30%" }} />
-                  <div className="bg-[#8B5CF6]" style={{ width: "30%" }} />
+              {/* Fee Breakdown — only on public campaigns */}
+              {!isPrivateCampaign && (
+                <div className="mt-5 pt-5 border-t border-[#E2E8F0]">
+                  <h4 className="text-[13px] font-semibold text-[#0F172A] mb-3">
+                    Where Your Fee Goes
+                  </h4>
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Flame className="w-3.5 h-3.5 text-[#F59E0B]" />
+                        <span className="text-[12px] text-[#475569]">
+                          40% → Buyback &amp; Burn
+                        </span>
+                      </div>
+                      <span className="text-[12px] font-medium text-[#0F172A]">
+                        {buybackAmount.toFixed(4)}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <HandCoins className="w-3.5 h-3.5 text-[#0EA5E9]" />
+                        <span className="text-[12px] text-[#475569]">
+                          30% → Charity Matching
+                        </span>
+                      </div>
+                      <span className="text-[12px] font-medium text-[#0F172A]">
+                        {matchingAmount.toFixed(4)}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Settings className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                        <span className="text-[12px] text-[#475569]">
+                          30% → Platform Ops
+                        </span>
+                      </div>
+                      <span className="text-[12px] font-medium text-[#0F172A]">
+                        {opsAmount.toFixed(4)}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Fee visual bar */}
+                  <div className="flex h-2 rounded-full overflow-hidden mt-3">
+                    <div className="bg-[#F59E0B]" style={{ width: "40%" }} />
+                    <div className="bg-[#0EA5E9]" style={{ width: "30%" }} />
+                    <div className="bg-[#8B5CF6]" style={{ width: "30%" }} />
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* NFT Receipt Card */}
               <div className="mt-5 p-4 bg-[#0F172A] rounded-xl">

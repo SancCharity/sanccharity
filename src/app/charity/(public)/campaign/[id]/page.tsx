@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { useAccount } from "wagmi";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
 import { useCampaignDetails } from "@/hooks/useCampaignDetails";
-import { MilestoneStatus, CampaignStatus, CharityStatus, ImpactReport } from "@/types/charity";
+import { MilestoneStatus, CampaignStatus, CharityStatus, ImpactReport, CampaignType } from "@/types/charity";
 import {
   Wallet, MapPin, Share2, Hexagon, FileLock, ExternalLink,
   CircleCheck, Circle, Timer, Star, Building2, ChevronDown, TriangleAlert,
@@ -179,7 +179,11 @@ export default function CampaignDetailPage() {
               </div>
             </div>
             {/* Fee */}
-            <span className="text-[10px] text-fg-muted font-mono text-center">2% platform fee · 1% with SANC discount</span>
+            <span className="text-[10px] text-fg-muted font-mono text-center">
+              {campaign?.campaignType === CampaignType.Private
+                ? "No platform fee · private campaign"
+                : "2% platform fee · 1% with SANC"}
+            </span>
           </div>
         </div>
 

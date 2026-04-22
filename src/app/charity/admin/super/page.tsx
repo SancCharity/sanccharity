@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Building2,
   Megaphone,
@@ -17,6 +18,7 @@ import {
   Activity,
   ExternalLink,
   RefreshCw,
+  Lock,
 } from "lucide-react";
 import Link from "next/link";
 import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
@@ -64,6 +66,8 @@ export default function SuperAdminDashboard() {
     handleForceCancelCampaign, handleExecuteBuyback, handlePauseContract, handleUnpauseContract,
     showComingSoon, setShowComingSoon, comingSoonMessage,
   } = useAdmin();
+
+  const [privateFeeInput, setPrivateFeeInput] = useState("0");
 
   const stats = [
     { label: "Total Charities", value: String(dashboard?.totalCharities ?? 47), change: "+3 this month", changeColor: "text-[#22C55E]", icon: Building2, iconColor: "text-accent-primary" },
@@ -474,6 +478,63 @@ export default function SuperAdminDashboard() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Private Campaign Fee Configuration */}
+      <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04] flex flex-col gap-4 sm:gap-5">
+        <div className="flex items-center gap-2.5">
+          <Lock className="h-5 w-5 text-[#7C3AED] shrink-0" />
+          <h2 className="text-base sm:text-lg font-bold text-fg-primary">Private Campaign Fee</h2>
+          <span className="ml-auto text-[11px] font-semibold text-[#7C3AED] bg-[#F5F3FF] rounded-full px-2.5 py-1">
+            Currently 0%
+          </span>
+        </div>
+
+        <p className="text-[13px] text-fg-muted">
+          Set the platform fee applied to donations made through <span className="font-semibold text-fg-primary">private (unlisted) campaigns</span>. Public campaigns always charge 2% (1% when donors pay with SANC) and are not configurable here.
+        </p>
+
+        <div className="bg-[#F5F3FF] rounded-xl p-4 flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <span className="text-[13px] font-semibold text-[#4C1D95]">Active Fee Rate</span>
+            <span className="text-xl font-bold text-[#7C3AED] font-mono">0%</span>
+          </div>
+          <div className="h-px bg-[#DDD6FE]" />
+          <div className="flex items-center gap-2 text-[12px] text-[#6D28D9]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#7C3AED] shrink-0" />
+            100% of every private-campaign donation goes directly to the charity
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="text-[13px] font-semibold text-fg-primary">New Fee Rate (%)</label>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 border border-line-subtle rounded-xl px-4 py-3 bg-[#F8FAFC] flex-1 max-w-[180px]">
+              <input
+                type="number"
+                min="0"
+                max="10"
+                step="0.1"
+                value={privateFeeInput}
+                onChange={(e) => setPrivateFeeInput(e.target.value)}
+                className="w-full bg-transparent text-sm font-semibold text-fg-primary outline-none"
+                placeholder="0"
+              />
+              <span className="text-sm font-semibold text-fg-muted">%</span>
+            </div>
+            <span className="text-[12px] text-fg-muted">Range: 0% – 10%</span>
+          </div>
+          <p className="text-[11px] text-fg-muted">
+            Calls <code className="font-mono bg-[#F1F5F9] px-1.5 py-0.5 rounded text-[#475569]">setPrivateCampaignFeeBps()</code> on the DonationManager contract. Only the contract owner can execute this.
+          </p>
+        </div>
+
+        <ComingSoonOverlay action="Update Private Campaign Fee">
+          <button className="flex items-center justify-center gap-2 w-full h-11 bg-[#7C3AED] rounded-xl">
+            <Lock className="h-4 w-4 text-white" />
+            <span className="text-sm font-semibold text-white">Update Private Campaign Fee</span>
+          </button>
+        </ComingSoonOverlay>
       </div>
 
       {/* Emergency Controls + Event Listener Row */}

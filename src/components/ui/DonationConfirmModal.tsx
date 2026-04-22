@@ -10,6 +10,7 @@ interface DonationConfirmModalProps {
   campaignName?: string;
   amount?: string;
   token?: string;
+  isPrivateCampaign?: boolean;
 }
 
 export function DonationConfirmModal({
@@ -18,8 +19,9 @@ export function DonationConfirmModal({
   campaignName = "Clean Water for Rural Communities",
   amount = "0.5",
   token = "BNB",
+  isPrivateCampaign = false,
 }: DonationConfirmModalProps) {
-  const platformFee = 0.01;
+  const platformFee = isPrivateCampaign ? 0 : 0.01;
   const estimatedGas = 0.001;
   const total = (parseFloat(amount) + platformFee + estimatedGas).toFixed(3);
 
@@ -71,9 +73,13 @@ export function DonationConfirmModal({
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-[#94A3B8]">Platform fee</span>
-              <span className="text-sm text-[#94A3B8]">
-                {platformFee} {token} (2%)
-              </span>
+              {isPrivateCampaign ? (
+                <span className="text-sm font-semibold text-[#16A34A]">Free</span>
+              ) : (
+                <span className="text-sm text-[#94A3B8]">
+                  {platformFee} {token} (2%)
+                </span>
+              )}
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-[#94A3B8]">NFT receipt</span>

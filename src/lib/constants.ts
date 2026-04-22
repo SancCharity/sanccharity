@@ -5,8 +5,9 @@ export const STAKE_AMOUNT = 10_000_000;
 export const STAKE_AMOUNT_RAW = "10000000000000000"; // 10M with 9 decimals
 
 // Fees
-export const PLATFORM_FEE_BPS = 200; // 2%
-export const SANC_DISCOUNT_BPS = 100; // 1%
+export const PLATFORM_FEE_BPS = 200;         // 2% — public campaigns
+export const SANC_DISCOUNT_BPS = 100;        // 1% — public campaigns, SANC token
+export const PRIVATE_CAMPAIGN_FEE_BPS = 0;  // 0% — private campaigns are free
 export const BUYBACK_BURN_PCT = 40;
 export const MATCHING_FUND_PCT = 30;
 export const OPERATIONS_PCT = 30;
