@@ -273,8 +273,8 @@ function PerspectiveGrid() {
         const bx = W * t;                          // spread full width at bottom
         const vx = vpx + (bx - vpx) * 0.05;       // converge tightly at VP
 
-        ctx.strokeStyle = `rgba(14,165,233,0.45)`;
-        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = `rgba(14,165,233,0.22)`;
+        ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(vx, vpy);
         ctx.lineTo(bx, H);
@@ -290,10 +290,10 @@ function PerspectiveGrid() {
 
         const lx = vpx - perspT * vpx;
         const rx = vpx + perspT * (W - vpx);
-        const alpha = 0.15 + perspT * 0.5;
+        const alpha = 0.06 + perspT * 0.22;
 
         ctx.strokeStyle = `rgba(14,165,233,${alpha})`;
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(lx, y);
         ctx.lineTo(rx, y);
@@ -308,10 +308,10 @@ function PerspectiveGrid() {
         const srx = vpx + perspT * (W - vpx);
         const g = ctx.createLinearGradient(slx, sy, srx, sy);
         g.addColorStop(0,   "rgba(14,165,233,0)");
-        g.addColorStop(0.5, "rgba(14,165,233,0.7)");
+        g.addColorStop(0.5, "rgba(14,165,233,0.35)");
         g.addColorStop(1,   "rgba(14,165,233,0)");
         ctx.strokeStyle = g as unknown as string;
-        ctx.lineWidth = 2.5;
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(slx, sy);
         ctx.lineTo(srx, sy);
@@ -319,16 +319,17 @@ function PerspectiveGrid() {
       }
 
       // ── Vanishing point glow ──
-      const glow = ctx.createRadialGradient(vpx, vpy, 0, vpx, vpy, 100);
-      glow.addColorStop(0, "rgba(14,165,233,0.2)");
+      const glow = ctx.createRadialGradient(vpx, vpy, 0, vpx, vpy, 80);
+      glow.addColorStop(0, "rgba(14,165,233,0.08)");
       glow.addColorStop(1, "rgba(14,165,233,0)");
       ctx.fillStyle = glow;
       ctx.beginPath();
-      ctx.arc(vpx, vpy, 100, 0, Math.PI * 2);
+      ctx.arc(vpx, vpy, 80, 0, Math.PI * 2);
       ctx.fill();
 
-      offset += 0.007;
-      scanY  += 0.005;
+      const isMobile = W < 640;
+      offset += isMobile ? 0.002 : 0.003;
+      scanY  += isMobile ? 0.0015 : 0.002;
       if (scanY > 1.1) scanY = -0.2;
 
       raf = requestAnimationFrame(draw);
