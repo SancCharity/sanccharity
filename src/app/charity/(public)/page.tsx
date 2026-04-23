@@ -69,22 +69,22 @@ export default function LandingPage() {
       <section className="relative overflow-hidden bg-white border-b border-line-subtle px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
         <AnimatedHeroBg variant="grid" />
         {/* Badge */}
-        <span className="inline-flex items-center gap-1.5 bg-accent-light text-accent-primary rounded-full px-4 py-1.5 text-xs font-mono">
+        <span className="relative z-10 inline-flex items-center gap-1.5 bg-accent-light text-accent-primary rounded-full px-4 py-1.5 text-xs font-mono">
           <Hexagon className="h-3 w-3" />Blockchain-verified charity
         </span>
 
         {/* Headline — no forced break on mobile, natural wrap */}
-        <h1 className="text-[32px] sm:text-5xl lg:text-[64px] font-bold text-fg-primary text-center leading-[1.1] max-w-[800px]">
+        <h1 className="relative z-10 text-[32px] sm:text-5xl lg:text-[64px] font-bold text-fg-primary text-center leading-[1.1] max-w-[800px]">
           Where Every Donation<span className="hidden sm:inline"><br /></span>{" "}Finds Its Purpose
         </h1>
 
         {/* Subtext */}
-        <p className="text-[15px] lg:text-[18px] text-fg-secondary text-center max-w-[520px] leading-relaxed -mt-1">
+        <p className="relative z-10 text-[15px] lg:text-[18px] text-fg-secondary text-center max-w-[520px] leading-relaxed -mt-1">
           Your donation is locked until real results are proven — verified by the community, recorded on-chain forever.
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+        <div className="relative z-10 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <ComingSoonOverlay action="Connect wallet">
             <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5 hover:bg-accent-primary/90 transition-colors shadow-[0_4px_24px_rgba(14,165,233,0.35)]">
               <Wallet className="h-4 w-4" />Start Donating
@@ -96,7 +96,7 @@ export default function LandingPage() {
         </div>
 
         {/* Cards — stack on mobile (no transforms), arc on desktop */}
-        <div className="flex flex-col sm:flex-row sm:items-end gap-4 w-full max-w-[860px] mt-1">
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-end gap-4 w-full max-w-[860px] mt-1">
           {/* Card 1 — Donation receipt */}
           <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-black/[0.04] sm:[transform:rotate(-1.5deg)]">
             <div className="flex items-center gap-2 mb-1">

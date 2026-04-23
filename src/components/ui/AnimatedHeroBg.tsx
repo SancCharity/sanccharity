@@ -354,7 +354,7 @@ function PerspectiveGrid() {
 // ─── Export ───────────────────────────────────────────────────────────────────
 export function AnimatedHeroBg({ variant = "blockchain" }: Props) {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
       {variant === "blockchain" && <BlockchainCanvas />}
       {variant === "orbs"       && <GradientOrbs />}
       {variant === "grid"       && <PerspectiveGrid />}
