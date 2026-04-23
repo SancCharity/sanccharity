@@ -7,6 +7,7 @@ import { useCharity } from "@/hooks/useCharity";
 import type { CampaignFilters } from "@/hooks/useCharity";
 import { CampaignCategory, CharityStatus, MilestoneStatus } from "@/types/charity";
 import { StatCardSkeleton } from "@/components/ui/Skeleton";
+import { AnimatedHeroBg } from "@/components/ui/AnimatedHeroBg";
 import {
   Wallet, Search, Target, Flame, DollarSign, Users, Shield,
   FileText, ExternalLink, Lock, Undo, BadgeCheck,
@@ -64,7 +65,9 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* ===== 01 HERO ===== */}
-      <section className="bg-white border-b border-line-subtle px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
+      {/* To test variants, change "blockchain" → "orbs" or "grid" */}
+      <section className="relative overflow-hidden bg-white border-b border-line-subtle px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
+        <AnimatedHeroBg variant="blockchain" />
         {/* Badge */}
         <span className="inline-flex items-center gap-1.5 bg-accent-light text-accent-primary rounded-full px-4 py-1.5 text-xs font-mono">
           <Hexagon className="h-3 w-3" />Blockchain-verified charity
