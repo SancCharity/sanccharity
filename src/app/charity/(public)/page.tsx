@@ -437,15 +437,15 @@ export default function LandingPage() {
                   ))}
                 </div>
                 <div className="flex items-center gap-2 bg-surface-primary rounded-xl px-4 py-2.5 sm:ml-auto">
-                  <span className="text-[18px] font-bold text-fg-primary">2,500,000</span>
-                  <span className="text-sm text-fg-muted font-mono">SANC</span>
+                  <span className="text-[18px] font-bold text-fg-primary">$500</span>
+                  <span className="text-sm text-fg-muted font-mono">worth of SANC</span>
                 </div>
               </div>
 
               {/* Quick amounts */}
               <div className="flex gap-2 pointer-events-none">
-                {["100K", "500K", "1M", "5M", "Max"].map((q) => (
-                  <button key={q} className="flex-1 bg-surface-primary text-fg-secondary text-xs rounded-full py-1.5">
+                {["$100", "$250", "$500", "$1K", "$5K"].map((q) => (
+                  <button key={q} className={`flex-1 text-xs rounded-full py-1.5 ${q === "$500" ? "bg-accent-primary text-white" : "bg-surface-primary text-fg-secondary"}`}>
                     {q}
                   </button>
                 ))}
@@ -455,7 +455,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-0.5">
                 <div className="flex flex-col gap-0.5 flex-1">
                   <p className="text-[12px] text-fg-muted font-mono">
-                    2,500,000 SANC · <span className="text-success font-medium">1% fee</span> · <span className="font-semibold text-fg-primary">2,475,000 to charity</span>
+                    $500 worth of SANC · <span className="text-success font-medium">1% fee</span> · <span className="font-semibold text-fg-primary">$495.00 to charity</span>
                   </p>
                   <p className="text-[11px] text-fg-muted flex items-center gap-1">
                     <Flame className="h-2.5 w-2.5 text-warning flex-shrink-0" />50% of fee burned · reduces SANC supply
