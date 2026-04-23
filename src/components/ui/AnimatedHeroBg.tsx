@@ -241,16 +241,22 @@ function PerspectiveGrid() {
     let started = false;
 
     function resize() {
+      const dpr  = window.devicePixelRatio || 1;
       const rect = canvas!.getBoundingClientRect();
       W = rect.width  > 0 ? rect.width  : window.innerWidth;
       H = rect.height > 0 ? rect.height : 600;
-      canvas!.width  = W;
-      canvas!.height = H;
+      // Scale canvas buffer for retina/high-DPI screens
+      canvas!.width  = W * dpr;
+      canvas!.height = H * dpr;
+      canvas!.style.width  = `${W}px`;
+      canvas!.style.height = `${H}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     let offset = 0;
     let scanY = -0.2;
-    const COLS = 12;
+    // Fewer columns on mobile for cleaner look
+    const COLS = window.innerWidth < 640 ? 8 : 12;
     const ROWS = 18;
 
     function draw() {
