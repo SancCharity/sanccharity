@@ -166,53 +166,53 @@ function GradientOrbs() {
       <style>{`
         @keyframes orb-drift-1 {
           0%,100% { transform: translate(0%,0%) scale(1); }
-          33%      { transform: translate(6%,8%) scale(1.08); }
-          66%      { transform: translate(-4%,5%) scale(0.95); }
+          33%      { transform: translate(8%,10%) scale(1.1); }
+          66%      { transform: translate(-6%,6%) scale(0.93); }
         }
         @keyframes orb-drift-2 {
           0%,100% { transform: translate(0%,0%) scale(1); }
-          40%      { transform: translate(-7%,-6%) scale(1.12); }
-          75%      { transform: translate(5%,-3%) scale(0.93); }
+          40%      { transform: translate(-9%,-8%) scale(1.14); }
+          75%      { transform: translate(7%,-4%) scale(0.9); }
         }
         @keyframes orb-drift-3 {
           0%,100% { transform: translate(0%,0%) scale(1); }
-          50%      { transform: translate(4%,-9%) scale(1.06); }
+          50%      { transform: translate(6%,-12%) scale(1.08); }
         }
         @keyframes orb-drift-4 {
           0%,100% { transform: translate(0%,0%) scale(1); }
-          30%      { transform: translate(-5%,4%) scale(1.1); }
-          70%      { transform: translate(3%,7%) scale(0.9); }
+          30%      { transform: translate(-7%,6%) scale(1.12); }
+          70%      { transform: translate(5%,9%) scale(0.88); }
         }
         .hero-orb {
           position: absolute;
           border-radius: 9999px;
-          filter: blur(80px);
+          filter: blur(60px);
           pointer-events: none;
-          opacity: 0.35;
+          opacity: 0.55;
         }
         .hero-orb-1 {
-          width: 500px; height: 500px;
-          background: radial-gradient(circle, #BAE6FD 0%, #0EA5E9 60%, transparent 100%);
-          top: -15%; left: -10%;
-          animation: orb-drift-1 18s ease-in-out infinite;
+          width: 520px; height: 520px;
+          background: radial-gradient(circle, #7DD3FC 0%, #0EA5E9 55%, transparent 100%);
+          top: -20%; left: -12%;
+          animation: orb-drift-1 8s ease-in-out infinite;
         }
         .hero-orb-2 {
-          width: 420px; height: 420px;
-          background: radial-gradient(circle, #E0F2FE 0%, #38BDF8 55%, transparent 100%);
-          top: 20%; right: -8%;
-          animation: orb-drift-2 22s ease-in-out infinite;
+          width: 440px; height: 440px;
+          background: radial-gradient(circle, #BAE6FD 0%, #38BDF8 50%, transparent 100%);
+          top: 15%; right: -10%;
+          animation: orb-drift-2 10s ease-in-out infinite;
         }
         .hero-orb-3 {
-          width: 360px; height: 360px;
-          background: radial-gradient(circle, #DBEAFE 0%, #818CF8 60%, transparent 100%);
-          bottom: -10%; left: 30%;
-          animation: orb-drift-3 16s ease-in-out infinite;
+          width: 380px; height: 380px;
+          background: radial-gradient(circle, #C7D2FE 0%, #818CF8 55%, transparent 100%);
+          bottom: -15%; left: 28%;
+          animation: orb-drift-3 7s ease-in-out infinite;
         }
         .hero-orb-4 {
-          width: 280px; height: 280px;
-          background: radial-gradient(circle, #CCFBF1 0%, #2DD4BF 60%, transparent 100%);
-          top: 10%; left: 40%;
-          animation: orb-drift-4 20s ease-in-out infinite;
+          width: 300px; height: 300px;
+          background: radial-gradient(circle, #99F6E4 0%, #2DD4BF 55%, transparent 100%);
+          top: 8%; left: 38%;
+          animation: orb-drift-4 9s ease-in-out infinite;
         }
       `}</style>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -227,7 +227,6 @@ function GradientOrbs() {
 
 // ─── Variant C: Perspective Grid ──────────────────────────────────────────────
 // Tron-style perspective ground grid scrolling toward the viewer.
-// Faint scan-pulse sweeps across the field periodically.
 function PerspectiveGrid() {
   const ref = useRef<HTMLCanvasElement>(null);
 
@@ -238,104 +237,107 @@ function PerspectiveGrid() {
     if (!ctx) return;
 
     let W = 0, H = 0;
+    let raf: number;
+    let started = false;
+
     function resize() {
-      W = canvas!.offsetWidth;
-      H = canvas!.offsetHeight;
-      canvas!.width = W;
+      const rect = canvas!.getBoundingClientRect();
+      W = rect.width  > 0 ? rect.width  : window.innerWidth;
+      H = rect.height > 0 ? rect.height : 600;
+      canvas!.width  = W;
       canvas!.height = H;
     }
-    resize();
 
     let offset = 0;
-    let scanY = -0.1;
-    let raf: number;
-
-    const COLS = 14;
-    const ROWS = 20;
+    let scanY = -0.2;
+    const COLS = 12;
+    const ROWS = 18;
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
 
       const vpx = W * 0.5;
-      const vpy = H * 0.38;
+      const vpy = H * 0.3;          // vanishing point 30% from top
       const floorH = H - vpy;
 
-      // ── Vertical perspective lines ──
+      // ── Vertical lines ──
       for (let c = 0; c <= COLS; c++) {
         const t = c / COLS;
-        // Spread: tight at VP, full width at bottom
-        const bx = W * t;
-        const vx = vpx + (bx - vpx) * 0.08; // converge toward vp
+        const bx = W * t;                          // spread full width at bottom
+        const vx = vpx + (bx - vpx) * 0.05;       // converge tightly at VP
 
-        const alpha = 0.055 + (Math.abs(t - 0.5) < 0.08 ? 0.03 : 0);
-        ctx.strokeStyle = `rgba(14,165,233,${alpha})`;
-        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = `rgba(14,165,233,0.45)`;
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(vx, vpy);
         ctx.lineTo(bx, H);
         ctx.stroke();
       }
 
-      // ── Horizontal perspective lines (scrolling) ──
+      // ── Horizontal lines (scrolling) ──
       for (let r = 0; r <= ROWS; r++) {
-        const rawT = ((r / ROWS) + (offset % 1)) % 1; // 0..1
-        // Perspective compression: exponential - lines bunch near VP
-        const perspT = Math.pow(rawT, 2.2);
+        const rawT = ((r / ROWS) + (offset % 1)) % 1;
+        const perspT = Math.pow(rawT, 2.5);        // compress near VP
         const y = vpy + perspT * floorH;
         if (y > H + 2) continue;
 
-        // Left/right X for this row (converge toward vpx at top)
-        const spreadFrac = perspT;
-        const lx = vpx - spreadFrac * vpx;
-        const rx = vpx + spreadFrac * (W - vpx);
+        const lx = vpx - perspT * vpx;
+        const rx = vpx + perspT * (W - vpx);
+        const alpha = 0.15 + perspT * 0.5;
 
-        const alpha = perspT * 0.12;
         ctx.strokeStyle = `rgba(14,165,233,${alpha})`;
-        ctx.lineWidth = 0.8;
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(lx, y);
         ctx.lineTo(rx, y);
         ctx.stroke();
       }
 
-      // ── Scan pulse (sweeps floor periodically) ──
+      // ── Scan pulse ──
       if (scanY > 0 && scanY < 1) {
-        const sy = vpy + Math.pow(scanY, 2.2) * floorH;
-        const sSpread = Math.pow(scanY, 2.2);
-        const slx = vpx - sSpread * vpx;
-        const srx = vpx + sSpread * (W - vpx);
-
-        const scanGrad = ctx.createLinearGradient(slx, sy, srx, sy);
-        scanGrad.addColorStop(0, "rgba(14,165,233,0)");
-        scanGrad.addColorStop(0.5, "rgba(14,165,233,0.25)");
-        scanGrad.addColorStop(1, "rgba(14,165,233,0)");
-        ctx.strokeStyle = scanGrad as unknown as string;
-        ctx.lineWidth = 1.5;
+        const perspT = Math.pow(scanY, 2.5);
+        const sy  = vpy + perspT * floorH;
+        const slx = vpx - perspT * vpx;
+        const srx = vpx + perspT * (W - vpx);
+        const g = ctx.createLinearGradient(slx, sy, srx, sy);
+        g.addColorStop(0,   "rgba(14,165,233,0)");
+        g.addColorStop(0.5, "rgba(14,165,233,0.7)");
+        g.addColorStop(1,   "rgba(14,165,233,0)");
+        ctx.strokeStyle = g as unknown as string;
+        ctx.lineWidth = 2.5;
         ctx.beginPath();
         ctx.moveTo(slx, sy);
         ctx.lineTo(srx, sy);
         ctx.stroke();
       }
 
-      // Glow at vanishing point
-      const vpGlow = ctx.createRadialGradient(vpx, vpy, 0, vpx, vpy, 80);
-      vpGlow.addColorStop(0, "rgba(14,165,233,0.12)");
-      vpGlow.addColorStop(1, "rgba(14,165,233,0)");
-      ctx.fillStyle = vpGlow;
+      // ── Vanishing point glow ──
+      const glow = ctx.createRadialGradient(vpx, vpy, 0, vpx, vpy, 100);
+      glow.addColorStop(0, "rgba(14,165,233,0.2)");
+      glow.addColorStop(1, "rgba(14,165,233,0)");
+      ctx.fillStyle = glow;
       ctx.beginPath();
-      ctx.arc(vpx, vpy, 80, 0, Math.PI * 2);
+      ctx.arc(vpx, vpy, 100, 0, Math.PI * 2);
       ctx.fill();
 
-      offset += 0.006;
-      scanY += 0.004;
-      if (scanY > 1.1) scanY = -0.15; // reset
+      offset += 0.007;
+      scanY  += 0.005;
+      if (scanY > 1.1) scanY = -0.2;
 
       raf = requestAnimationFrame(draw);
     }
 
-    const ro = new ResizeObserver(resize);
+    const ro = new ResizeObserver(() => {
+      resize();
+      if (!started) { started = true; raf = requestAnimationFrame(draw); }
+    });
     ro.observe(canvas);
-    raf = requestAnimationFrame(draw);
+
+    // Fallback: start immediately if ResizeObserver fires late
+    setTimeout(() => {
+      if (!started) { resize(); started = true; raf = requestAnimationFrame(draw); }
+    }, 50);
+
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, []);
 

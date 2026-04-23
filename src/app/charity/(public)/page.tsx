@@ -67,7 +67,7 @@ export default function LandingPage() {
       {/* ===== 01 HERO ===== */}
       {/* To test variants, change "blockchain" → "orbs" or "grid" */}
       <section className="relative overflow-hidden bg-white border-b border-line-subtle px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 flex flex-col items-center gap-6 sm:gap-8 lg:gap-10">
-        <AnimatedHeroBg variant="blockchain" />
+        <AnimatedHeroBg variant="grid" />
         {/* Badge */}
         <span className="inline-flex items-center gap-1.5 bg-accent-light text-accent-primary rounded-full px-4 py-1.5 text-xs font-mono">
           <Hexagon className="h-3 w-3" />Blockchain-verified charity
