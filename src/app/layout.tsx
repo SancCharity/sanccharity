@@ -11,9 +11,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "SancCharity — Transparent Charity on BSC",
+  title: "SancCharity — Blockchain-Verified Charitable Giving",
   description:
-    "On-chain charity donation platform with milestone-based escrow, community governance, and NFT receipts. Powered by Sanctuary Token (SANC).",
+    "Blockchain-verified charitable giving, open to the world. Powered by Sanctuary Token.",
 };
 
 export default function RootLayout({
