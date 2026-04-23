@@ -455,10 +455,10 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-0.5">
                 <div className="flex flex-col gap-0.5 flex-1">
                   <p className="text-[12px] text-fg-muted font-mono">
-                    $500 worth of SANC · <span className="text-success font-medium">1% fee</span> · <span className="font-semibold text-fg-primary">$495.00 to charity</span>
+                    $500 worth of SANC · <span className="text-success font-medium">0% fee</span> · <span className="font-semibold text-fg-primary">$500.00 to charity</span>
                   </p>
                   <p className="text-[11px] text-fg-muted flex items-center gap-1">
-                    <Flame className="h-2.5 w-2.5 text-warning flex-shrink-0" />50% of fee burned · reduces SANC supply
+                    <Flame className="h-2.5 w-2.5 text-warning flex-shrink-0" />BNB/USDT fees fund SANC buyback & burn
                   </p>
                 </div>
                 <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent-primary text-white text-sm font-semibold rounded-full px-6 py-2.5 shadow-[0_4px_20px_rgba(14,165,233,0.3)] whitespace-nowrap pointer-events-none opacity-60">
@@ -472,7 +472,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { icon: Hexagon, title: "NFT Receipt Included",    desc: "ERC-721 minted to your wallet automatically after every donation."      },
-              { icon: Coins,   title: "50% Discount with SANC", desc: "Pay fees in SANC to get half off — only 1% instead of the standard 2%." },
+              { icon: Coins,   title: "Zero Fee with SANC", desc: "Donate with SANC and pay zero platform fee — 100% of your donation reaches the charity." },
               { icon: Lock,    title: "Funds Held in Escrow",   desc: "DonationVault holds all funds. Released only after community vote."      },
             ].map((b) => (
               <div key={b.title} className="flex items-start gap-3.5 bg-white rounded-xl p-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-black/[0.03]">

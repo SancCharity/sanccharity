@@ -21,7 +21,8 @@ export function DonationConfirmModal({
   token = "BNB",
   isPrivateCampaign = false,
 }: DonationConfirmModalProps) {
-  const platformFee = isPrivateCampaign ? 0 : 0.01;
+  const isSANC = token === "SANC";
+  const platformFee = isPrivateCampaign || isSANC ? 0 : parseFloat(amount) * 0.015;
   const estimatedGas = 0.001;
   const total = (parseFloat(amount) + platformFee + estimatedGas).toFixed(3);
 
@@ -73,11 +74,11 @@ export function DonationConfirmModal({
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-[#94A3B8]">Platform fee</span>
-              {isPrivateCampaign ? (
+              {isPrivateCampaign || isSANC ? (
                 <span className="text-sm font-semibold text-[#16A34A]">Free</span>
               ) : (
                 <span className="text-sm text-[#94A3B8]">
-                  {platformFee} {token} (2%)
+                  {platformFee.toFixed(4)} {token} (1.5%)
                 </span>
               )}
             </div>

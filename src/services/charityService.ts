@@ -163,7 +163,7 @@ export class CharityService {
   async estimateDonateFee(tokenAddress: string, amount: bigint, isPrivateCampaign?: boolean): Promise<bigint> {
     if (isPrivateCampaign) return BigInt(0);
     const isSANC = tokenAddress.toLowerCase() === ACCEPTED_TOKENS.find((t) => t.symbol === "SANC")?.address.toLowerCase();
-    const feeBps = isSANC ? 100 : 200; // 1% for SANC, 2% for others on public campaigns
+    const feeBps = isSANC ? 0 : 150; // 0% for SANC, 1.5% for BNB/USDT/BUSD on public campaigns
     return (amount * BigInt(feeBps)) / BigInt(10000);
   }
 

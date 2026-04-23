@@ -183,9 +183,9 @@ function DonateContent() {
                         Balance: 0.00
                       </p>
                       <p
-                        className={`text-[11px] mt-1 font-medium ${isPrivateCampaign ? "text-[#16A34A]" : token.fee === 1 ? "text-[#16A34A]" : "text-[#94A3B8]"}`}
+                        className={`text-[11px] mt-1 font-medium ${isPrivateCampaign || token.fee === 0 ? "text-[#16A34A]" : "text-[#94A3B8]"}`}
                       >
-                        {isPrivateCampaign ? "No fee ✓" : `${token.fee}% fee${token.fee === 1 ? " ✓" : ""}`}
+                        {isPrivateCampaign || token.fee === 0 ? "No fee ✓" : `${token.fee}% fee`}
                       </p>
                       {isSelected && (
                         <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#0EA5E9] flex items-center justify-center">
@@ -454,15 +454,13 @@ function DonateContent() {
                 </div>
               </div>
 
-              {/* SANC fee tip — only on public campaigns */}
+              {/* SANC fee tip — only on public campaigns when not using SANC */}
               {!isPrivateCampaign && selectedToken.symbol !== "SANC" && (
                 <div className="mt-4 p-3 bg-[#F0F9FF] rounded-xl flex items-start gap-2">
                   <Info className="w-4 h-4 text-[#0EA5E9] flex-shrink-0 mt-0.5" />
                   <p className="text-[12px] text-[#0369A1]">
-                    <span className="font-semibold">
-                      Pay with SANC for 50% off fees
-                    </span>{" "}
-                    — only 1% instead of 2%
+                    <span className="font-semibold">Pay with SANC — zero platform fee.</span>{" "}
+                    100% of your donation goes to the charity. BNB/USDT fees fund the SANC burn.
                   </p>
                 </div>
               )}

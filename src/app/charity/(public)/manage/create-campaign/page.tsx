@@ -376,7 +376,7 @@ export default function CreateCampaignPage() {
             <div className="bg-[#FEF3C7] border border-[#FDE68A] rounded-xl p-3.5 text-[12px] font-medium text-[#92400E]">
               {campaignType === CampaignType.Private
                 ? "Private campaigns are unlisted. Only donors with your access link can find and donate. No platform fee — 100% of donations go to your charity."
-                : "Once submitted, the campaign will be reviewed by the community. A 2% platform fee applies (1% when donors pay with SANC)."}
+                : "Once submitted, the campaign will be reviewed by the community. A 1.5% platform fee applies — free when donors pay with SANC."}
             </div>
           </div>
         )}

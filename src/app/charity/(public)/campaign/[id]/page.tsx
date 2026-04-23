@@ -182,7 +182,7 @@ export default function CampaignDetailPage() {
             <span className="text-[10px] text-fg-muted font-mono text-center">
               {campaign?.campaignType === CampaignType.Private
                 ? "No platform fee · private campaign"
-                : "2% platform fee · 1% with SANC"}
+                : "1.5% platform fee · 0% with SANC"}
             </span>
           </div>
         </div>

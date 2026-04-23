@@ -5,8 +5,8 @@ export const STAKE_AMOUNT = 10_000_000;
 export const STAKE_AMOUNT_RAW = "10000000000000000"; // 10M with 9 decimals
 
 // Fees
-export const PLATFORM_FEE_BPS = 200;         // 2% — public campaigns
-export const SANC_DISCOUNT_BPS = 100;        // 1% — public campaigns, SANC token
+export const PLATFORM_FEE_BPS = 150;         // 1.5% — public campaigns (launch rate, increases with volume)
+export const SANC_FEE_BPS = 0;              // 0% — SANC donations free; BNB/USDT fees fund the SANC burn
 export const PRIVATE_CAMPAIGN_FEE_BPS = 0;  // 0% — private campaigns are free
 export const BUYBACK_BURN_PCT = 40;
 export const MATCHING_FUND_PCT = 30;
@@ -34,8 +34,8 @@ export const MOCK_CHARITY_ADDRESSES = [
 
 // Accepted tokens
 export const ACCEPTED_TOKENS = [
-  { symbol: "BNB", address: "0x0000000000000000000000000000000000000000", decimals: 18, fee: 2 },
-  { symbol: "SANC", address: "0x4670f3a2A8D35021257cda028c7ae3Cb854C7CaF", decimals: 9, fee: 1 },
-  { symbol: "USDT", address: "0x55d398326f99059fF775485246999027B3197955", decimals: 18, fee: 2 },
-  { symbol: "BUSD", address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56", decimals: 18, fee: 2 },
+  { symbol: "BNB",  address: "0x0000000000000000000000000000000000000000", decimals: 18, fee: 1.5 },
+  { symbol: "SANC", address: "0x4670f3a2A8D35021257cda028c7ae3Cb854C7CaF", decimals: 9,  fee: 0   },
+  { symbol: "USDT", address: "0x55d398326f99059fF775485246999027B3197955", decimals: 18, fee: 1.5 },
+  { symbol: "BUSD", address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56", decimals: 18, fee: 1.5 },
 ];

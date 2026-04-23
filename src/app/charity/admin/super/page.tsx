@@ -491,7 +491,7 @@ export default function SuperAdminDashboard() {
         </div>
 
         <p className="text-[13px] text-fg-muted">
-          Set the platform fee applied to donations made through <span className="font-semibold text-fg-primary">private (unlisted) campaigns</span>. Public campaigns always charge 2% (1% when donors pay with SANC) and are not configurable here.
+          Set the platform fee applied to donations made through <span className="font-semibold text-fg-primary">private (unlisted) campaigns</span>. Public campaigns charge 1.5% (0% when donors pay with SANC) and are not configurable here.
         </p>
 
         <div className="bg-[#F5F3FF] rounded-xl p-4 flex flex-col gap-3">

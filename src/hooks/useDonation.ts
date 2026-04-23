@@ -37,8 +37,8 @@ export function useDonation(initialCampaignId?: string, isPrivateCampaign?: bool
   const isBNB = selectedToken.symbol === "BNB";
   const isSANC = selectedToken.symbol === "SANC";
 
-  // Fee: 0% for private campaigns; 1% for SANC, 2% for others on public campaigns
-  const feePercent = isPrivateCampaign ? 0 : (isSANC ? 1 : 2);
+  // Fee: 0% for private campaigns; 0% for SANC, 1.5% for BNB/USDT/BUSD on public campaigns
+  const feePercent = isPrivateCampaign ? 0 : (isSANC ? 0 : 1.5);
   const amountNum = parseFloat(form.amount) || 0;
   const feeAmount = amountNum * (feePercent / 100);
   const netAmount = amountNum - feeAmount;
