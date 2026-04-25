@@ -26,7 +26,7 @@ export function Footer() {
               { label: "Donate", href: "/charity/donate" },
               { label: "Impact Dashboard", href: "/charity/impact" },
               { label: "Register Charity", href: "/charity/manage" },
-              { label: "SancSwap", href: "#" },
+              { label: "SancSwap", href: "/charity/swap" },
             ].map((l) => (
               <Link key={l.label} href={l.href} className="text-[13px] text-[#94A3B8] hover:text-[#0F172A] transition-colors">{l.label}</Link>
             ))}
@@ -38,15 +38,21 @@ export function Footer() {
               { label: "Staking & Voting", href: "/charity/governance" },
               { label: "Voter Tiers", href: "/charity/governance" },
               { label: "Proposals", href: "/charity/governance" },
-              { label: "Tokenomics", href: "#" },
+              { label: "Tokenomics", href: "/charity/tokenomics" },
             ].map((l) => (
               <Link key={l.label} href={l.href} className="text-[13px] text-[#94A3B8] hover:text-[#0F172A] transition-colors">{l.label}</Link>
             ))}
           </div>
           <div className="flex flex-col gap-3">
             <span className="text-[11px] font-medium text-[#0F172A] tracking-wider uppercase">Resources</span>
-            {["Documentation", "Smart Contracts", "Audit Report", "Privacy Policy", "Terms of Service"].map((l) => (
-              <span key={l} className="text-[13px] text-[#94A3B8]">{l}</span>
+            {[
+              { label: "Documentation", href: "/charity/docs" },
+              { label: "Smart Contracts", href: "/charity/contracts" },
+              { label: "Audit Report", href: "/charity/audit" },
+              { label: "Privacy Policy", href: "/charity/privacy" },
+              { label: "Terms of Service", href: "/charity/terms" },
+            ].map((l) => (
+              <Link key={l.label} href={l.href} className="text-[13px] text-[#94A3B8] hover:text-[#0F172A] transition-colors">{l.label}</Link>
             ))}
           </div>
         </div>
