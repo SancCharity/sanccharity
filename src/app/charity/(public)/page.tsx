@@ -41,25 +41,36 @@ export default function LandingPage() {
   const now = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>("[data-fade-up]");
-    const obs = new IntersectionObserver(
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    // Scroll reveal for .reveal and .reveal-scale elements
+    const revealEls = document.querySelectorAll<HTMLElement>(".reveal, .reveal-scale");
+    const revealObs = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
         if (e.isIntersecting) {
-          const el = e.target as HTMLElement;
-          el.style.opacity = "1";
-          el.style.transform = "translateY(0)";
-          obs.unobserve(el);
+          (e.target as HTMLElement).classList.add("revealed");
+          revealObs.unobserve(e.target);
         }
       }),
-      { threshold: 0.08 }
+      { threshold: 0.06, rootMargin: "0px 0px -40px 0px" }
     );
-    els.forEach((el) => {
-      el.style.opacity = "0";
-      el.style.transform = "translateY(24px)";
-      el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-      obs.observe(el);
-    });
-    return () => obs.disconnect();
+    revealEls.forEach((el) => revealObs.observe(el));
+
+    // Bar sections — activate bar animations when section enters viewport
+    const barSections = document.querySelectorAll<HTMLElement>("[data-bars]");
+    const barObs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) {
+          (e.target as HTMLElement).classList.add("bars-active");
+          barObs.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.1 }
+    );
+    barSections.forEach((el) => barObs.observe(el));
+
+    return () => { revealObs.disconnect(); barObs.disconnect(); };
   }, []);
 
   return (
@@ -86,11 +97,11 @@ export default function LandingPage() {
         {/* CTAs */}
         <div className="relative z-10 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <ComingSoonOverlay action="Connect wallet">
-            <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5 hover:bg-accent-primary/90 transition-colors shadow-[0_4px_24px_rgba(14,165,233,0.35)]">
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5 hover:bg-accent-primary/90 hover:scale-[1.02] active:scale-[0.97] transition-all duration-150 shadow-[0_4px_24px_rgba(14,165,233,0.35)]">
               <Wallet className="h-4 w-4" />Start Donating
             </button>
           </ComingSoonOverlay>
-          <Link href="#campaigns" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface-primary text-fg-primary text-[15px] rounded-full px-8 py-3.5 border border-line-subtle hover:bg-white transition-colors">
+          <Link href="#campaigns" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface-primary text-fg-primary text-[15px] rounded-full px-8 py-3.5 border border-line-subtle hover:bg-white hover:scale-[1.01] active:scale-[0.99] transition-all duration-150">
             <Search className="h-4 w-4" />Browse Campaigns
           </Link>
         </div>
@@ -121,7 +132,7 @@ export default function LandingPage() {
           </div>
 
           {/* Card 2 — Platform stats (elevated on desktop only) */}
-          <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 shadow-[0_8px_40px_rgba(0,0,0,0.08)] sm:shadow-[0_16px_60px_rgba(0,0,0,0.12)] border border-black/[0.04] card-float">
+          <div className="w-full sm:flex-1 bg-white rounded-2xl p-5 card-float-glow">
             <p className="text-[10px] font-mono text-fg-muted uppercase tracking-wider mb-4">Platform Impact</p>
             <div className="flex flex-col gap-3">
               {[
@@ -174,9 +185,11 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 02 HOW IT WORKS ===== */}
-      <section data-fade-up id="how" className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
-        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">How It Works</span>
-        <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Three Steps to Transparent Giving</h2>
+      <section id="how" className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8 lg:gap-12">
+        <div className="reveal flex flex-col items-center gap-3">
+          <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">How It Works</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Three Steps to Transparent Giving</h2>
+        </div>
 
         <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto w-full">
           {/* Dashed connector line — desktop only, sits behind the circles */}
@@ -189,8 +202,9 @@ export default function LandingPage() {
             { icon: Wallet, num: "01", title: "Connect Your Wallet", desc: "Link your BSC wallet. We support BNB, SANC, USDT, and BUSD for maximum flexibility." },
             { icon: Search, num: "02", title: "Choose a Cause", desc: "Browse campaigns across 8 categories. Every charity stakes 10M SANC and passes KYC verification before listing." },
             { icon: Shield, num: "03", title: "Track Your Impact", desc: "Get an NFT receipt. Vote on milestone releases. Watch your donation create real, verified change on-chain." },
-          ].map((step) => (
-            <div key={step.num} className="flex sm:flex-col items-start sm:items-center gap-5 sm:gap-4 text-left sm:text-center">
+          ].map((step, i) => (
+            <div key={step.num} className="reveal flex sm:flex-col items-start sm:items-center gap-5 sm:gap-4 text-left sm:text-center"
+              style={{ "--reveal-delay": `${i * 150}ms` } as React.CSSProperties}>
               {/* Circle node — boxShadow ring in section bg color visually "cuts" the connector line */}
               <div
                 className="relative z-10 flex-shrink-0 h-16 w-16 rounded-full bg-white border-2 border-accent-primary/40 flex items-center justify-center"
@@ -211,10 +225,10 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 03 FEATURED CAMPAIGNS ===== */}
-      <section data-fade-up id="campaigns" className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+      <section id="campaigns" className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="max-w-7xl mx-auto flex flex-col gap-6 lg:gap-8">
           {/* Header */}
-          <div className="flex flex-col items-center gap-3">
+          <div className="reveal flex flex-col items-center gap-3">
             <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Featured Campaigns</span>
             <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Verified Causes Making Real Impact</h2>
           </div>
@@ -404,13 +418,15 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 04 DONATION FLOW ===== */}
-      <section data-fade-up className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Donation Experience</span>
-        <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Donate in Any Token. Pay Less with SANC.</h2>
+      <section className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+        <div className="reveal flex flex-col items-center gap-3">
+          <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Donation Experience</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Donate in Any Token. Pay Less with SANC.</h2>
+        </div>
         <div className="flex flex-col gap-4 max-w-7xl mx-auto w-full">
 
           {/* Proof card — donation in progress */}
-          <div className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/[0.04] flex flex-col sm:flex-row">
+          <div className="reveal-scale bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/[0.04] flex flex-col sm:flex-row">
             {/* Campaign thumbnail */}
             <div className="relative sm:w-[200px] lg:w-[220px] h-[140px] sm:h-auto flex-shrink-0 overflow-hidden">
               <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&q=80" alt="" className="w-full h-full object-cover" />
@@ -474,8 +490,9 @@ export default function LandingPage() {
               { icon: Hexagon, title: "NFT Receipt Included",    desc: "ERC-721 minted to your wallet automatically after every donation."      },
               { icon: Coins,   title: "Zero Fee with SANC", desc: "Donate with SANC and pay zero platform fee — 100% of your donation reaches the charity." },
               { icon: Lock,    title: "Funds Held in Escrow",   desc: "DonationVault holds all funds. Released only after community vote."      },
-            ].map((b) => (
-              <div key={b.title} className="flex items-start gap-3.5 bg-white rounded-xl p-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-black/[0.03]">
+            ].map((b, i) => (
+              <div key={b.title} className="reveal flex items-start gap-3.5 bg-white rounded-xl p-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-black/[0.03]"
+                style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}>
                 <div className="h-8 w-8 rounded-full bg-accent-light flex items-center justify-center flex-shrink-0 mt-0.5">
                   <b.icon className="h-4 w-4 text-accent-primary" />
                 </div>
@@ -488,7 +505,8 @@ export default function LandingPage() {
           </div>
 
           {/* Security notice */}
-          <div className="flex items-center gap-3 bg-white border border-line-subtle rounded-xl px-5 py-3 w-full">
+          <div className="reveal flex items-center gap-3 bg-white border border-line-subtle rounded-xl px-5 py-3 w-full"
+            style={{ "--reveal-delay": "300ms" } as React.CSSProperties}>
             <Shield className="h-4 w-4 text-accent-primary flex-shrink-0" />
             <span className="text-xs text-fg-secondary">Large donations (&gt;100 BNB) trigger multi-sig approval for added security. All transactions are publicly verifiable on BSCScan.</span>
           </div>
@@ -497,12 +515,14 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 05 IMPACT DASHBOARD ===== */}
-      <section data-fade-up className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Platform Impact</span>
-        <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Transparency in Numbers</h2>
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+        <div className="reveal flex flex-col items-center gap-3">
+          <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Platform Impact</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Transparency in Numbers</h2>
+        </div>
 
         {/* Single unified card */}
-        <div className="max-w-7xl mx-auto w-full bg-white rounded-2xl shadow-[0_4px_32px_rgba(0,0,0,0.07)] border border-black/[0.04] overflow-hidden flex flex-col lg:flex-row">
+        <div className="reveal-scale max-w-7xl mx-auto w-full bg-white rounded-2xl shadow-[0_4px_32px_rgba(0,0,0,0.07)] border border-black/[0.04] overflow-hidden flex flex-col lg:flex-row">
 
           {/* Left: stats + category chart */}
           <div className="flex-1 p-6 lg:p-8 flex flex-col gap-6 border-b lg:border-b-0 lg:border-r border-line-subtle">
@@ -532,7 +552,7 @@ export default function LandingPage() {
             <div className="h-px bg-line-subtle" />
 
             {/* Category bar chart */}
-            <div>
+            <div data-bars>
               <span className="text-[12px] font-semibold text-fg-secondary uppercase tracking-[0.08em] mb-4 block">Impact by Category</span>
               <div className="flex flex-col gap-2.5">
                 {impactCategories.map((cat) => {
@@ -560,7 +580,7 @@ export default function LandingPage() {
               <span className="text-[11px] text-fg-muted font-mono">All time</span>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4" data-bars>
               {topDonors.map((d) => {
                 const amount = parseFloat(d.total.replace(/[$,]/g, ""));
                 const barPct = (amount / 48200) * 100;
@@ -607,15 +627,17 @@ export default function LandingPage() {
       </div>
 
       {/* ===== 06 GOVERNANCE & VOTING ===== */}
-      <section data-fade-up className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Governance &amp; Voting</span>
-        <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Community-Powered<br />Fund Releases</h2>
-        <p className="text-base text-fg-secondary text-center max-w-xl">Stake SANC tokens to gain voting power. Every milestone fund release requires community approval.</p>
+      <section className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+        <div className="reveal flex flex-col items-center gap-3">
+          <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Governance &amp; Voting</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Community-Powered<br />Fund Releases</h2>
+          <p className="text-base text-fg-secondary text-center max-w-xl">Stake SANC tokens to gain voting power. Every milestone fund release requires community approval.</p>
+        </div>
 
         <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-4 items-stretch">
 
           {/* Left: light tier ladder (40%) */}
-          <div className="lg:w-[38%] flex-shrink-0 bg-white rounded-2xl p-6 lg:p-8 flex flex-col gap-6 border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <div className="reveal lg:w-[38%] flex-shrink-0 bg-white rounded-2xl p-6 lg:p-8 flex flex-col gap-6 border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
             <div>
               <span className="text-[11px] font-bold text-fg-muted uppercase tracking-[0.1em]">Voter Tiers</span>
               <p className="text-sm font-semibold text-fg-primary mt-1.5">Stake SANC to earn voting power</p>
@@ -657,7 +679,8 @@ export default function LandingPage() {
           </div>
 
           {/* Right: white vote simulation (60%) */}
-          <div className="flex-1 bg-white rounded-2xl p-6 lg:p-8 flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
+          <div className="reveal-scale flex-1 bg-white rounded-2xl p-6 lg:p-8 flex flex-col gap-5 card-glow-border"
+            style={{ "--reveal-delay": "150ms" } as React.CSSProperties}>
 
             {/* Proposal header */}
             <div className="flex items-start justify-between gap-4">
@@ -669,7 +692,7 @@ export default function LandingPage() {
             </div>
 
             {/* Vote bars */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3" data-bars>
               {[
                 { label: "Approve", pct: 72, votes: 112, bar: "bg-[#22C55E]" },
                 { label: "Reject",  pct: 19, votes: 30,  bar: "bg-[#EF4444]" },
@@ -724,17 +747,19 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 07 NFT & TRANSPARENCY ===== */}
-      <section data-fade-up className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">NFT Receipts &amp; Security</span>
-        <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center leading-[1.15]">Immutable Proof.<br />Audited Security.</h2>
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+        <div className="reveal flex flex-col items-center gap-3">
+          <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">NFT Receipts &amp; Security</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center leading-[1.15]">Immutable Proof.<br />Audited Security.</h2>
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto w-full items-stretch">
 
           {/* Left: NFT Certificate Card (~45%) */}
-          <div className="w-full lg:w-[420px] flex-shrink-0 rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.10)] border border-black/[0.06]">
+          <div className="reveal-scale w-full lg:w-[420px] flex-shrink-0 rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.10)] border border-black/[0.06]">
             {/* Art header */}
-            <div className="h-[180px] flex flex-col items-center justify-center gap-2 relative overflow-hidden"
-              style={{ background: "linear-gradient(135deg, #0F172A 0%, #1E3A5F 50%, #0EA5E9 100%)" }}>
+            <div className="h-[180px] flex flex-col items-center justify-center gap-2 relative overflow-hidden gradient-flow"
+              style={{ background: "linear-gradient(-45deg, #0F172A, #1E3A5F, #0EA5E9, #1E3A5F)" }}>
               <div className="absolute inset-0 flex items-center justify-center opacity-10">
                 <div className="h-[320px] w-[320px] rounded-full border-2 border-white" />
               </div>
@@ -788,8 +813,9 @@ export default function LandingPage() {
               { n: "02", icon: Shield,   title: "SourceHat Audited",      desc: "All 5 core contracts were audited by SourceHat. ReentrancyGuard, Ownable2Step, Pausable circuit breakers, and SafeERC20 throughout." },
               { n: "03", icon: Undo,     title: "Pull-Pattern Refunds",   desc: "If a campaign is cancelled, donors reclaim funds individually. No push transfers, no reentrancy risk, no admin-controlled withdrawals." },
               { n: "04", icon: FileText, title: "On-Chain Tax Receipts",  desc: "Every donation mints an ERC-721 NFT with on-chain metadata: donor address, campaign, token, amount, timestamp, and a tax receipt URI." },
-            ].map((item) => (
-              <div key={item.n} className="flex items-start gap-5 py-6 first:pt-0 last:pb-0">
+            ].map((item, i) => (
+              <div key={item.n} className="reveal flex items-start gap-5 py-6 first:pt-0 last:pb-0"
+                style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}>
                 <span className="text-[32px] font-bold text-line-subtle leading-none flex-shrink-0 w-10 pt-0.5">{item.n}</span>
                 <div className="flex flex-col gap-1.5">
                   <div className="flex items-center gap-2">
@@ -815,14 +841,16 @@ export default function LandingPage() {
       </div>
 
       {/* ===== 08 FOR CHARITIES ===== */}
-      <section data-fade-up className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
-        <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">For Charities</span>
-        <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Register Your Charity.<br />Reach Global Donors.</h2>
+      <section className="bg-[#F0F9FF] px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center gap-8">
+        <div className="reveal flex flex-col items-center gap-3">
+          <span className="bg-white border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">For Charities</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">Register Your Charity.<br />Reach Global Donors.</h2>
+        </div>
 
         <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-6 items-stretch">
 
           {/* Left: value card (~40%) */}
-          <div className="lg:w-[38%] flex-shrink-0 bg-white rounded-2xl p-7 lg:p-8 flex flex-col gap-6 border border-accent-primary/20 shadow-[0_0_0_1px_rgba(14,165,233,0.08),0_8px_32px_rgba(14,165,233,0.08)]">
+          <div className="reveal-scale lg:w-[38%] flex-shrink-0 card-aurora rounded-2xl p-7 lg:p-8 flex flex-col gap-6 border border-accent-primary/20 shadow-[0_0_0_1px_rgba(14,165,233,0.08),0_8px_32px_rgba(14,165,233,0.08)]">
             <div className="flex flex-col gap-2">
               <span className="text-[11px] font-bold text-accent-primary uppercase tracking-[0.1em]">Why SancCharity</span>
               <h3 className="text-[22px] sm:text-[26px] font-bold text-fg-primary leading-snug">Build Trust.<br />Raise More.</h3>
@@ -868,8 +896,9 @@ export default function LandingPage() {
               { n: "01", icon: Coins,     title: "Stake 10M SANC",        desc: "Register by staking 10 million SANC tokens. Your stake is returned when you leave in good standing — and slashed if your charity is revoked for misconduct." },
               { n: "02", icon: UserCheck, title: "Pass KYC Verification", desc: "Submit your organisation's KYC documents (stored on IPFS). A platform admin reviews and verifies your charity before you can publish any campaigns." },
               { n: "03", icon: Target,    title: "Create Milestone Campaigns", desc: "Define a funding goal split across milestones. Submit on-chain proof for each completed milestone. The community votes to release the next tranche of funds." },
-            ].map((step) => (
-              <div key={step.n} className="flex items-start gap-5 p-6 lg:p-8">
+            ].map((step, i) => (
+              <div key={step.n} className="reveal flex items-start gap-5 p-6 lg:p-8"
+                style={{ "--reveal-delay": `${i * 120}ms` } as React.CSSProperties}>
                 <span className="text-[36px] font-bold text-line-subtle leading-none flex-shrink-0 w-12 pt-0.5">{step.n}</span>
                 <div className="flex flex-col gap-1.5 pt-1">
                   <div className="flex items-center gap-2">
@@ -886,11 +915,11 @@ export default function LandingPage() {
       </section>
 
       {/* ===== 09 FINAL CTA ===== */}
-      <section data-fade-up className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+      <section className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-black/[0.06] shadow-[0_4px_32px_rgba(0,0,0,0.06)]">
 
           {/* Left: CTA (~55%) */}
-          <div className="flex-1 bg-white p-8 lg:p-12 flex flex-col gap-6 justify-center">
+          <div className="reveal flex-1 card-aurora p-8 lg:p-12 flex flex-col gap-6 justify-center">
             <div className="flex flex-col gap-3">
               <span className="text-[11px] font-bold text-accent-primary uppercase tracking-[0.1em]">Join the Community</span>
               <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary leading-[1.1]">
@@ -900,11 +929,11 @@ export default function LandingPage() {
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <ComingSoonOverlay action="Connect wallet">
-                <button className="flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5 shadow-[0_4px_20px_rgba(14,165,233,0.3)] hover:bg-accent-primary/90 transition-colors whitespace-nowrap">
+                <button className="flex items-center justify-center gap-2 bg-accent-primary text-white text-[15px] font-semibold rounded-full px-8 py-3.5 shadow-[0_4px_20px_rgba(14,165,233,0.3)] hover:bg-accent-primary/90 hover:scale-[1.02] active:scale-[0.97] transition-all duration-150 whitespace-nowrap">
                   <Wallet className="h-4 w-4" />Connect Wallet &amp; Donate
                 </button>
               </ComingSoonOverlay>
-              <Link href="/charity/register" className="flex items-center justify-center gap-2 text-[15px] text-fg-secondary rounded-full px-8 py-3.5 border border-line-subtle hover:bg-white hover:text-fg-primary transition-colors whitespace-nowrap">
+              <Link href="/charity/register" className="flex items-center justify-center gap-2 text-[15px] text-fg-secondary rounded-full px-8 py-3.5 border border-line-subtle hover:bg-white hover:text-fg-primary hover:scale-[1.01] active:scale-[0.99] transition-all duration-150 whitespace-nowrap">
                 <UserCheck className="h-4 w-4" />Register Your Charity
               </Link>
             </div>
@@ -920,7 +949,8 @@ export default function LandingPage() {
           </div>
 
           {/* Right: impact story panel (~45%) */}
-          <div className="lg:w-[42%] flex-shrink-0 bg-[#F0F9FF] p-8 lg:p-10 flex flex-col justify-center gap-5 border-t lg:border-t-0 lg:border-l border-line-subtle">
+          <div className="reveal-scale lg:w-[42%] flex-shrink-0 bg-[#F0F9FF] p-8 lg:p-10 flex flex-col justify-center gap-5 border-t lg:border-t-0 lg:border-l border-line-subtle"
+            style={{ "--reveal-delay": "150ms" } as React.CSSProperties}>
             <span className="text-[11px] font-bold text-fg-muted uppercase tracking-[0.1em]">Real Impact</span>
 
             {/* Impact vignette card */}

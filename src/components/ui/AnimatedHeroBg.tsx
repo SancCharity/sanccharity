@@ -232,6 +232,7 @@ function PerspectiveGrid() {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const canvas = ref.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -273,7 +274,7 @@ function PerspectiveGrid() {
         const bx = W * t;                          // spread full width at bottom
         const vx = vpx + (bx - vpx) * 0.05;       // converge tightly at VP
 
-        ctx.strokeStyle = `rgba(14,165,233,0.22)`;
+        ctx.strokeStyle = `rgba(14,165,233,0.40)`;
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(vx, vpy);
@@ -290,7 +291,7 @@ function PerspectiveGrid() {
 
         const lx = vpx - perspT * vpx;
         const rx = vpx + perspT * (W - vpx);
-        const alpha = 0.06 + perspT * 0.22;
+        const alpha = 0.12 + perspT * 0.38;
 
         ctx.strokeStyle = `rgba(14,165,233,${alpha})`;
         ctx.lineWidth = 1;
@@ -308,7 +309,7 @@ function PerspectiveGrid() {
         const srx = vpx + perspT * (W - vpx);
         const g = ctx.createLinearGradient(slx, sy, srx, sy);
         g.addColorStop(0,   "rgba(14,165,233,0)");
-        g.addColorStop(0.5, "rgba(14,165,233,0.35)");
+        g.addColorStop(0.5, "rgba(14,165,233,0.55)");
         g.addColorStop(1,   "rgba(14,165,233,0)");
         ctx.strokeStyle = g as unknown as string;
         ctx.lineWidth = 1.5;
@@ -320,7 +321,7 @@ function PerspectiveGrid() {
 
       // ── Vanishing point glow ──
       const glow = ctx.createRadialGradient(vpx, vpy, 0, vpx, vpy, 80);
-      glow.addColorStop(0, "rgba(14,165,233,0.08)");
+      glow.addColorStop(0, "rgba(14,165,233,0.18)");
       glow.addColorStop(1, "rgba(14,165,233,0)");
       ctx.fillStyle = glow;
       ctx.beginPath();
@@ -349,7 +350,7 @@ function PerspectiveGrid() {
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, []);
 
-  return <canvas ref={ref} className="absolute inset-0 w-full h-full opacity-70" />;
+  return <canvas ref={ref} className="absolute inset-0 w-full h-full" />;
 }
 
 // ─── Export ───────────────────────────────────────────────────────────────────
