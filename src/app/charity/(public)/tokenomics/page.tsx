@@ -7,11 +7,13 @@ import {
 } from "lucide-react";
 
 const supply = {
-  total: "1,000,000,000,000",
-  label: "1 Trillion SANC",
+  total: "777,777,777,777,777",
+  label: "777.7T SANC",
   network: "BNB Smart Chain (BEP-20)",
   decimals: 9,
   contract: "0x4670f3a2A8D35021257cda028c7ae3Cb854C7CaF",
+  burnAddress: "0x000000000000000000000000000000000000dEaD",
+  auditor: "SourceHat",
 };
 
 const distribution = [
@@ -24,15 +26,15 @@ const distribution = [
 ];
 
 const taxBreakdown = [
-  { label: "Buy Tax", value: "5%", items: ["2% Auto Liquidity", "2% Marketing & Development", "1% Charity Matching Pool"] },
-  { label: "Sell Tax", value: "5%", items: ["2% Auto Liquidity", "2% Marketing & Development", "1% Charity Matching Pool"] },
+  { label: "Buy Tax", value: "5%", items: ["1% Liquidity Pool", "1% Marketing", "1% Development", "1% Charity", "1% Burn"] },
+  { label: "Sell Tax", value: "5%", items: ["1% Liquidity Pool", "1% Marketing", "1% Development", "1% Charity", "1% Burn"] },
 ];
 
 const burnMechanics = [
-  { icon: Flame, title: "Platform Fee Burns", desc: "40% of BNB/USDT/BUSD platform fees (1.5%) are used to buy back SANC from the open market and burn it — permanently reducing supply." },
-  { icon: TrendingUp, title: "Deflationary by Design", desc: "Every non-SANC donation triggers a buyback. As donation volume grows, burn rate accelerates — creating sustained deflationary pressure." },
+  { icon: Flame, title: "1% Auto-Burn on Every Trade", desc: "1% of every buy and sell is sent to the dead address (0x...dEaD), permanently removing tokens from circulation with every transaction." },
+  { icon: TrendingUp, title: "Platform Fee Buyback & Burn", desc: "40% of BNB/USDT/BUSD platform fees (1.5%) are used to buy back SANC from the open market and burn it — amplifying deflationary pressure." },
   { icon: ShieldCheck, title: "Donation Tax Exemption", desc: "The DonationManager contract is excluded from the 5% buy/sell tax. SANC donations pass through at 0% fee — no tax, no platform fee." },
-  { icon: Zap, title: "Auto Liquidity", desc: "2% of every buy/sell transaction is automatically added to the PancakeSwap liquidity pool, deepening the trading floor over time." },
+  { icon: Zap, title: "Auto Liquidity", desc: "1% of every buy/sell transaction is automatically added to the PancakeSwap liquidity pool, deepening the trading floor over time." },
 ];
 
 const feeAllocation = [
@@ -73,9 +75,26 @@ export default function TokenomicsPage() {
                 </div>
               ))}
             </div>
-            <div className="bg-[#F8FAFC] rounded-xl px-4 py-3">
-              <span className="text-[11px] text-[#94A3B8] font-medium uppercase tracking-wider">Contract Address</span>
-              <p className="text-xs sm:text-sm font-mono text-[#0EA5E9] mt-0.5 break-all">{supply.contract}</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="bg-[#F8FAFC] rounded-xl px-4 py-3">
+                <span className="text-[11px] text-[#94A3B8] font-medium uppercase tracking-wider">Contract Address</span>
+                <p className="text-xs sm:text-sm font-mono text-[#0EA5E9] mt-0.5 break-all">{supply.contract}</p>
+              </div>
+              <div className="bg-[#F8FAFC] rounded-xl px-4 py-3">
+                <span className="text-[11px] text-[#94A3B8] font-medium uppercase tracking-wider">Burn Address</span>
+                <p className="text-xs sm:text-sm font-mono text-[#EF4444] mt-0.5 break-all">{supply.burnAddress}</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-3 mt-4">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold bg-[#F0FDF4] text-[#22C55E] px-3 py-1 rounded-full">
+                <ShieldCheck className="h-3 w-3" /> Audited by {supply.auditor}
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold bg-[#F0F9FF] text-[#0EA5E9] px-3 py-1 rounded-full">
+                <Lock className="h-3 w-3" /> Liquidity Locked
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold bg-[#FEF2F2] text-[#EF4444] px-3 py-1 rounded-full">
+                <Flame className="h-3 w-3" /> Deflationary
+              </span>
             </div>
           </div>
         </div>

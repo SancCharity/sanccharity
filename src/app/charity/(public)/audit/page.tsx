@@ -9,12 +9,13 @@ export const metadata = {
 const auditTimeline = [
   { phase: "Internal Review", status: "completed", desc: "Core team code review and testing of all contract logic, access controls, and edge cases." },
   { phase: "Automated Analysis", status: "completed", desc: "Static analysis via Slither, Mythril, and custom fuzz testing to identify common vulnerability patterns." },
-  { phase: "Third-Party Audit", status: "upcoming", desc: "Independent security audit by a reputable blockchain auditing firm. Report will be published here upon completion." },
+  { phase: "Third-Party Audit (SANC Token)", status: "completed", desc: "SANC token contract audited by SourceHat. Liquidity locked with on-chain proof. Source code verified on BscScan." },
+  { phase: "Third-Party Audit (Platform Contracts)", status: "upcoming", desc: "DonationManager, GovernanceVoting, StakingPool, and DonationNFT contracts will undergo independent audit before mainnet deployment." },
   { phase: "Bug Bounty Program", status: "upcoming", desc: "Post-audit bug bounty program for the community to identify any remaining issues. Rewards paid in SANC." },
 ];
 
 const contractStatus = [
-  { name: "SANC Token", risk: "Low", note: "Standard BEP-20 with fee mechanism. Straightforward logic, no external dependencies." },
+  { name: "SANC Token", risk: "Low", note: "Standard BEP-20 with fee mechanism. Audited by SourceHat. Liquidity locked on-chain." },
   { name: "DonationManager", risk: "Medium", note: "Multi-token handling, escrow logic, and NFT minting. Primary attack surface — requires thorough audit." },
   { name: "GovernanceVoting", risk: "Medium", note: "Weighted voting and quorum logic. Must resist vote manipulation and flash-loan governance attacks." },
   { name: "StakingPool", risk: "Low", note: "Standard staking with cooldown. Simpler logic, fewer external interactions." },
