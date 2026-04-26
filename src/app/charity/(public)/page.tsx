@@ -200,7 +200,7 @@ export default function LandingPage() {
 
           {[
             { icon: Wallet, num: "01", title: "Connect Your Wallet", desc: "Link your BSC wallet. We support BNB, SANC, USDT, and BUSD for maximum flexibility." },
-            { icon: Search, num: "02", title: "Choose a Cause", desc: "Browse campaigns across 8 categories. Every charity stakes 10M SANC and passes KYC verification before listing." },
+            { icon: Search, num: "02", title: "Choose a Cause", desc: "Browse campaigns across 8 categories. Every charity stakes a USD-equivalent amount of SANC and passes KYC verification before listing." },
             { icon: Shield, num: "03", title: "Track Your Impact", desc: "Get an NFT receipt. Vote on milestone releases. Watch your donation create real, verified change on-chain." },
           ].map((step, i) => (
             <div key={step.num} className="reveal flex sm:flex-col items-start sm:items-center gap-5 sm:gap-4 text-left sm:text-center"
@@ -717,10 +717,10 @@ export default function LandingPage() {
                 <span className="text-[10px] font-bold text-fg-muted uppercase tracking-wide">Vote</span>
               </div>
               {[
-                { addr: "0x7a3B...4f2E", tier: "Whale",    vote: "Approve", voteColor: "text-[#22C55E]", tierColor: "text-[#CA8A04]" },
-                { addr: "0xB4c1...3fA7", tier: "Elite",    vote: "Approve", voteColor: "text-[#22C55E]", tierColor: "text-[#22C55E]" },
+                { addr: "0x7a3B...4f2E", tier: "Elite",    vote: "Approve", voteColor: "text-[#22C55E]", tierColor: "text-[#CA8A04]" },
+                { addr: "0xB4c1...3fA7", tier: "Featured", vote: "Approve", voteColor: "text-[#22C55E]", tierColor: "text-[#22C55E]" },
                 { addr: "0x2eD8...71cF", tier: "Standard", vote: "Reject",  voteColor: "text-[#EF4444]", tierColor: "text-[#0EA5E9]" },
-                { addr: "0x9Fa4...8bC2", tier: "Elite",    vote: "Abstain", voteColor: "text-fg-muted",  tierColor: "text-[#22C55E]" },
+                { addr: "0x9Fa4...8bC2", tier: "Featured", vote: "Abstain", voteColor: "text-fg-muted",  tierColor: "text-[#22C55E]" },
               ].map((row, i) => (
                 <div key={row.addr} className={`grid grid-cols-3 px-4 py-2.5 ${i < 3 ? "border-b border-line-subtle" : ""}`}>
                   <span className="text-[12px] font-mono text-fg-secondary truncate pr-2">{row.addr}</span>
