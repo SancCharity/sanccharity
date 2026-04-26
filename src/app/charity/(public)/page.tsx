@@ -914,7 +914,163 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ===== 09 FINAL CTA ===== */}
+      {/* ===== 09 WHY SANCCHARITY — COMMUNITY Q&A ===== */}
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 border-b border-line-subtle">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="reveal text-center mb-10">
+            <span className="inline-flex items-center gap-2 bg-surface-primary border border-line-subtle rounded-full px-4 py-1.5 text-[11px] font-medium text-fg-muted mb-4">
+              <span className="text-[14px]">💬</span> Community Questions
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-fg-primary mb-2">
+              &ldquo;Why SancCharity?&rdquo;
+            </h2>
+            <p className="text-[15px] text-fg-secondary max-w-2xl mx-auto leading-relaxed">
+              Real questions from the community — answered honestly.
+            </p>
+          </div>
+
+          {/* Q&A Cards */}
+          <div className="flex flex-col gap-5">
+
+            {/* Q1 */}
+            <div className="reveal bg-surface-primary rounded-2xl border border-line-subtle p-6 sm:p-8"
+              style={{ "--reveal-delay": "0ms" } as React.CSSProperties}>
+              <div className="flex items-start gap-3 mb-4">
+                <span className="h-7 w-7 rounded-full bg-[#FEF2F2] text-[#EF4444] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">Q</span>
+                <p className="text-[15px] font-semibold text-fg-primary leading-snug">
+                  How is proof on the platform better than a charity posting proof on social media? A charity could post proof themselves and then each person can decide to donate or not.
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="h-7 w-7 rounded-full bg-[#F0F9FF] text-[#0EA5E9] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">A</span>
+                <div className="text-[14px] text-fg-secondary leading-relaxed flex flex-col gap-3">
+                  <p>It&apos;s not about <em>where</em> proof is posted — it&apos;s about <em>when</em> relative to the money.</p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <div className="bg-white rounded-xl p-4 border border-black/[0.04]">
+                      <span className="text-[11px] font-bold text-[#EF4444] uppercase tracking-wider">Traditional</span>
+                      <p className="text-[13px] text-fg-secondary mt-1.5">Donor sends money → Charity <strong className="text-fg-primary">receives it</strong> → Maybe posts proof later. The money is <strong className="text-fg-primary">already gone</strong>.</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border border-[#0EA5E9]/20">
+                      <span className="text-[11px] font-bold text-[#0EA5E9] uppercase tracking-wider">SancCharity</span>
+                      <p className="text-[13px] text-fg-secondary mt-1.5">Donor sends money → Money <strong className="text-fg-primary">sits in escrow</strong> → Charity does work → Submits proof → Community votes → <strong className="text-fg-primary">Then</strong> money releases.</p>
+                    </div>
+                  </div>
+                  <p>On social media, proof is <em>marketing</em>. On SancCharity, proof is the <strong className="text-fg-primary">key that unlocks the funds</strong>. No proof = no money. Bad proof = community rejects = money stays locked.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Q2 */}
+            <div className="reveal bg-surface-primary rounded-2xl border border-line-subtle p-6 sm:p-8"
+              style={{ "--reveal-delay": "120ms" } as React.CSSProperties}>
+              <div className="flex items-start gap-3 mb-4">
+                <span className="h-7 w-7 rounded-full bg-[#FEF2F2] text-[#EF4444] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">Q</span>
+                <p className="text-[15px] font-semibold text-fg-primary leading-snug">
+                  Isn&apos;t the smart contract escrow just adding complexity? Why lock the funds at all?
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="h-7 w-7 rounded-full bg-[#F0F9FF] text-[#0EA5E9] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">A</span>
+                <div className="text-[14px] text-fg-secondary leading-relaxed flex flex-col gap-3">
+                  <p>Think of it like hiring a building contractor. You can either:</p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <div className="bg-white rounded-xl p-4 border border-black/[0.04]">
+                      <span className="text-[12px] font-bold text-fg-primary">Pay upfront</span>
+                      <p className="text-[13px] text-fg-secondary mt-1">Hope they send progress photos. If they disappear — your money is gone.</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border border-[#0EA5E9]/20">
+                      <span className="text-[12px] font-bold text-fg-primary">Use escrow</span>
+                      <p className="text-[13px] text-fg-secondary mt-1">Bank releases payment per phase after an inspector signs off. The contractor delivers or doesn&apos;t get paid.</p>
+                    </div>
+                  </div>
+                  <p>Nobody calls construction escrow &ldquo;redundant.&rdquo; It&apos;s the entire protection. The funds aren&apos;t &ldquo;locked forever&rdquo; — they release <strong className="text-fg-primary">progressively per milestone</strong>, verified by the community.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Q3 */}
+            <div className="reveal bg-surface-primary rounded-2xl border border-line-subtle p-6 sm:p-8"
+              style={{ "--reveal-delay": "240ms" } as React.CSSProperties}>
+              <div className="flex items-start gap-3 mb-4">
+                <span className="h-7 w-7 rounded-full bg-[#FEF2F2] text-[#EF4444] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">Q</span>
+                <p className="text-[15px] font-semibold text-fg-primary leading-snug">
+                  What does SancCharity offer charities that are already transparent?
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="h-7 w-7 rounded-full bg-[#F0F9FF] text-[#0EA5E9] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">A</span>
+                <div className="text-[14px] text-fg-secondary leading-relaxed flex flex-col gap-3">
+                  <p>Even fully transparent charities benefit from infrastructure they can&apos;t build alone:</p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {[
+                      { title: "Structural credibility", desc: "\"Trust us\" is self-reported. Smart contract verification is third-party and permanent." },
+                      { title: "Global donor access", desc: "Borderless crypto donations in seconds — no wire fees, no PayPal blocks, no bank intermediaries." },
+                      { title: "Donor incentives", desc: "NFT receipts, 0% SANC fees, governance participation, impact dashboard — reasons donors choose your campaign." },
+                      { title: "Matching fund amplification", desc: "30% of platform fees flow into a matching pool. Your campaign gets amplified with money you'd never get solo." },
+                    ].map((b) => (
+                      <div key={b.title} className="bg-white rounded-xl p-4 border border-black/[0.04]">
+                        <span className="text-[12px] font-bold text-fg-primary">{b.title}</span>
+                        <p className="text-[13px] text-fg-secondary mt-1">{b.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p>The escrow isn&apos;t a punishment for honest charities — it&apos;s the mechanism that lets donors trust <strong className="text-fg-primary">every</strong> charity equally, which benefits the honest ones most.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Q4 */}
+            <div className="reveal bg-surface-primary rounded-2xl border border-line-subtle p-6 sm:p-8"
+              style={{ "--reveal-delay": "360ms" } as React.CSSProperties}>
+              <div className="flex items-start gap-3 mb-4">
+                <span className="h-7 w-7 rounded-full bg-[#FEF2F2] text-[#EF4444] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">Q</span>
+                <p className="text-[15px] font-semibold text-fg-primary leading-snug">
+                  Do charities need to buy SANC tokens to use the platform?
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="h-7 w-7 rounded-full bg-[#F0F9FF] text-[#0EA5E9] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">A</span>
+                <div className="text-[14px] text-fg-secondary leading-relaxed flex flex-col gap-3">
+                  <p><strong className="text-fg-primary">No.</strong> Charities don&apos;t need to buy or hold any tokens. Here&apos;s who does what:</p>
+                  <div className="overflow-x-auto rounded-xl border border-black/[0.06]">
+                    <table className="w-full text-[13px]">
+                      <thead>
+                        <tr className="bg-white">
+                          <th className="text-left px-4 py-2.5 font-semibold text-fg-primary">Role</th>
+                          <th className="text-left px-4 py-2.5 font-semibold text-fg-primary">What they do</th>
+                          <th className="text-left px-4 py-2.5 font-semibold text-fg-primary">Need SANC?</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-t border-black/[0.04]">
+                          <td className="px-4 py-2.5 font-medium text-fg-primary">Charity</td>
+                          <td className="px-4 py-2.5 text-fg-secondary">Register, create campaigns, submit proof</td>
+                          <td className="px-4 py-2.5 font-semibold text-[#22C55E]">No</td>
+                        </tr>
+                        <tr className="border-t border-black/[0.04]">
+                          <td className="px-4 py-2.5 font-medium text-fg-primary">Donor</td>
+                          <td className="px-4 py-2.5 text-fg-secondary">Browse, donate in any token</td>
+                          <td className="px-4 py-2.5 text-fg-secondary">Optional (0% fee)</td>
+                        </tr>
+                        <tr className="border-t border-black/[0.04]">
+                          <td className="px-4 py-2.5 font-medium text-fg-primary">Governance voter</td>
+                          <td className="px-4 py-2.5 text-fg-secondary">Stake, review proof, vote</td>
+                          <td className="px-4 py-2.5 font-semibold text-[#0EA5E9]">Yes</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p>A charity&apos;s only added work vs traditional fundraising: <strong className="text-fg-primary">submit evidence per milestone</strong>. That&apos;s the accountability mechanism — and it&apos;s what makes donors trust the platform enough to give.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 10 FINAL CTA ===== */}
       <section className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-black/[0.06] shadow-[0_4px_32px_rgba(0,0,0,0.06)]">
 
