@@ -266,10 +266,12 @@ export default function DocsPage() {
               { title: "Connect your charity wallet", detail: "This wallet will receive milestone-released funds. Use a dedicated organizational wallet, not a personal one." },
               { title: "Fill in organization details", detail: "Name, country, description, website (optional), and category (Education, Health, Environment, etc.)." },
               { title: "Upload registration documents", detail: "Government-issued nonprofit registration certificate, articles of incorporation, or equivalent. Any jurisdiction accepted." },
+              { title: "Stake SANC (USD-based threshold)", detail: "Stake a USD-equivalent amount of SANC tokens. The actual SANC quantity varies with market price — checked by an on-chain oracle at registration time. Your exact SANC amount is returned if you leave in good standing." },
               { title: "Submit for verification", detail: "Your application enters the verification queue. Automated KYB checks run first; manual review follows if needed." },
               { title: "Verification decision", detail: "Approved charities can create campaigns immediately. Rejected applications receive a reason and can resubmit with corrections." },
             ]} />
             <Callout type="info">Verification typically takes 24–72 hours. Automated KYB (via Sumsub, Persona, or Dojah depending on region) handles most cases instantly.</Callout>
+            <Callout type="info">Refund policy: When a charity deregisters in good standing, the exact SANC tokens staked are returned — not the USD equivalent. If SANC appreciated, the charity profits. If it depreciated, milestone payouts (released in USDT) have already funded the charity&apos;s work.</Callout>
             <div className="mt-4">
               <span className="text-[13px] font-semibold text-[#0F172A]">Accepted documents by region:</span>
               <DataTable
@@ -492,7 +494,8 @@ export default function DocsPage() {
                 ["SANC Token", "BEP-20 utility token", "5% tax, auto-LP, auto-burn, fee exclusion"],
                 ["DonationManager", "Core donation logic", "Multi-token, escrow, NFT minting, fee routing"],
                 ["GovernanceVoting", "On-chain governance", "Weighted votes, quorum, time-locked execution"],
-                ["StakingPool", "Stake SANC for governance", "Tiered staking, 3-day cooldown"],
+                ["StakingPool", "Stake SANC for governance", "Tiered staking, 3-day cooldown, USD-based charity stake"],
+                ["PriceOracle", "SANC/USD price feed", "PancakeSwap TWAP + Chainlink BNB/USD"],
                 ["DonationNFT", "ERC-721 receipts", "Auto-mint, IPFS metadata, non-transferable option"],
               ]}
             />

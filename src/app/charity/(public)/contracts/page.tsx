@@ -34,10 +34,18 @@ const contracts = [
   {
     name: "StakingPool",
     address: "0x — Deployment pending",
-    description: "Stake SANC to activate governance. Minimum 1M SANC (Standard tier). 3-day cooldown on unstake. Tier thresholds: 1M (Standard), 10M (Featured), 50M (Elite).",
+    description: "Stake SANC to activate governance or register a charity. Charity registration requires a USD-equivalent SANC stake (amount varies with market price, oracle-checked at registration). Refund returns the exact SANC amount staked. 3-day cooldown on unstake. Governance tier thresholds: 1M (Standard), 10M (Featured), 50M (Elite).",
     status: "In Development",
     verified: false,
     features: ["Tiered Staking", "Cooldown Period", "Governance Activation"],
+  },
+  {
+    name: "PriceOracle",
+    address: "0x — Deployment pending",
+    description: "Reads PancakeSwap TWAP for SANC/BNB pair and Chainlink BNB/USD feed to derive SANC/USD price. Used only at charity registration time to verify the USD-equivalent stake threshold. Not needed at withdrawal — refund returns exact SANC amount.",
+    status: "In Development",
+    verified: false,
+    features: ["PancakeSwap TWAP", "Chainlink BNB/USD", "Registration Only", "No Withdrawal Dependency"],
   },
   {
     name: "DonationNFT",
