@@ -11,8 +11,8 @@ import { AnimatedHeroBg } from "@/components/ui/AnimatedHeroBg";
 import {
   Wallet, Search, Target, Flame, DollarSign, Users, Shield,
   FileText, ExternalLink, Lock, Undo, BadgeCheck,
-  Coins, UserCheck, ChevronRight,
-  CircleCheck, Hexagon, TriangleAlert,
+  Coins, UserCheck, ChevronRight, Smartphone,
+  CircleCheck, Hexagon, TriangleAlert, ScanSearch, Vote, ShieldCheck, Zap, Eye,
 } from "lucide-react";
 
 const categories = ["All", "Education", "Health", "Environment", "Disaster Relief", "Animal Welfare", "Community", "Technology", "Arts & Culture"];
@@ -895,7 +895,8 @@ export default function LandingPage() {
             {[
               { n: "01", icon: Coins,     title: "Stake 10M SANC",        desc: "Register by staking 10 million SANC tokens. Your stake is returned when you leave in good standing — and slashed if your charity is revoked for misconduct." },
               { n: "02", icon: UserCheck, title: "Pass KYC Verification", desc: "Submit your organisation's KYC documents (stored on IPFS). A platform admin reviews and verifies your charity before you can publish any campaigns." },
-              { n: "03", icon: Target,    title: "Create Milestone Campaigns", desc: "Define a funding goal split across milestones. Submit on-chain proof for each completed milestone. The community votes to release the next tranche of funds." },
+              { n: "03", icon: Target,    title: "Create Milestone Campaigns", desc: "Define a funding goal split across milestones. Submit on-chain proof for each milestone — automated checks validate your evidence before the community votes to release funds." },
+              { n: "04", icon: Smartphone, title: "Receive Funds in Local Currency", desc: "Milestone funds release in USDT for stability. Convert to local currency (M-Pesa, bank transfer, mobile money) via integrated off-ramp partners — no exchange account needed." },
             ].map((step, i) => (
               <div key={step.n} className="reveal flex items-start gap-5 p-6 lg:p-8"
                 style={{ "--reveal-delay": `${i * 120}ms` } as React.CSSProperties}>
@@ -914,7 +915,115 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ===== 09 WHY SANCCHARITY — COMMUNITY Q&A ===== */}
+      {/* ===== 09 VERIFICATION & GOVERNANCE ===== */}
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 border-b border-line-subtle">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="reveal flex flex-col items-center gap-3 mb-10">
+            <span className="bg-surface-primary border border-line-subtle rounded-full px-4 py-1.5 text-xs text-fg-secondary font-mono">Trust Architecture</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary text-center">How Milestones<br />Are Verified</h2>
+            <p className="text-[15px] text-fg-secondary max-w-2xl mx-auto text-center leading-relaxed">
+              Not just community votes. A powerful automated layer validates proof before governance ever sees it — making Layer 2 human review unnecessary.
+            </p>
+          </div>
+
+          {/* Two-layer model */}
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-6 mb-10">
+
+            {/* Layer 1: Automated */}
+            <div className="reveal bg-[#F0F9FF] rounded-2xl border border-[#0EA5E9]/15 p-6 sm:p-8 flex flex-col gap-5">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl bg-[#0EA5E9] flex items-center justify-center">
+                  <ScanSearch className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-[#0EA5E9] uppercase tracking-wider">Layer 1</span>
+                  <h3 className="text-[17px] font-bold text-fg-primary">Automated Verification</h3>
+                </div>
+              </div>
+              <p className="text-[13px] text-fg-secondary leading-relaxed">Runs instantly on every proof submission. The automated layer is designed to be powerful enough that third-party human review is rarely needed.</p>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { icon: Eye,         label: "GPS & EXIF Metadata Validation", desc: "Verifies photos were taken at the claimed location and time — not recycled from the internet." },
+                  { icon: Search,      label: "Reverse Image Search", desc: "Checks if submitted images exist elsewhere online. Catches reused or stolen photos instantly." },
+                  { icon: ShieldCheck, label: "AI-Generated Content Detection", desc: "Flags synthetic images, deepfakes, and AI-generated documents before they reach voters." },
+                  { icon: Hexagon,     label: "Duplicate Submission Flagging", desc: "Detects if the same proof has been submitted across multiple milestones or campaigns." },
+                  { icon: Lock,        label: "Timestamp Consistency Checks", desc: "Cross-references file timestamps, blockchain timestamps, and claimed milestone dates." },
+                ].map((check) => (
+                  <div key={check.label} className="flex items-start gap-3 bg-white rounded-xl p-3.5 border border-black/[0.04]">
+                    <check.icon className="h-4 w-4 text-[#0EA5E9] mt-0.5 shrink-0" />
+                    <div>
+                      <span className="text-[13px] font-semibold text-fg-primary">{check.label}</span>
+                      <p className="text-[12px] text-fg-secondary leading-relaxed mt-0.5">{check.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-white rounded-xl p-4 border border-[#0EA5E9]/10 mt-auto">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <Zap className="h-3.5 w-3.5 text-[#0EA5E9]" />
+                  <span className="text-[12px] font-bold text-fg-primary">Result: Clean or Flagged</span>
+                </div>
+                <p className="text-[12px] text-fg-secondary leading-relaxed">Every proof submission gets an automated verification report. Voters see this report alongside the evidence — they&apos;re reviewing validated data, not raw photos.</p>
+              </div>
+            </div>
+
+            {/* Layer 2: Community Governance */}
+            <div className="reveal bg-surface-primary rounded-2xl border border-line-subtle p-6 sm:p-8 flex flex-col gap-5"
+              style={{ "--reveal-delay": "150ms" } as React.CSSProperties}>
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl bg-[#8B5CF6] flex items-center justify-center">
+                  <Vote className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-[#8B5CF6] uppercase tracking-wider">Layer 2</span>
+                  <h3 className="text-[17px] font-bold text-fg-primary">Community Governance</h3>
+                </div>
+              </div>
+              <p className="text-[13px] text-fg-secondary leading-relaxed">SANC stakers cast the final vote. But they&apos;re not guessing — the automated report tells them exactly what passed and what was flagged.</p>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { label: "Quorum", value: "66% of staked SANC" },
+                  { label: "Voting Period", value: "14 days" },
+                  { label: "Vote Options", value: "Approve · Reject · Abstain" },
+                  { label: "Weight", value: "Staked amount × tier (1x / 2x / 3x)" },
+                  { label: "Execution", value: "Automatic on-chain if approved" },
+                ].map((param) => (
+                  <div key={param.label} className="flex items-center justify-between bg-white rounded-xl px-4 py-3 border border-black/[0.04]">
+                    <span className="text-[13px] text-fg-secondary">{param.label}</span>
+                    <span className="text-[13px] font-semibold text-fg-primary">{param.value}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Anti-whale */}
+              <div className="bg-white rounded-xl p-4 border border-[#8B5CF6]/10 mt-auto">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <Shield className="h-3.5 w-3.5 text-[#8B5CF6]" />
+                  <span className="text-[12px] font-bold text-fg-primary">Anti-Whale Protection</span>
+                </div>
+                <p className="text-[12px] text-fg-secondary leading-relaxed">The tier system economically discourages sybil splitting — consolidating into one wallet gives 3x power vs splitting across many at 1x. Vote-cap mechanisms prevent any single address from exceeding a maximum share of total vote weight.</p>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Dispute escalation note */}
+          <div className="reveal max-w-5xl mx-auto">
+            <div className="bg-[#FFF7ED] border border-[#F59E0B]/20 rounded-2xl p-5 sm:p-6 flex items-start gap-3">
+              <TriangleAlert className="h-5 w-5 text-[#F59E0B] mt-0.5 shrink-0" />
+              <div>
+                <p className="text-[13px] font-semibold text-[#92400E] mb-1">Dispute Escalation (Rare)</p>
+                <p className="text-[13px] text-[#78350F]/70 leading-relaxed">
+                  If automated flags are ambiguous or a vote is contested, a small panel of Elite Donor stakers (3x tier) can trigger a deeper review with extended evidence requirements. This is a safety net, not a regular step — the automated layer is designed to handle 95%+ of submissions cleanly.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 10 WHY SANCCHARITY — COMMUNITY Q&A ===== */}
       <section className="bg-white px-4 sm:px-6 lg:px-8 py-12 lg:py-20 border-b border-line-subtle">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
@@ -1066,11 +1175,99 @@ export default function LandingPage() {
               </div>
             </div>
 
+            {/* Q5 */}
+            <div className="reveal bg-surface-primary rounded-2xl border border-line-subtle p-6 sm:p-8"
+              style={{ "--reveal-delay": "480ms" } as React.CSSProperties}>
+              <div className="flex items-start gap-3 mb-4">
+                <span className="h-7 w-7 rounded-full bg-[#FEF2F2] text-[#EF4444] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">Q</span>
+                <p className="text-[15px] font-semibold text-fg-primary leading-snug">
+                  How does a charity in Kenya convert crypto to local currency to actually buy what&apos;s needed?
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="h-7 w-7 rounded-full bg-[#F0F9FF] text-[#0EA5E9] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">A</span>
+                <div className="text-[14px] text-fg-secondary leading-relaxed flex flex-col gap-3">
+                  <p>Milestone funds release in <strong className="text-fg-primary">USDT</strong> (stablecoin) for price stability. Then the charity converts to local currency via integrated off-ramp partners — <strong className="text-fg-primary">no exchange account needed</strong>.</p>
+                  <div className="bg-white rounded-xl p-4 border border-[#0EA5E9]/10">
+                    <span className="text-[12px] font-bold text-fg-primary">The charity experience:</span>
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mt-2 text-[12px] text-fg-secondary">
+                      <span className="bg-[#F0F9FF] text-[#0EA5E9] font-semibold px-2.5 py-1 rounded-lg whitespace-nowrap">Milestone approved</span>
+                      <ChevronRight className="h-3 w-3 text-fg-muted hidden sm:block" />
+                      <span className="bg-[#F0F9FF] text-[#0EA5E9] font-semibold px-2.5 py-1 rounded-lg whitespace-nowrap">USDT released</span>
+                      <ChevronRight className="h-3 w-3 text-fg-muted hidden sm:block" />
+                      <span className="bg-[#F0F9FF] text-[#0EA5E9] font-semibold px-2.5 py-1 rounded-lg whitespace-nowrap">Click &ldquo;Convert&rdquo;</span>
+                      <ChevronRight className="h-3 w-3 text-fg-muted hidden sm:block" />
+                      <span className="bg-[#F0FDF4] text-[#22C55E] font-semibold px-2.5 py-1 rounded-lg whitespace-nowrap">KES in M-Pesa</span>
+                    </div>
+                  </div>
+                  <div className="overflow-x-auto rounded-xl border border-black/[0.06]">
+                    <table className="w-full text-[13px]">
+                      <thead>
+                        <tr className="bg-white">
+                          <th className="text-left px-4 py-2 font-semibold text-fg-primary">Region</th>
+                          <th className="text-left px-4 py-2 font-semibold text-fg-primary">Off-ramp</th>
+                          <th className="text-left px-4 py-2 font-semibold text-fg-primary">Receives</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          ["Kenya", "Kotani Pay / Yellow Card", "M-Pesa (KES)"],
+                          ["Nigeria", "Yellow Card / Quidax", "Bank transfer (NGN)"],
+                          ["South Africa", "Luno / VALR", "Bank transfer (ZAR)"],
+                          ["India", "WazirX / CoinDCX", "UPI / Bank (INR)"],
+                          ["Global", "Transak / Binance P2P", "Local bank / mobile money"],
+                        ].map(([region, partner, receives]) => (
+                          <tr key={region} className="border-t border-black/[0.04]">
+                            <td className="px-4 py-2 font-medium text-fg-primary">{region}</td>
+                            <td className="px-4 py-2 text-fg-secondary">{partner}</td>
+                            <td className="px-4 py-2 text-fg-secondary">{receives}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p>The charity never leaves the platform. Under the hood it&apos;s a partner API — but to the charity it&apos;s just <strong className="text-fg-primary">&ldquo;Convert to M-Pesa.&rdquo;</strong></p>
+                </div>
+              </div>
+            </div>
+
+            {/* Q6 */}
+            <div className="reveal bg-surface-primary rounded-2xl border border-line-subtle p-6 sm:p-8"
+              style={{ "--reveal-delay": "600ms" } as React.CSSProperties}>
+              <div className="flex items-start gap-3 mb-4">
+                <span className="h-7 w-7 rounded-full bg-[#FEF2F2] text-[#EF4444] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">Q</span>
+                <p className="text-[15px] font-semibold text-fg-primary leading-snug">
+                  What stops large bag holders from gaming the governance votes? Isn&apos;t community voting vulnerable to sybil attacks?
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="h-7 w-7 rounded-full bg-[#F0F9FF] text-[#0EA5E9] text-[12px] font-bold flex items-center justify-center shrink-0 mt-0.5">A</span>
+                <div className="text-[14px] text-fg-secondary leading-relaxed flex flex-col gap-3">
+                  <p>Three mechanisms work together:</p>
+                  <div className="grid sm:grid-cols-3 gap-3">
+                    <div className="bg-white rounded-xl p-4 border border-black/[0.04]">
+                      <span className="text-[12px] font-bold text-fg-primary">Staking cost</span>
+                      <p className="text-[12px] text-fg-secondary mt-1">10M SANC minimum per wallet. Creating fake identities is expensive — and splitting tokens across wallets <em>reduces</em> power due to tier multipliers.</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border border-black/[0.04]">
+                      <span className="text-[12px] font-bold text-fg-primary">Tier incentive</span>
+                      <p className="text-[12px] text-fg-secondary mt-1">One wallet at Elite (3x) beats fifty at Standard (1x). The system economically rewards consolidation over sybil splitting.</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 border border-black/[0.04]">
+                      <span className="text-[12px] font-bold text-fg-primary">Automated layer</span>
+                      <p className="text-[12px] text-fg-secondary mt-1">Even if a whale pushes a vote, the automated verification report is public. Approving flagged proof destroys community trust — and token value.</p>
+                    </div>
+                  </div>
+                  <p>Plus: governance doesn&apos;t operate in a vacuum. Voters review the <strong className="text-fg-primary">automated verification report</strong>, not raw photos. A whale can have the votes, but they can&apos;t fake a clean automated scan.</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ===== 10 FINAL CTA ===== */}
+      {/* ===== 11 FINAL CTA ===== */}
       <section className="bg-surface-primary px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-black/[0.06] shadow-[0_4px_32px_rgba(0,0,0,0.06)]">
 

@@ -324,6 +324,42 @@ export default function DocsPage() {
             <Callout type="tip">This progressive release model protects donors from fraud. Charities are incentivized to deliver results because their next tranche depends on community approval.</Callout>
           </Accordion>
 
+          <Accordion title="Automated Proof Verification" icon={Eye}>
+            <p className="text-[13px] text-[#475569] leading-relaxed">Every milestone proof submission passes through an automated verification layer before the community votes. This eliminates the need for third-party human reviewers.</p>
+            <DataTable
+              headers={["Check", "What It Does", "Catches"]}
+              rows={[
+                ["GPS/EXIF Validation", "Verifies photo location and timestamp metadata", "Photos not taken at claimed site or date"],
+                ["Reverse Image Search", "Checks if images exist elsewhere online", "Stolen or recycled photos from other projects"],
+                ["AI Content Detection", "Flags synthetic/AI-generated images and docs", "Deepfakes, AI-generated evidence"],
+                ["Duplicate Flagging", "Detects same proof reused across milestones", "Evidence submitted multiple times"],
+                ["Timestamp Consistency", "Cross-references file, blockchain, and claim dates", "Backdated or future-dated evidence"],
+              ]}
+            />
+            <Callout type="info">The automated report (Clean or Flagged) is attached to every milestone vote. Community voters review the report alongside the evidence — they&apos;re not eyeballing raw photos, they&apos;re reviewing validated data.</Callout>
+          </Accordion>
+
+          <Accordion title="Converting Crypto to Local Currency" icon={Globe}>
+            <p className="text-[13px] text-[#475569] leading-relaxed">When milestone funds are released, charities receive USDT (stablecoin) for price stability. They can then convert to local currency via integrated off-ramp partners without leaving the platform.</p>
+            <Steps steps={[
+              { title: "Milestone approved", detail: "Community governance votes to release. Funds arrive in the charity's wallet as USDT." },
+              { title: "Click \"Convert to local currency\"", detail: "The charity dashboard shows a conversion widget powered by a regional off-ramp partner." },
+              { title: "Enter destination", detail: "M-Pesa number, bank account, UPI ID, or mobile money — depending on the charity's country." },
+              { title: "Receive local currency", detail: "Conversion happens within minutes. The charity receives fiat directly — no exchange account needed." },
+            ]} />
+            <DataTable
+              headers={["Region", "Off-ramp Partner", "Receives"]}
+              rows={[
+                ["Kenya", "Kotani Pay / Yellow Card", "M-Pesa (KES)"],
+                ["Nigeria", "Yellow Card / Quidax", "Bank transfer (NGN)"],
+                ["South Africa", "Luno / VALR", "Bank transfer (ZAR)"],
+                ["India", "WazirX / CoinDCX", "UPI / Bank (INR)"],
+                ["Global", "Transak / Binance P2P", "Local bank or mobile money"],
+              ]}
+            />
+            <Callout type="tip">Releasing in USDT instead of BNB protects charities from price volatility between milestone approval and fiat conversion.</Callout>
+          </Accordion>
+
           {/* ═══ GOVERNANCE ═══ */}
           <div id="governance" />
           <div className="flex items-center gap-2 mt-8 mb-1">
