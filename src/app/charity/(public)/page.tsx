@@ -178,7 +178,7 @@ export default function LandingPage() {
             <span key={t} className="text-[11px] sm:text-[12px] text-fg-muted font-mono">{t}</span>
           ))}
           <span className="text-fg-muted text-[11px]">·</span>
-          <span className="text-[11px] sm:text-[12px] text-fg-muted">Audited by CertiK</span>
+          <span className="text-[11px] sm:text-[12px] text-fg-muted">Audited by SourceHat</span>
           <span className="text-fg-muted text-[11px]">·</span>
           <span className="text-[11px] sm:text-[12px] text-fg-muted">BSC Mainnet</span>
         </div>
@@ -310,7 +310,7 @@ export default function LandingPage() {
                 <div className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_32px_rgba(0,0,0,0.07)] border border-black/[0.04] flex flex-col lg:flex-row">
                   {/* Cover */}
                   <div className="relative lg:w-[55%] h-[240px] lg:h-auto lg:max-h-[300px] overflow-hidden flex-shrink-0">
-                    <img src={hero.coverImage} alt="" className="w-full h-full object-cover" />
+                    <img src={hero.coverImage} alt={hero.name} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/40 via-transparent to-transparent" />
                     <div className="absolute top-4 left-4">
                       <span className="flex items-center gap-1.5 bg-accent-light text-accent-primary text-[11px] font-semibold rounded-full px-3 py-1.5">
@@ -377,7 +377,7 @@ export default function LandingPage() {
                       return (
                         <div key={c.id} className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-black/[0.04]">
                           <div className="h-[160px] overflow-hidden">
-                            <img src={c.coverImage} alt="" className="w-full h-full object-cover" />
+                            <img src={c.coverImage} alt={c.name} className="w-full h-full object-cover" />
                           </div>
                           <div className="p-4 flex flex-col gap-2.5">
                             <div className="flex items-center gap-1.5">
@@ -429,7 +429,7 @@ export default function LandingPage() {
           <div className="reveal-scale bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/[0.04] flex flex-col sm:flex-row">
             {/* Campaign thumbnail */}
             <div className="relative sm:w-[200px] lg:w-[220px] h-[140px] sm:h-auto flex-shrink-0 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&q=80" alt="" className="w-full h-full object-cover" />
+              <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&q=80" alt="Donation experience preview" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/50 to-transparent" />
               <div className="absolute bottom-3 left-3 sm:hidden">
                 <p className="text-sm font-bold text-white leading-snug">School Building · Kenya</p>
@@ -508,7 +508,7 @@ export default function LandingPage() {
           <div className="reveal flex items-center gap-3 bg-white border border-line-subtle rounded-xl px-5 py-3 w-full"
             style={{ "--reveal-delay": "300ms" } as React.CSSProperties}>
             <Shield className="h-4 w-4 text-accent-primary flex-shrink-0" />
-            <span className="text-xs text-fg-secondary">Large donations (&gt;100 BNB) trigger multi-sig approval for added security. All transactions are publicly verifiable on BSCScan.</span>
+            <span className="text-xs text-fg-secondary">Large donations (&gt;10 BNB) trigger multi-sig approval for added security. All transactions are publicly verifiable on BSCScan.</span>
           </div>
 
         </div>
@@ -646,9 +646,9 @@ export default function LandingPage() {
 
             <div className="flex flex-col gap-3">
               {[
-                { tier: "Standard", stake: "1M SANC",  power: "1×",  dot: "bg-[#0EA5E9]", val: "text-[#0EA5E9]", desc: "Base voting rights",    ring: "bg-[#F0F9FF] border-[#0EA5E9]/20" },
-                { tier: "Elite",    stake: "10M SANC", power: "3×",  dot: "bg-[#22C55E]", val: "text-[#22C55E]", desc: "3× weighted vote",      ring: "bg-[#F0FDF4] border-[#22C55E]/20" },
-                { tier: "Whale",    stake: "50M SANC", power: "10×", dot: "bg-[#EAB308]", val: "text-[#CA8A04]", desc: "Maximum voting impact", ring: "bg-[#FEFCE8] border-[#EAB308]/20" },
+                { tier: "Standard",       stake: "1M SANC",  power: "1×", dot: "bg-[#0EA5E9]", val: "text-[#0EA5E9]", desc: "Base voting rights",  ring: "bg-[#F0F9FF] border-[#0EA5E9]/20" },
+                { tier: "Featured Donor", stake: "10M SANC", power: "2×", dot: "bg-[#22C55E]", val: "text-[#22C55E]", desc: "2× weighted vote",    ring: "bg-[#F0FDF4] border-[#22C55E]/20" },
+                { tier: "Elite Donor",    stake: "50M SANC", power: "3×", dot: "bg-[#EAB308]", val: "text-[#CA8A04]", desc: "3× maximum impact",   ring: "bg-[#FEFCE8] border-[#EAB308]/20" },
               ].map((t) => (
                 <div key={t.tier} className={`flex items-center gap-3 border rounded-xl px-4 py-3 ${t.ring}`}>
                   <span className={`h-2 w-2 rounded-full flex-shrink-0 ${t.dot}`} />
@@ -886,14 +886,14 @@ export default function LandingPage() {
               >
                 <UserCheck className="h-4 w-4" />Register Your Charity
               </Link>
-              <span className="text-[11px] text-fg-muted text-center">Takes ~5 minutes · 10M SANC required to stake</span>
+              <span className="text-[11px] text-fg-muted text-center">Takes ~5 minutes · USD-equivalent SANC stake required</span>
             </div>
           </div>
 
           {/* Right: numbered steps (~60%) */}
           <div className="flex-1 bg-white rounded-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col divide-y divide-line-subtle">
             {[
-              { n: "01", icon: Coins,     title: "Stake 10M SANC",        desc: "Register by staking 10 million SANC tokens. Your stake is returned when you leave in good standing — and slashed if your charity is revoked for misconduct." },
+              { n: "01", icon: Coins,     title: "Stake SANC (USD-based)",  desc: "Register by staking a USD-equivalent amount of SANC tokens. The actual SANC quantity varies with market price. Your stake is returned when you leave in good standing — and slashed if revoked for misconduct." },
               { n: "02", icon: UserCheck, title: "Pass KYC Verification", desc: "Submit your organisation's KYC documents (stored on IPFS). A platform admin reviews and verifies your charity before you can publish any campaigns." },
               { n: "03", icon: Target,    title: "Create Milestone Campaigns", desc: "Define a funding goal split across milestones. Submit on-chain proof for each milestone — automated checks validate your evidence before the community votes to release funds." },
               { n: "04", icon: Smartphone, title: "Receive Funds in Local Currency", desc: "Milestone funds release in USDT for stability. Convert to local currency (M-Pesa, bank transfer, mobile money) via integrated off-ramp partners — no exchange account needed." },
@@ -1154,8 +1154,8 @@ export default function LandingPage() {
                       <tbody>
                         <tr className="border-t border-black/[0.04]">
                           <td className="px-4 py-2.5 font-medium text-fg-primary">Charity</td>
-                          <td className="px-4 py-2.5 text-fg-secondary">Register, create campaigns, submit proof</td>
-                          <td className="px-4 py-2.5 font-semibold text-[#22C55E]">No</td>
+                          <td className="px-4 py-2.5 text-fg-secondary">Stake USD-worth of SANC to register, create campaigns, submit proof</td>
+                          <td className="px-4 py-2.5 text-fg-secondary">USD-based stake (refundable)</td>
                         </tr>
                         <tr className="border-t border-black/[0.04]">
                           <td className="px-4 py-2.5 font-medium text-fg-primary">Donor</td>
@@ -1247,7 +1247,7 @@ export default function LandingPage() {
                   <div className="grid sm:grid-cols-3 gap-3">
                     <div className="bg-white rounded-xl p-4 border border-black/[0.04]">
                       <span className="text-[12px] font-bold text-fg-primary">Staking cost</span>
-                      <p className="text-[12px] text-fg-secondary mt-1">10M SANC minimum per wallet. Creating fake identities is expensive — and splitting tokens across wallets <em>reduces</em> power due to tier multipliers.</p>
+                      <p className="text-[12px] text-fg-secondary mt-1">1M SANC minimum per wallet. Creating fake identities is expensive — and splitting tokens across wallets <em>reduces</em> power due to tier multipliers.</p>
                     </div>
                     <div className="bg-white rounded-xl p-4 border border-black/[0.04]">
                       <span className="text-[12px] font-bold text-fg-primary">Tier incentive</span>

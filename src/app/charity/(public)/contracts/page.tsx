@@ -10,7 +10,7 @@ const contracts = [
   {
     name: "SANC Token",
     address: "0x4670f3a2A8D35021257cda028c7ae3Cb854C7CaF",
-    description: "BEP-20 token with 5% buy/sell tax (auto-liquidity + marketing + charity matching). 9 decimals. Supports excludeFromFee for donation contracts.",
+    description: "BEP-20 token with 5% buy/sell tax (1% liquidity, 1% marketing, 1% development, 1% charity, 1% burn). 9 decimals. Supports excludeFromFee for donation contracts.",
     status: "Deployed",
     verified: true,
     features: ["Deflationary", "Auto-LP", "Fee Exclusion", "Owner Renounce-ready"],
@@ -34,7 +34,7 @@ const contracts = [
   {
     name: "StakingPool",
     address: "0x — Deployment pending",
-    description: "Stake SANC to activate governance. Minimum 10M SANC. 3-day cooldown on unstake. Tier thresholds: 1M (Standard), 10M (Featured), 50M (Elite).",
+    description: "Stake SANC to activate governance. Minimum 1M SANC (Standard tier). 3-day cooldown on unstake. Tier thresholds: 1M (Standard), 10M (Featured), 50M (Elite).",
     status: "In Development",
     verified: false,
     features: ["Tiered Staking", "Cooldown Period", "Governance Activation"],

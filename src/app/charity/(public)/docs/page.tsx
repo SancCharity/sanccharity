@@ -379,7 +379,7 @@ export default function DocsPage() {
             />
             <Steps steps={[
               { title: "Go to Governance page", detail: "Navigate to /charity/governance and connect your wallet." },
-              { title: "Enter stake amount", detail: "Minimum 10M SANC to activate governance. Enter the amount and click Stake." },
+              { title: "Enter stake amount", detail: "Minimum 1M SANC for Standard tier governance. Enter the amount and click Stake. Higher tiers (10M Featured, 50M Elite) unlock greater voting power." },
               { title: "Approve token spend", detail: "Your wallet will prompt you to approve the StakingPool contract to spend your SANC. This is a one-time approval." },
               { title: "Confirm stake transaction", detail: "Sign the stake transaction. Once confirmed, your tier is active and you can vote immediately." },
             ]} />
