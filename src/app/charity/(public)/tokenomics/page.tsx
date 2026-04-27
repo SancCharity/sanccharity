@@ -205,10 +205,10 @@ export default function TokenomicsPage() {
               {distribution.map((d) => (
                 <div
                   key={d.label}
-                  className="h-full flex items-center justify-center text-[10px] sm:text-xs font-bold text-white transition-all duration-700"
+                  className="h-full flex items-center justify-center text-[9px] sm:text-xs font-bold text-white transition-all duration-700 overflow-hidden"
                   style={{ width: `${d.pct}%`, backgroundColor: d.color }}
                 >
-                  {d.pct}%
+                  {d.pct >= 10 ? `${d.pct}%` : ""}
                 </div>
               ))}
             </div>
