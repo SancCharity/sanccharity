@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { PageContainer } from "@/components/layout/PageContainer";
 import {
   Coins, Flame, PieChart, TrendingUp, ShieldCheck, Users,
@@ -91,6 +92,19 @@ const deflationaryFlows = [
 ];
 
 export default function TokenomicsPage() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const els = document.querySelectorAll<HTMLElement>(".reveal, .reveal-scale");
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("revealed"); obs.unobserve(e.target); }
+      }),
+      { threshold: 0.06, rootMargin: "0px 0px -40px 0px" }
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       <PageContainer className="py-12 sm:py-16">
