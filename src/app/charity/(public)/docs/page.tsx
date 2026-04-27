@@ -370,27 +370,6 @@ export default function DocsPage() {
             <Callout type="warning">The automated layer is intentionally powerful to avoid dependence on third-party human reviewers. No NGO bureaucracy, no regional auditors — just code + community.</Callout>
           </Accordion>
 
-          <Accordion title="Converting Crypto to Local Currency" icon={Globe}>
-            <p className="text-[13px] text-[#475569] leading-relaxed">When milestone funds are released, charities receive USDT (stablecoin) for price stability. They can then convert to local currency via integrated off-ramp partners without leaving the platform.</p>
-            <Steps steps={[
-              { title: "Milestone approved", detail: "Community governance votes to release. Funds arrive in the charity's wallet as USDT." },
-              { title: "Click \"Convert to local currency\"", detail: "The charity dashboard shows a conversion widget powered by a regional off-ramp partner." },
-              { title: "Enter destination", detail: "M-Pesa number, bank account, UPI ID, or mobile money — depending on the charity's country." },
-              { title: "Receive local currency", detail: "Conversion happens within minutes. The charity receives fiat directly — no exchange account needed." },
-            ]} />
-            <DataTable
-              headers={["Region", "Off-ramp Partner", "Receives"]}
-              rows={[
-                ["Kenya", "Kotani Pay / Yellow Card", "M-Pesa (KES)"],
-                ["Nigeria", "Yellow Card / Quidax", "Bank transfer (NGN)"],
-                ["South Africa", "Luno / VALR", "Bank transfer (ZAR)"],
-                ["India", "WazirX / CoinDCX", "UPI / Bank (INR)"],
-                ["Global", "Transak / Binance P2P", "Local bank or mobile money"],
-              ]}
-            />
-            <Callout type="tip">Releasing in USDT instead of BNB protects charities from price volatility between milestone approval and fiat conversion.</Callout>
-          </Accordion>
-
           {/* ═══ GOVERNANCE ═══ */}
           <div id="governance" />
           <div className="flex items-center gap-2 mt-8 mb-1">

@@ -13,7 +13,7 @@ const auditTimeline = [
   {
     phase: "Phase 1 — Internal Review",
     status: "completed",
-    desc: "Manual code review of all 6 contracts. Focus areas: reentrancy, access control, arithmetic overflow, external call safety. Team review + peer review process.",
+    desc: "Manual code review of all 8 contracts. Focus areas: reentrancy, access control, arithmetic overflow, external call safety. Team review + peer review process.",
   },
   {
     phase: "Phase 2 — Automated Analysis",
@@ -28,7 +28,7 @@ const auditTimeline = [
   {
     phase: "Phase 4 — Platform Contracts Audit",
     status: "upcoming",
-    desc: "Full third-party audit of DonationManager, GovernanceVoting, StakingPool, PriceOracle, and DonationNFT. Will cover: escrow fund flow, milestone release logic, voting weight calculation, oracle manipulation resistance, NFT minting permissions.",
+    desc: "Full third-party audit of CharityRegistry, CharityGovernance, DonationVault, CampaignManager, DonationNFT, PriceOracle, and SancTimelock. Will cover: escrow fund flow, milestone release logic, voting weight calculation, oracle manipulation resistance, NFT minting permissions.",
   },
   {
     phase: "Phase 5 — Bug Bounty",
@@ -72,9 +72,9 @@ const contractStatus: ContractRisk[] = [
     ],
   },
   {
-    name: "DonationManager",
+    name: "DonationVault",
     risk: "Medium",
-    note: "Multi-token handling, escrow logic, and NFT minting. Primary attack surface — requires thorough audit.",
+    note: "Multi-token donation handling, escrow, fee collection, milestone fund releases, pull-pattern refunds.",
     vectors: [
       { risk: "Reentrancy on withdraw", mitigation: "ReentrancyGuard on all state-changing functions" },
       { risk: "Fund misrouting", mitigation: "Milestone release requires governance vote before funds move" },
@@ -82,9 +82,9 @@ const contractStatus: ContractRisk[] = [
     ],
   },
   {
-    name: "GovernanceVoting",
+    name: "CharityGovernance",
     risk: "Medium",
-    note: "Weighted voting and quorum logic. Must resist vote manipulation and flash-loan governance attacks.",
+    note: "SANC staking for governance, weighted voting on milestone releases, tier-based voting power.",
     vectors: [
       { risk: "Flash-loan voting", mitigation: "Snapshot-based voting weight — tokens must be staked before proposal" },
       { risk: "Quorum manipulation", mitigation: "66% quorum threshold prevents low-turnout attacks" },
@@ -92,12 +92,31 @@ const contractStatus: ContractRisk[] = [
     ],
   },
   {
-    name: "StakingPool",
+    name: "CharityRegistry",
     risk: "Low",
-    note: "Standard staking with cooldown. Simpler logic, fewer external interactions.",
+    note: "Charity registration, KYC lifecycle, SANC stake holding, trust scores, USD-based stake tiers.",
     vectors: [
       { risk: "Withdrawal during active vote", mitigation: "3-day cooldown on unstake prevents stake-vote-unstake attacks" },
       { risk: "Stake amount manipulation", mitigation: "USD-based registration threshold via PriceOracle" },
+    ],
+  },
+  {
+    name: "CampaignManager",
+    risk: "Medium",
+    note: "Campaign lifecycle, milestone management, proof submission. Handles campaign creation, status transitions, and milestone release triggers.",
+    vectors: [
+      { risk: "Unauthorized milestone approval", mitigation: "Role-based access (OPERATOR_ROLE)" },
+      { risk: "Campaign state manipulation", mitigation: "State machine enforces valid transitions" },
+      { risk: "Proof submission spoofing", mitigation: "Proof stored on IPFS with on-chain hash" },
+    ],
+  },
+  {
+    name: "SancTimelock",
+    risk: "Low",
+    note: "Time-locked admin operations. Enforces delay between proposal and execution for critical governance actions.",
+    vectors: [
+      { risk: "Bypass timelock delay", mitigation: "OpenZeppelin TimelockController" },
+      { risk: "Unauthorized proposal", mitigation: "Multi-role access control" },
     ],
   },
   {
@@ -113,9 +132,9 @@ const contractStatus: ContractRisk[] = [
   {
     name: "DonationNFT",
     risk: "Low",
-    note: "Standard ERC-721 with metadata. Auto-mint triggered by DonationManager only.",
+    note: "Standard ERC-721 with metadata. Auto-mint triggered by DonationVault only.",
     vectors: [
-      { risk: "Unauthorized minting", mitigation: "Only DonationManager contract can call mint — enforced on-chain" },
+      { risk: "Unauthorized minting", mitigation: "Only DonationVault contract can call mint — enforced on-chain" },
       { risk: "Metadata tampering", mitigation: "Metadata set at mint time and immutable after" },
     ],
   },
@@ -125,7 +144,7 @@ const securityChecks = [
   {
     icon: Bug,
     label: "Reentrancy Protection",
-    desc: "ReentrancyGuard applied to all external-calling functions in DonationManager and StakingPool",
+    desc: "ReentrancyGuard applied to all external-calling functions in DonationVault and CharityRegistry",
   },
   {
     icon: Zap,
@@ -165,7 +184,7 @@ const testCategories = [
 
 const testStats = [
   { label: "Tests", value: "140+" },
-  { label: "Contracts", value: "6" },
+  { label: "Contracts", value: "8" },
   { label: "Audit Rounds", value: "3" },
   { label: "Critical Issues", value: "0" },
 ];
@@ -213,7 +232,7 @@ export default function AuditPage() {
             <div>
               <p className="text-sm font-semibold text-[#92400E] mb-1">Audit In Progress</p>
               <p className="text-[13px] text-[#78350F]/70 leading-relaxed">
-                The SANC Token contract has been audited by SourceHat. Platform contracts (DonationManager, GovernanceVoting, StakingPool, PriceOracle, DonationNFT) are in development — third-party audit will be completed before mainnet deployment. Internal review and automated analysis are complete for all contracts.
+                The SANC Token contract has been audited by SourceHat. Platform contracts (CharityRegistry, CharityGovernance, DonationVault, CampaignManager, DonationNFT, PriceOracle, SancTimelock) are in development — third-party audit will be completed before mainnet deployment. Internal review and automated analysis are complete for all contracts.
               </p>
             </div>
           </div>
