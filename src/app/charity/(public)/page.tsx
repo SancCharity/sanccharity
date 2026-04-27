@@ -173,7 +173,7 @@ export default function LandingPage() {
         </div>
 
         {/* Trust row */}
-        <div className="flex items-center gap-3 sm:gap-6 flex-wrap justify-center">
+        <div className="flex items-center gap-2 sm:gap-3 lg:gap-6 flex-wrap justify-center">
           {["BNB", "SANC", "USDT", "BUSD"].map((t) => (
             <span key={t} className="text-[11px] sm:text-[12px] text-fg-muted font-mono">{t}</span>
           ))}
@@ -196,7 +196,7 @@ export default function LandingPage() {
           <div className="hidden sm:block absolute top-8 left-[16.67%] right-[16.67%] h-0 border-t-2 border-dashed border-accent-primary/30" />
 
           {/* Vertical connector — mobile only */}
-          <div className="sm:hidden absolute top-16 bottom-16 left-8 w-0 border-l-2 border-dashed border-accent-primary/25" />
+          <div className="sm:hidden absolute top-16 bottom-16 left-4 w-0 border-l-2 border-dashed border-accent-primary/25" />
 
           {[
             { icon: Wallet, num: "01", title: "Connect Your Wallet", desc: "Link your BSC wallet. We support BNB, SANC, USDT, and BUSD for maximum flexibility." },
@@ -242,7 +242,7 @@ export default function LandingPage() {
                   setActiveCategory(cat);
                   setFilters(f => ({ ...f, category: cat === "All" ? undefined : cat as CampaignCategory }));
                 }}
-                className={`px-4 py-1.5 rounded-full text-[13px] transition-colors ${
+                className={`px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-[13px] transition-colors ${
                   activeCategory === cat ? "bg-accent-primary text-white" : "bg-white text-fg-secondary"
                 }`}
               >
@@ -309,7 +309,7 @@ export default function LandingPage() {
                 {/* Hero card — first campaign, full width */}
                 <div className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_32px_rgba(0,0,0,0.07)] border border-black/[0.04] flex flex-col lg:flex-row">
                   {/* Cover */}
-                  <div className="relative lg:w-[55%] h-[240px] lg:h-auto lg:max-h-[300px] overflow-hidden flex-shrink-0">
+                  <div className="relative lg:w-[55%] h-[160px] sm:h-[200px] lg:h-auto lg:max-h-[300px] overflow-hidden flex-shrink-0">
                     <img src={hero.coverImage} alt={hero.name} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/40 via-transparent to-transparent" />
                     <div className="absolute top-4 left-4">
@@ -428,7 +428,7 @@ export default function LandingPage() {
           {/* Proof card — donation in progress */}
           <div className="reveal-scale bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/[0.04] flex flex-col sm:flex-row">
             {/* Campaign thumbnail */}
-            <div className="relative sm:w-[200px] lg:w-[220px] h-[140px] sm:h-auto flex-shrink-0 overflow-hidden">
+            <div className="relative w-full sm:w-[200px] lg:w-[220px] h-[120px] sm:h-auto flex-shrink-0 overflow-hidden">
               <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&q=80" alt="Donation experience preview" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/50 to-transparent" />
               <div className="absolute bottom-3 left-3 sm:hidden">
@@ -461,7 +461,7 @@ export default function LandingPage() {
               {/* Quick amounts */}
               <div className="flex gap-2 pointer-events-none">
                 {["$100", "$250", "$500", "$1K", "$5K"].map((q) => (
-                  <button key={q} className={`flex-1 text-xs rounded-full py-1.5 ${q === "$500" ? "bg-accent-primary text-white" : "bg-surface-primary text-fg-secondary"}`}>
+                  <button key={q} className={`flex-1 text-[11px] sm:text-xs rounded-full py-1.5 ${q === "$500" ? "bg-accent-primary text-white" : "bg-surface-primary text-fg-secondary"}`}>
                     {q}
                   </button>
                 ))}
@@ -560,7 +560,7 @@ export default function LandingPage() {
                   const pct = (val / 420) * 100;
                   return (
                     <div key={cat.label} className="flex items-center gap-3">
-                      <span className="text-[12px] text-fg-muted w-20 flex-shrink-0">{cat.label}</span>
+                      <span className="text-[11px] sm:text-[12px] text-fg-muted w-16 sm:w-20 flex-shrink-0">{cat.label}</span>
                       <div className="flex-1 h-1.5 bg-surface-primary rounded-full overflow-hidden">
                         <div className="h-full bg-accent-primary rounded-full" style={{ width: `${pct}%` }} />
                       </div>
@@ -711,10 +711,10 @@ export default function LandingPage() {
 
             {/* Voter breakdown table */}
             <div className="flex flex-col gap-0 border border-line-subtle rounded-xl overflow-hidden">
-              <div className="grid grid-cols-3 bg-surface-primary px-4 py-2 border-b border-line-subtle">
-                <span className="text-[10px] font-bold text-fg-muted uppercase tracking-wide">Voter</span>
-                <span className="text-[10px] font-bold text-fg-muted uppercase tracking-wide">Tier</span>
-                <span className="text-[10px] font-bold text-fg-muted uppercase tracking-wide">Vote</span>
+              <div className="grid grid-cols-3 bg-surface-primary px-3 sm:px-4 py-2 border-b border-line-subtle">
+                <span className="text-[9px] sm:text-[10px] font-bold text-fg-muted uppercase tracking-wide">Voter</span>
+                <span className="text-[9px] sm:text-[10px] font-bold text-fg-muted uppercase tracking-wide">Tier</span>
+                <span className="text-[9px] sm:text-[10px] font-bold text-fg-muted uppercase tracking-wide">Vote</span>
               </div>
               {[
                 { addr: "0x7a3B...4f2E", tier: "Elite",    vote: "Approve", voteColor: "text-[#22C55E]", tierColor: "text-[#CA8A04]" },
@@ -722,10 +722,10 @@ export default function LandingPage() {
                 { addr: "0x2eD8...71cF", tier: "Standard", vote: "Reject",  voteColor: "text-[#EF4444]", tierColor: "text-[#0EA5E9]" },
                 { addr: "0x9Fa4...8bC2", tier: "Featured", vote: "Abstain", voteColor: "text-fg-muted",  tierColor: "text-[#22C55E]" },
               ].map((row, i) => (
-                <div key={row.addr} className={`grid grid-cols-3 px-4 py-2.5 ${i < 3 ? "border-b border-line-subtle" : ""}`}>
-                  <span className="text-[12px] font-mono text-fg-secondary truncate pr-2">{row.addr}</span>
-                  <span className={`text-[12px] font-semibold ${row.tierColor}`}>{row.tier}</span>
-                  <span className={`text-[12px] font-semibold ${row.voteColor}`}>{row.vote}</span>
+                <div key={row.addr} className={`grid grid-cols-3 px-3 sm:px-4 py-2.5 ${i < 3 ? "border-b border-line-subtle" : ""}`}>
+                  <span className="text-[11px] sm:text-[12px] font-mono text-fg-secondary truncate pr-2">{row.addr}</span>
+                  <span className={`text-[11px] sm:text-[12px] font-semibold ${row.tierColor}`}>{row.tier}</span>
+                  <span className={`text-[11px] sm:text-[12px] font-semibold ${row.voteColor}`}>{row.vote}</span>
                 </div>
               ))}
             </div>
@@ -928,7 +928,7 @@ export default function LandingPage() {
           </div>
 
           {/* Two-layer model */}
-          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-6 mb-10">
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-4 sm:gap-6 mb-10">
 
             {/* Layer 1: Automated */}
             <div className="reveal bg-[#F0F9FF] rounded-2xl border border-[#0EA5E9]/15 p-6 sm:p-8 flex flex-col gap-5">
@@ -950,7 +950,7 @@ export default function LandingPage() {
                   { icon: Hexagon,     label: "Duplicate Submission Flagging", desc: "Detects if the same proof has been submitted across multiple milestones or campaigns." },
                   { icon: Lock,        label: "Timestamp Consistency Checks", desc: "Cross-references file timestamps, blockchain timestamps, and claimed milestone dates." },
                 ].map((check) => (
-                  <div key={check.label} className="flex items-start gap-3 bg-white rounded-xl p-3.5 border border-black/[0.04]">
+                  <div key={check.label} className="flex items-start gap-2.5 sm:gap-3 bg-white rounded-xl p-3 sm:p-3.5 border border-black/[0.04]">
                     <check.icon className="h-4 w-4 text-[#0EA5E9] mt-0.5 shrink-0" />
                     <div>
                       <span className="text-[13px] font-semibold text-fg-primary">{check.label}</span>
@@ -1272,7 +1272,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row rounded-2xl overflow-hidden border border-black/[0.06] shadow-[0_4px_32px_rgba(0,0,0,0.06)]">
 
           {/* Left: CTA (~55%) */}
-          <div className="reveal flex-1 card-aurora p-8 lg:p-12 flex flex-col gap-6 justify-center">
+          <div className="reveal flex-1 card-aurora p-6 sm:p-8 lg:p-12 flex flex-col gap-6 justify-center">
             <div className="flex flex-col gap-3">
               <span className="text-[11px] font-bold text-accent-primary uppercase tracking-[0.1em]">Join the Community</span>
               <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-fg-primary leading-[1.1]">
@@ -1302,7 +1302,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right: impact story panel (~45%) */}
-          <div className="reveal-scale lg:w-[42%] flex-shrink-0 bg-[#F0F9FF] p-8 lg:p-10 flex flex-col justify-center gap-5 border-t lg:border-t-0 lg:border-l border-line-subtle"
+          <div className="reveal-scale lg:w-[42%] flex-shrink-0 bg-[#F0F9FF] p-6 sm:p-8 lg:p-10 flex flex-col justify-center gap-5 border-t lg:border-t-0 lg:border-l border-line-subtle"
             style={{ "--reveal-delay": "150ms" } as React.CSSProperties}>
             <span className="text-[11px] font-bold text-fg-muted uppercase tracking-[0.1em]">Real Impact</span>
 

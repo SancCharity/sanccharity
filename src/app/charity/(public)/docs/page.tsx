@@ -7,7 +7,8 @@ import {
   BookOpen, Wallet, Heart, Building2, ShieldCheck, Vote, Award, BarChart3,
   ArrowRight, Coins, FileText, Globe, ChevronDown, ChevronRight, AlertCircle,
   CheckCircle2, ArrowDownUp, Lock, Flame, Users, Zap, HelpCircle, Wrench,
-  ExternalLink, Copy, Info, Timer, Eye, Gift, Target, Layers,
+  ExternalLink, Copy, Info, Timer, Eye, Gift, Target, Layers, Banknote,
+  Shield,
 } from "lucide-react";
 
 /* ─── Accordion ─────────────────────────────────────────────────────────── */
@@ -128,6 +129,7 @@ export default function DocsPage() {
               { label: "For Donors", href: "#donors", icon: Heart, color: "#EF4444" },
               { label: "For Charities", href: "#charities", icon: Building2, color: "#22C55E" },
               { label: "Governance", href: "#governance", icon: Vote, color: "#8B5CF6" },
+              { label: "Off-Ramp", href: "#offramp", icon: Banknote, color: "#10B981" },
               { label: "Fees & Tokens", href: "#fees", icon: Coins, color: "#F59E0B" },
               { label: "NFT Receipts", href: "#nft", icon: Award, color: "#EC4899" },
               { label: "Architecture", href: "#architecture", icon: Layers, color: "#0F172A" },
@@ -339,6 +341,33 @@ export default function DocsPage() {
               ]}
             />
             <Callout type="info">The automated report (Clean or Flagged) is attached to every milestone vote. Community voters review the report alongside the evidence — they&apos;re not eyeballing raw photos, they&apos;re reviewing validated data.</Callout>
+            <div className="mt-5">
+              <span className="text-[13px] font-semibold text-[#0F172A]">How it works:</span>
+              <Steps steps={[
+                { title: "Upload proof", detail: "Charity uploads proof (photos, receipts, documents) to the milestone." },
+                { title: "Automated pipeline runs", detail: "Automated pipeline runs all 5 checks within seconds." },
+                { title: "Report generated", detail: "Each check marked Clean \u2713 or Flagged \u26A0 in the report." },
+                { title: "Report attached to milestone", detail: "Report attached to milestone — visible to all governance voters." },
+              ]} />
+            </div>
+            <Callout type="info">The automated layer is designed to handle 95%+ of submissions cleanly. Community governance votes with the automated report visible — voters review validated data, not raw photos.</Callout>
+          </Accordion>
+
+          <Accordion title="Two-Layer Verification Model" icon={Shield}>
+            <p className="text-[13px] text-[#475569] leading-relaxed">SancCharity uses a two-layer verification model. Layer 1 (automated) does the heavy lifting. Layer 2 (community governance) is the democratic seal.</p>
+            <div className="mt-4">
+              <span className="text-[14px] font-bold text-[#0F172A]">Layer 1 — Automated (instant)</span>
+              <p className="text-[13px] text-[#475569] leading-relaxed mt-1">Runs on every proof submission. GPS/EXIF validation, reverse image search, AI-generated content detection, duplicate flagging, timestamp consistency. Produces a Clean/Flagged report.</p>
+            </div>
+            <div className="mt-4">
+              <span className="text-[14px] font-bold text-[#0F172A]">Layer 2 — Community Governance (14 days)</span>
+              <p className="text-[13px] text-[#475569] leading-relaxed mt-1">SANC stakers vote with the automated report visible. 66% quorum required. Approve / Reject / Abstain.</p>
+            </div>
+            <div className="mt-4">
+              <span className="text-[14px] font-bold text-[#0F172A]">Dispute Escalation (rare)</span>
+              <p className="text-[13px] text-[#475569] leading-relaxed mt-1">If automated flags are ambiguous or a vote is contested, Elite Donor stakers (3x tier) can trigger a deeper review. Safety net, not a regular step.</p>
+            </div>
+            <Callout type="warning">The automated layer is intentionally powerful to avoid dependence on third-party human reviewers. No NGO bureaucracy, no regional auditors — just code + community.</Callout>
           </Accordion>
 
           <Accordion title="Converting Crypto to Local Currency" icon={Globe}>
@@ -409,6 +438,38 @@ export default function DocsPage() {
             />
           </Accordion>
 
+          {/* ═══ OFF-RAMP ═══ */}
+          <div id="offramp" />
+          <div className="flex items-center gap-2 mt-8 mb-1">
+            <Banknote className="h-4 w-4 text-[#10B981]" />
+            <h2 className="text-sm font-bold text-[#94A3B8] uppercase tracking-wider">Off-Ramp & Fiat Conversion</h2>
+          </div>
+
+          <Accordion title="How Charities Convert Crypto to Local Currency" icon={Banknote}>
+            <p className="text-[13px] text-[#475569] leading-relaxed">Once milestone funds are released, charities can convert USDT to local currency directly from the dashboard — no exchange account required.</p>
+            <Steps steps={[
+              { title: "Milestone approved by community vote", detail: "SANC stakers vote to approve the milestone release. Funds are unlocked from escrow." },
+              { title: "Funds released in USDT", detail: "Funds released in USDT (stablecoin) for price stability — the charity receives predictable value regardless of market volatility." },
+              { title: "Charity clicks 'Convert to local currency'", detail: "The charity dashboard shows a conversion widget. One click initiates the off-ramp process." },
+              { title: "Off-ramp partner processes conversion", detail: "Regional partner (Kotani Pay, Yellow Card, Transak) handles the crypto-to-fiat conversion behind the scenes." },
+              { title: "Charity receives local currency", detail: "Charity receives local currency via M-Pesa, bank transfer, or mobile money — typically within minutes." },
+            ]} />
+            <div className="mt-4">
+              <span className="text-[13px] font-semibold text-[#0F172A]">Regional off-ramp partners:</span>
+              <DataTable
+                headers={["Region", "Partner", "Receives"]}
+                rows={[
+                  ["Kenya", "Kotani Pay / Yellow Card", "M-Pesa (KES)"],
+                  ["Nigeria", "Yellow Card / Quidax", "Bank transfer (NGN)"],
+                  ["South Africa", "Luno / VALR", "Bank transfer (ZAR)"],
+                  ["India", "WazirX / CoinDCX", "UPI / Bank (INR)"],
+                  ["Global", "Transak / Binance P2P", "Local bank / mobile money"],
+                ]}
+              />
+            </div>
+            <Callout type="info">The charity never leaves the platform. Under the hood it&apos;s a partner API — to the charity it&apos;s just &quot;Convert to M-Pesa.&quot;</Callout>
+          </Accordion>
+
           {/* ═══ FEES & TOKENS ═══ */}
           <div id="fees" />
           <div className="flex items-center gap-2 mt-8 mb-1">
@@ -477,6 +538,21 @@ export default function DocsPage() {
               { title: "Verify anytime", detail: "Click the NFT to see its on-chain data, IPFS metadata link, and BscScan transaction." },
             ]} />
             <Callout type="info">NFTs are permanent and decentralized. Even if SancCharity&apos;s frontend is offline, your receipt is verifiable on BscScan and IPFS.</Callout>
+            <div className="mt-4">
+              <span className="text-[13px] font-semibold text-[#0F172A]">On-chain vs off-chain storage:</span>
+              <DataTable
+                headers={["Data", "Storage", "Details"]}
+                rows={[
+                  ["Donor address", "On-chain", "Immutable, tied to wallet"],
+                  ["Campaign ID", "On-chain", "Links to specific campaign"],
+                  ["Token & Amount", "On-chain", "Exact donation recorded"],
+                  ["Timestamp", "On-chain", "Block timestamp"],
+                  ["Tax receipt URI", "IPFS", "Permanent, content-addressed"],
+                  ["Campaign name", "Metadata", "Resolved from campaign ID"],
+                ]}
+              />
+            </div>
+            <Callout type="tip">Your NFT receipt is permanent proof of donation. Even if the SancCharity website goes offline, your receipt exists on the blockchain and IPFS forever.</Callout>
           </Accordion>
 
           {/* ═══ ARCHITECTURE ═══ */}
@@ -566,6 +642,24 @@ export default function DocsPage() {
               { title: "Set slippage to 6–7%", detail: "The 5% buy tax requires slightly higher slippage tolerance." },
               { title: "Swap", detail: "Enter the amount and confirm. SANC will appear in your wallet." },
             ]} />
+          </Accordion>
+
+          <Accordion title="What happens if a charity submits fake proof?" icon={HelpCircle}>
+            <p className="text-[13px] text-[#475569] leading-relaxed">
+              The automated verification layer (Layer 1) catches most manipulation — AI-generated images, recycled photos, GPS mismatches. If flagged proof somehow passes automation, the community governance vote acts as the second line of defense. Proven fraud results in stake slashing and permanent delisting.
+            </p>
+          </Accordion>
+
+          <Accordion title="How does the USD-based charity stake work?" icon={HelpCircle}>
+            <p className="text-[13px] text-[#475569] leading-relaxed">
+              Charities stake a USD-equivalent amount of SANC tokens at registration. The actual SANC quantity varies with market price — checked by an on-chain oracle (PancakeSwap TWAP + Chainlink BNB/USD). When a charity leaves in good standing, the exact SANC tokens staked are returned — not the USD equivalent. If SANC appreciated, the charity profits on the refund.
+            </p>
+          </Accordion>
+
+          <Accordion title="Why does SancCharity release funds in USDT?" icon={HelpCircle}>
+            <p className="text-[13px] text-[#475569] leading-relaxed">
+              Price stability. If a charity receives BNB and the price drops 20% before they can convert, they lose 20% of their milestone funds. USDT is a stablecoin pegged to $1 — the charity gets predictable value regardless of market volatility.
+            </p>
           </Accordion>
 
           <Accordion title="Troubleshooting" icon={Wrench}>
