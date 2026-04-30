@@ -314,6 +314,36 @@ export default function DocsPage() {
                 ]}
               />
             </div>
+            <div className="mt-5">
+              <span className="text-[14px] font-bold text-[#0F172A]">Milestone Guidelines</span>
+              <p className="text-[13px] text-[#475569] leading-relaxed mt-1.5">Structure your milestones so the first one is achievable with minimal upfront cost. Here are recommended patterns:</p>
+              <DataTable
+                headers={["Pattern", "M1", "M2", "M3", "M4", "Best For"]}
+                rows={[
+                  ["Planning First", "10–15%", "30%", "35%", "20–25%", "Construction, infrastructure — M1 covers permits, plans, procurement quotes"],
+                  ["Even Split", "25%", "25%", "25%", "25%", "Ongoing programs — education, health clinics, recurring aid"],
+                  ["Front-Loaded", "35–40%", "25%", "20%", "15–20%", "Equipment-heavy — M1 covers major purchase (vehicles, machinery)"],
+                  ["Back-Loaded", "15%", "20%", "25%", "40%", "Research/development — early phases are low-cost planning"],
+                ]}
+              />
+            </div>
+
+            <div className="mt-5">
+              <span className="text-[14px] font-bold text-[#0F172A]">Advance Release (Optional)</span>
+              <p className="text-[13px] text-[#475569] leading-relaxed mt-1.5">
+                Charities can enable an advance release for Milestone 1 to get working capital before completing the first deliverable. This solves the cold-start problem — charities already stake SANC to register, so requiring them to also self-fund M1 creates an unnecessary barrier.
+              </p>
+              <DataTable
+                headers={["Parameter", "Value"]}
+                rows={[
+                  ["Advance cap", "Up to 15% of Milestone 1 amount"],
+                  ["Trigger", "Campaign reaches 50% of total funding goal"],
+                  ["Verification", "Automated only (Layer 1) — project plan, team docs, procurement quotes"],
+                  ["Deducted from", "Milestone 1 release (M1 final payout = M1 amount − advance)"],
+                ]}
+              />
+              <Callout type="info">The advance is optional — charities choose whether to enable it at campaign creation. If enabled, the advance triggers automatically when the campaign hits 50% funded. The advance amount is deducted from M1&apos;s final release, so total campaign economics don&apos;t change.</Callout>
+            </div>
           </Accordion>
 
           <Accordion title="Milestone Escrow & Fund Release" icon={ShieldCheck}>

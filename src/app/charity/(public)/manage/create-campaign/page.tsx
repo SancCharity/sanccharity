@@ -265,6 +265,38 @@ export default function CreateCampaignPage() {
                 ? "Break your campaign into milestones. Funds release when your designated approvers sign off on each milestone."
                 : "Break your campaign into milestones. Funds are released when the community approves each milestone."}
             </p>
+
+            {/* Milestone guidelines */}
+            <div className="bg-[#F0F9FF] border border-[#0EA5E9]/15 rounded-xl p-4 flex flex-col gap-2.5">
+              <span className="text-[12px] font-bold text-[#0EA5E9] uppercase tracking-wider">Recommended Patterns</span>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { label: "Planning First", split: "10% → 30% → 35% → 25%", desc: "Construction, infrastructure" },
+                  { label: "Even Split", split: "25% → 25% → 25% → 25%", desc: "Ongoing programs" },
+                  { label: "Front-Loaded", split: "40% → 25% → 20% → 15%", desc: "Equipment-heavy" },
+                  { label: "Back-Loaded", split: "15% → 20% → 25% → 40%", desc: "Research/development" },
+                ].map((p) => (
+                  <div key={p.label} className="bg-white rounded-lg p-2.5 border border-black/[0.04]">
+                    <span className="text-[11px] font-semibold text-fg-primary">{p.label}</span>
+                    <p className="text-[10px] font-mono text-accent-primary mt-0.5">{p.split}</p>
+                    <p className="text-[10px] text-fg-muted mt-0.5">{p.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Advance release toggle */}
+            <div className="flex items-start gap-3 bg-surface-sage rounded-xl p-4 border border-line-subtle">
+              <input type="checkbox" className="mt-1 h-4 w-4 rounded border-line-subtle text-accent-primary focus:ring-accent-primary/20" disabled />
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[13px] font-semibold text-fg-primary">Enable Advance Release</span>
+                <p className="text-[12px] text-fg-secondary leading-relaxed">
+                  Release up to 15% of Milestone 1 when the campaign reaches 50% funded. Gives your team working capital before completing the first deliverable. The advance is deducted from M1&apos;s final payout.
+                </p>
+                <span className="text-[11px] text-fg-muted italic mt-1">Coming soon</span>
+              </div>
+            </div>
+
             {milestones.map((ms, i) => (
               <div key={i} className="bg-surface-sage rounded-xl p-4 flex flex-col gap-3">
                 <div className="flex items-center justify-between">
@@ -303,6 +335,12 @@ export default function CreateCampaignPage() {
                     placeholder="What will be accomplished..."
                     className="h-[60px] rounded-lg bg-white border border-line-subtle px-3 py-2 text-[13px] text-fg-primary placeholder:text-fg-muted resize-none focus:outline-none focus:ring-2 focus:ring-accent-primary/20"
                   />
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[11px] text-fg-muted">Share of total goal</span>
+                  <span className="text-[11px] font-mono font-semibold text-accent-primary">
+                    {ms.amount ? `${ms.amount}` : '—'} USDT
+                  </span>
                 </div>
               </div>
             ))}
